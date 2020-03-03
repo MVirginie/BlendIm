@@ -153,8 +153,9 @@ function pushbutton3_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 handles = guidata(handles.axes5);
 [im, rect] = clonage_v1(handles.maskS, handles.maskT);
-imshow(handles.maskS.cut_im, 'Parent', handles.axes3);
-[sol, image] = clonage_v2(handles.maskS, handles.maskS.associate_im, rect, handles.maskT);
+
+[sol, image, new_cut] = clonage_v2(handles.maskS, im, rect, handles.maskT);
+imshow(new_cut, 'Parent', handles.axes3);
 imshow(image, 'Parent', handles.axes5);
 imshow(sol, 'Parent', handles.axes4);
 
@@ -163,14 +164,23 @@ imshow(sol, 'Parent', handles.axes4);
 %                       FUNCTIONS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function [sol, img] = clonage_v2(maskS, im, rect, maskT)
+function [sol, img, new_cut] = clonage_v2(maskS, im, rect, maskT)
+    new_cut = maskS.transform_to_rect(im);
+    maskS.cut_im = new_cut;
+    %mask2 = maskS.invert_mask();
+    new_mask = maskS.transform_to_rect(maskS.matrix);
+    maskS.matrix = new_mask;
+    maskS.find_boundaries();
         new_system = FDSystem(maskS);
     new_system.create_matrix(maskS, rect);
     sol = new_system.solve(rect);
     
-    maskS.cut_im = sol;
-    maskS.matrix = maskS.mask_rect(maskS.matrix);
+    maskS.cut_im = sol.*maskS.matrix;
     adjust_size(maskS, maskT);
+    
+    [row, col] = find(maskS.matrix);
+    maskS.pos = [min(row), min(col)];
+    
     maskS.move_roi();
     mask2 = maskS.invert_mask();
     maskT2 = mask2.*maskT.associate_im;
@@ -182,15 +192,12 @@ maskS.cut_im= maskS.matrix.*maskS.associate_im;
 adjust_size(maskS, maskT);
 rect = maskS.transform_to_rect(maskS.associate_im);
 maskS.move_roi();
+[k,l] = find(maskS.matrix);
+maskS.pos_to_move = [min(l), min(k)];
 mask2 = maskS.invert_mask();
 maskT2 = mask2.*maskT.associate_im;
-
 im = maskS.cut_im+maskT2;
-new_cut = maskS.transform_to_rect(im);
-maskS.cut_im = new_cut;
-new_mask = maskS.transform_to_rect(maskS.matrix);
-maskS.matrix = new_mask;
-maskS.find_boundaries();
+
 
 
 

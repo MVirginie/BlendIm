@@ -73,8 +73,6 @@ classdef Mask <handle
     temp = self.cut_im;
     self.cut_im = im;
     j= im(int32(xmin-1):int32(xmax+1), int32(ymin-1):int32(ymax+1));
-    a = size(j)
-    b = size(temp)
     self.cut_im(int32(xmin-1):int32(xmax+1), int32(ymin-1):int32(ymax+1)) = temp(:,:);
     end
     
