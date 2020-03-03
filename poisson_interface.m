@@ -61,15 +61,7 @@ handles.output = hObject;
 % Update handles structure
 guidata(hObject, handles);
 %handles.axes1.XAxis.Visible = 'off';
-%handles.axes1.YAxis.Visible = 'off';
-% handles.axes2.XAxis.Visible = 'off';
-% handles.axes2.YAxis.Visible = 'off';
-% handles.axes3.XAxis.Visible = 'off';
-% handles.axes3.YAxis.Visible = 'off';
-% handles.axes4.XAxis.Visible = 'off';
-% handles.axes4.YAxis.Visible = 'off';
-% handles.axes5.XAxis.Visible = 'off';
-% handles.axes5.YAxis.Visible = 'off';
+
 
 % UIWAIT makes poisson_interface wait for user response (see UIRESUME)
  %uiwait(handles.figure1);
@@ -161,23 +153,28 @@ function pushbutton3_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 handles = guidata(handles.axes5);
 [im, rect] = clonage_v1(handles.maskS, handles.maskT);
-image = clonage_v2(handles.maskS, handles.maskS.associate_im, rect);
-imshow(im, 'Parent', handles.axes5);
-imshow(image, 'Parent', handles.axes4);
 imshow(handles.maskS.cut_im, 'Parent', handles.axes3);
+[sol, image] = clonage_v2(handles.maskS, handles.maskS.associate_im, rect, handles.maskT);
+imshow(image, 'Parent', handles.axes5);
+imshow(sol, 'Parent', handles.axes4);
 
-% handles.axes3.XAxis.Visible = 'off';
-% handles.axes3.YAxis.Visible = 'off';
-% handles.axes4.XAxis.Visible = 'off';
-% handles.axes4.YAxis.Visible = 'off';
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                       FUNCTIONS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function image = clonage_v2(maskS, im, rect)
-    new_system = FDSystem(maskS);
+function [sol, img] = clonage_v2(maskS, im, rect, maskT)
+        new_system = FDSystem(maskS);
     new_system.create_matrix(maskS, rect);
-    image = new_system.solve(rect);
+    sol = new_system.solve(rect);
+    
+    maskS.cut_im = sol;
+    maskS.matrix = maskS.mask_rect(maskS.matrix);
+    adjust_size(maskS, maskT);
+    maskS.move_roi();
+    mask2 = maskS.invert_mask();
+    maskT2 = mask2.*maskT.associate_im;
+    img = maskS.cut_im+maskT2;
     
 function [im, rect] =  clonage_v1(maskS, maskT)
 maskS.cut_im= maskS.matrix.*maskS.associate_im;

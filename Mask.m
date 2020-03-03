@@ -61,6 +61,23 @@ classdef Mask <handle
     im = rect(int32(xmin-1):int32(xmax+1), int32(ymin-1):int32(ymax+1));
     end
     
+    function im =mask_rect(self, I)
+    h = self.pos;
+    ymin = min(h(:,1))+self.shift_done(1,1);
+    xmin = min(h(:,2))+self.shift_done(1,2);
+    ymax = max(h(:,1)) +self.shift_done(1,1);
+    xmax = max(h(:,2))+self.shift_done(1,2);
+    
+    im = zeros(size(I));
+    im(int32(xmin-1):int32(xmax+1), int32(ymin-1):int32(ymax+1)) = 1;
+    temp = self.cut_im;
+    self.cut_im = im;
+    j= im(int32(xmin-1):int32(xmax+1), int32(ymin-1):int32(ymax+1));
+    a = size(j)
+    b = size(temp)
+    self.cut_im(int32(xmin-1):int32(xmax+1), int32(ymin-1):int32(ymax+1)) = temp(:,:);
+    end
+    
     function find_boundaries(self)
         self.boundaries = bwboundaries(self.matrix);
         self.modify_maskval();
@@ -70,10 +87,10 @@ classdef Mask <handle
         pixels = self.boundaries{1,1};
        % self.boundaries = (pixels(:,:));
         self.boundaries = pixels;
-        for k = 1:size(pixels,1)
-            self.matrix(pixels(k,1), pixels(k,2)) = 0.5;
+       % for k = 1:size(pixels,1)
+            %self.matrix(pixels(k,1), pixels(k,2)) = 0.5;
         %self.matrix(self.boundaries(:,:)) = 0.5;
-        end
+       % end
        
        
        
