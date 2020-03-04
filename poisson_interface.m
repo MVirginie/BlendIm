@@ -22,7 +22,7 @@ function varargout = poisson_interface(varargin)
 
 % Edit the above text to modify the response to help poisson_interface
 
-% Last Modified by GUIDE v2.5 15-Feb-2020 16:16:27
+% Last Modified by GUIDE v2.5 04-Mar-2020 13:01:27
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -78,10 +78,10 @@ function varargout = poisson_interface_OutputFcn(hObject, eventdata, handles)
 varargout{1} = handles.output;
 
 
-% --- Executes on button press in pushbutton1.
+% --- Executes on button press in openImSButton.
 % Choose an image source to open, and display it in axes1
-function pushbutton1_Callback(hObject, eventdata, handles)
-% hObject    handle to pushbutton1 (see GCBO)
+function openImSButton_Callback(hObject, eventdata, handles)
+% hObject    handle to openImSButton (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 [file1,path1] = uigetfile('*.jpg;*.png', 'select an image');
@@ -90,14 +90,14 @@ imageS = im2double(imageS(:,:,1));
 handles.imageS = imageS;
 guidata(gca, handles);
 axesIm = imshow(handles.imageS, 'Parent', handles.axes1);
-set(axesIm, 'ButtonDownFcn', @axes1_ButtonDownFcn);
+set(axesIm, 'ButtonDownFcn', @axeImS_ButtonDownFcn);
 
 
 
-% --- Executes on button press in pushbutton2.
+% --- Executes on button press in openImTButton.
 %Choose an image Target to open, and display it in axes2
-function pushbutton2_Callback(hObject, eventdata, handles)
-% hObject    handle to pushbutton2 (see GCBO)
+function openImTButton_Callback(hObject, eventdata, handles)
+% hObject    handle to openImTButton (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 [file2,path2] = uigetfile('*.jpg; *.png', 'select T image');
@@ -106,7 +106,7 @@ imageT = im2double(imageT(:,:,1));
 handles.imageT = imageT;
 guidata(gca, handles);
 axesIm2 = imshow(handles.imageT, 'Parent', handles.axes2);
-set(axesIm2, 'ButtonDownFcn', @axes2_ButtonDownFcn);
+set(axesIm2, 'ButtonDownFcn', @axeImT_ButtonDownFcn);
 
 
 
@@ -116,7 +116,7 @@ set(axesIm2, 'ButtonDownFcn', @axes2_ButtonDownFcn);
 %--------------- maskS as the black&white mask
 % The mask is created in the class (see the constructor)
 %Display the white&black mask created
-function axes1_ButtonDownFcn(hObject, eventdata, handles)
+function axeImS_ButtonDownFcn(hObject, eventdata, handles)
 % hObject    handle to axes1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
@@ -137,7 +137,7 @@ imshow(handles.maskS.matrix ,'Parent', handles.axes3);
  %Display the white&black mask created
  %UPDATE : Fill the property "pos_to_move" to maskS. = add the new position
  %to move for the maskS
-function axes2_ButtonDownFcn(hObject, eventdata, handles)
+function axeImT_ButtonDownFcn(hObject, eventdata, handles)
 % hObject    handle to axes2 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
@@ -151,7 +151,7 @@ guidata(gca,handles);
 imshow(handles.maskT.cut_im, 'Parent', handles.axes4);
 
 
-% --- Executes on button press in pushbutton3.
+% --- Executes on button press in pasteButton.
 % First : simple cut/paste with clonage_v1.
 % Then : blend with clonage_v2 function
 % Display : 
@@ -159,17 +159,23 @@ imshow(handles.maskT.cut_im, 'Parent', handles.axes4);
 %---------- on axes4 : applied modifications on the cut image 
 %---------- on axes 5: The final result the cut image is paste on the bg
 %one
-function pushbutton3_Callback(hObject, eventdata, handles)
-% hObject    handle to pushbutton3 (see GCBO)
+function pasteButton_Callback(hObject, eventdata, handles)
+% hObject    handle to pasteButton (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-handles = guidata(handles.axes5);
-[im, rect] = clonage_v1(handles.maskS, handles.maskT);
-[sol, image, new_cut] = clonage_v2(handles.maskS, im, rect, handles.maskT);
-imshow(new_cut, 'Parent', handles.axes3);
-imshow(image, 'Parent', handles.axes5);
-imshow(sol, 'Parent', handles.axes4);
-
+if(handles.DFButton.Value == 1)
+    handles = guidata(handles.axes5);
+    [im, rect] = clonage_v1(handles.maskS, handles.maskT);
+    [sol, image, new_cut] = clonage_v2(handles.maskS, im, rect, handles.maskT);
+    imshow(new_cut, 'Parent', handles.axes3);
+    imshow(image, 'Parent', handles.axes5);
+    imshow(sol, 'Parent', handles.axes4);
+elseif (handles.FourierButton.Value == 1)
+    [im_i, im_j, sol] = fourier_clonage(handles.imageS, handles.imageT, handles.maskS, handles.maskT);
+    imshow(im_i, 'Parent', handles.axes4);
+    imshow(im_j, 'Parent', handles.axes3);
+    imshow(sol, 'Parent', handles.axes5);
+end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                       FUNCTIONS
@@ -212,7 +218,6 @@ function [sol, img, new_cut] = clonage_v2(maskS, im, rect, maskT)
 function [im, rect] =  clonage_v1(maskS, maskT)
 maskS.cut_im= maskS.matrix.*maskS.associate_im;
 adjust_size(maskS, maskT);
-
 rect = maskS.transform_to_rect(maskS.associate_im);% resize S into a rect 
 maskS.move_roi();
 [k,l] = find(maskS.matrix);
@@ -220,9 +225,6 @@ maskS.pos_to_move = [min(l), min(k)];
 mask2 = maskS.invert_mask();
 maskT2 = mask2.*maskT.associate_im;
 im = maskS.cut_im+maskT2;
-
-
-
 
 function adjust_size(maskS, maskT)
 masko1 = maskS.cut_im;
@@ -252,4 +254,26 @@ end
 maskS.cut_im = masko1;
 maskS.matrix = masko;
 maskT.matrix = maskt;
+
+
+% --- Executes on button press in DFButton.
+function DFButton_Callback(hObject, eventdata, handles)
+% hObject    handle to DFButton (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of DFButton
+function [im_i, im_j, sol] = fourier_clonage(imS, imT, maskS, maskT)
+f = Fourier(imS, imT);
+stockage =maskS.matrix;
+maskS.associate_im = f.grad_S_i;
+maskT.associate_im = f.grad_T_i;
+size(maskS.matrix);
+[im_i, ~] = clonage_v1(maskS,maskT);% IMAGE I COLLEE
+maskS.associate_im = f.grad_S_j;
+maskT.associate_im = f.grad_T_j;
+maskS.shift_done =[0,0];
+maskS.matrix = stockage;
+[im_j, ~] = clonage_v1(maskS, maskT);% IMAGE J COLLEE
+sol = f.solve(im_i, im_j);
 
