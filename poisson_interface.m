@@ -263,15 +263,30 @@ function DFButton_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of DFButton
-function [im_i, im_j, sol] = fourier_clonage(imS, imT, maskS, maskT)
+function [im, im_j, sol] = fourier_clonage(imS, imT, maskS, maskT)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% COMPUTE MEAN VALUE%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+     stockage =maskS.matrix;
+    pos = maskS.pos;
+     pos_to_move = maskS.pos_to_move;
+ [im, ~] = clonage_v1(maskS,maskT);
+mea = mean(mean(maskT.associate_im));
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 f = Fourier(imS, imT);
-stockage =maskS.matrix;
-maskS.associate_im = f.grad_S_i;
-maskT.associate_im = f.grad_T_i;
-size(maskS.matrix);
+f.me = mea;
+    maskS.matrix =stockage ;
+    maskS.pos = pos;
+    maskS.pos_to_move = pos_to_move ;
+    maskS.shift_done =[0,0];
+ maskS.associate_im = f.grad_S_i;
+ maskT.associate_im = f.grad_T_i;
+ size(maskS.matrix);
 [im_i, ~] = clonage_v1(maskS,maskT);% IMAGE I COLLEE
 maskS.associate_im = f.grad_S_j;
 maskT.associate_im = f.grad_T_j;
+maskS.pos = pos;
+maskS.pos_to_move = pos_to_move;
 maskS.shift_done =[0,0];
 maskS.matrix = stockage;
 [im_j, ~] = clonage_v1(maskS, maskT);% IMAGE J COLLEE
