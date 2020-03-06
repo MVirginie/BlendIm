@@ -1,0 +1,19 @@
+\subsection{Présentation de l'interface }
+
+Création d'une interface permettante de (1) choisir l'image Source qui sera coupée puis collée. (2) Choisir l'image Target qui sera l'image de fond. En cliquant sur l'une ou l'autre des images, il est possible de sélectionner une zone de l'image, afin de la récupérer. Des masques s'affichent alors dan (3) ou (4). Indique que la sélection s'est bien faite. 
+Enfin en cliquant sur "Paste", l'image finale apparait dans (5).
+Les fonctions : 
+\newline
+La fonction createmask 
+Elle prend en paramètre (L'image sur laquelle le découpage va s'effectuer.
+Elle commence par utiliser imfreehand  ce qui permet de dessiner et sélectionner une zone de l'image. La région d'intérêt "roi1". Une fois cette zone récupérée elle créée un masque "mask1" dans lequel tous les pixels situés à l'intérieur de "roi1", sont marqués comme true. ON récupère la position de la région d'intéret et la taille du masque.
+On modifie le masque afin de pouvoir trvaailler avec, en réalité on remplace juste les "0s" et "1s" par des int (0 ou 1). Ensuite pour afficher uniquement la sélection on multiplie le masque obtenu par l'image de départ. AInsi on obtient uniquement la zone sélectionnée et tout le reste de l'image vaut 0. \newline
+La fonction clonagev1. Elle prend en paramètre maskS, PosT et PosS et l'image source2. L'objectif ici est de coller les deux images l'une sur l'autre. ON récupère le masque qui a été créée sur l'image Source, la position de la région d'intérêt sur l'image source, la position où l'on doit coller le masque dans l'image T. ET l'image T. 
+On veut pouvoir coller l'image 1 sur l'image 2. POur ça on veut additionner les deux masques obtenus. Le premier masque est celui de l'image source, le second masque et celui de l'image Target qui sont complémentaires. 
+Pour pouvoir additionner les deux masques il faut qu'ils soient de la même taille. ON commence donc par ajuster la taille des images en agrandissant l'image la plus petite des 2. Puis on Bouge la zone qui nous intéresse à la position voulue dans l'image T. 
+On créée le second masque lié à l'image T qui doit être l'inverse de celui crée pour l'image  S. Et on additionne les deux masques pour obtenir l'image finale.
+\newline
+La fonction moveroi permet de bouger la région d'intérêt à la position voulue. On calcule la distance entre les deux points voulus et on circshift. 
+\newline
+La fonction adjustsize Permet d'agrandir le masque le plus petit afin qu'il soit de la même taille que la plus grande des deux images.\newline
+La fonction invertmask inverse le masque tous les 0 deviennent 1 et inversement. 
