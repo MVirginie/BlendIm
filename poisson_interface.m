@@ -285,5 +285,6 @@ maskS.pos_to_move = pos_to_move;
 maskS.shift_done =[0,0];
 maskS.matrix = stockage;
 [im_j, ~] = clonage_v1(maskS, maskT);% IMAGE J COLLEE
+
 sol = f.solve(im_i, im_j);
 
