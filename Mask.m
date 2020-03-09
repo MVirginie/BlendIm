@@ -25,10 +25,10 @@ classdef Mask <handle
     end
     
     methods
+    
+    function self = Mask()
         %The constructor : 
         %Use imfreehand to create the ROI & the mask & the pos_vector
-        function self = Mask()
-     
            roi1 = imfreehand;
            mask1 = roi1.createMask();
            mask = zeros(size(mask1)); %transform the mask into binaries array
@@ -38,12 +38,37 @@ classdef Mask <handle
            self.matrix = mask;
            self.shift_done = [0,0];
            
-        end
-       %Function move_roi : 
+    end
+    
+    function reinitialize_mask(self, maskT)
+        self.pos = getPosition(self.associate_roi);
+        self.pos_to_move = maskT.pos;
+        self.shift_done = [0,0];
+        mask1 = self.associate_roi.createMask();
+        mask = zeros(size(mask1)); %transform the mask into binaries array
+        mask(mask1(:,:))=1;
+        self.matrix = mask;
+    end
+    
+    function[pos, pos_to_move, matrix, cut_im] =save_mask_settings(self)
+        pos = self.pos;
+        pos_to_move = self.pos_to_move;
+        matrix = self.matrix;
+        cut_im = self.cut_im;
+    end
+    
+    function reload_pdt_mask(self, pos, pos_to_move, matrix, cut_im)
+        self.pos = pos;
+        self.pos_to_move = pos_to_move;
+        self.matrix = matrix;
+        self.cut_im = cut_im;
+    end
+       
+    function move_roi(self)
+       %Function move_roi :
        %Find the distance between the mask's pos and the position he has to
        %go 
        % Then cirschift the mask until pixels reach their correct pos
-    function move_roi(self)
         x_1 = self.pos(1,1);
         y_1 = self.pos(1,2);
         x_2 =self.pos_to_move(1,1);
@@ -58,41 +83,39 @@ classdef Mask <handle
         mat1 = circshift(mat1, d_y,1);
         self.cut_im = mat1;
     end
-    
-    %Function : invert_mask : 
-    % Invert binaries in the mask (0 become 1 & 1->0)
-    function i_mask = invert_mask(self)
-    i_mask = zeros(size(self.matrix));
-    i_mask(self.matrix(:,:)==0)=1;
+
+    function i_mask = invert_mask(self)  
+        %Function : invert_mask : 
+        % Invert binaries in the mask (0 become 1 & 1->0)
+        i_mask = zeros(size(self.matrix));
+        i_mask(self.matrix(:,:)==0)=1;
     end
-    
-    %Function transform_to_rect : 
-    %Creates the smallest rectangle around the ROI thanks to pos
-    %Resize the final image ->rect dimensions
     
     function im = transform_to_rect(self,I)
-    h = self.pos;
-    ymin = min(h(:,1))+self.shift_done(1,1);
-    xmin = min(h(:,2))+self.shift_done(1,2);
-    ymax = max(h(:,1)) +self.shift_done(1,1);
-    xmax = max(h(:,2))+self.shift_done(1,2);
-    
-    rect = zeros(size(I));
-    rect(int32(xmin-1):int32(xmax+1), int32(ymin-1):int32(ymax+1)) = I(int32(xmin-1):int32(xmax+1), int32(ymin-1):int32(ymax+1));
-    im = rect(int32(xmin-1):int32(xmax+1), int32(ymin-1):int32(ymax+1));
+    %Creates the smallest rectangle around the ROI thanks to pos
+    %Resize the final image ->rect dimensions
+        h = self.pos;
+        ymin = min(h(:,1))+self.shift_done(1,1);
+        xmin = min(h(:,2))+self.shift_done(1,2);
+        ymax = max(h(:,1)) +self.shift_done(1,1);
+        xmax = max(h(:,2))+self.shift_done(1,2);
+        
+        rect = zeros(size(I));
+        rect(int32(xmin-1):int32(xmax+1), int32(ymin-1):int32(ymax+1)) = I(int32(xmin-1):int32(xmax+1), int32(ymin-1):int32(ymax+1));
+        im = rect(int32(xmin-1):int32(xmax+1), int32(ymin-1):int32(ymax+1));
     end
     
-    %Function find_boundaries
-    %use bwboundaries to find boundaries of the mask
-    % Then modify their value into the mask to "print" them
     function find_boundaries(self)
+        %use bwboundaries to find boundaries of the mask
+        % Then modify their value into the mask to "print" them
         self.boundaries = bwboundaries(self.matrix);
         self.modify_maskval();
         
     end
-    %Function modify_maskval 
-    % Modifies the boundaires pixels values in the mask to 0.5 (1 before)
+    
     function modify_maskval(self)
+       %Function modify_maskval
+       % Modifies the boundaires pixels values in the mask to 0.5 (1 before)
         pixels = self.boundaries{1,1};
         self.boundaries = (pixels(:,:));
         self.boundaries = pixels;
@@ -100,6 +123,30 @@ classdef Mask <handle
             self.matrix(pixels(k,1), pixels(k,2)) = 0.5;
         self.matrix(self.boundaries(:,:)) = 0.5;
         end 
+    end
+    
+    function adjust_size(self, maskT)
+        [w1, h1]  = size(self.matrix);
+        [w2, h2] = size(maskT.matrix);
+        d_x = w1-w2;
+        d_y = h1-h2;
+        if(d_x<=0)
+            new_mat = zeros([abs(d_x), h1]);
+            self.matrix = cat(1,self.matrix,new_mat);
+            self.cut_im = cat(1,self.cut_im,new_mat);
+        else
+            new_mat = zeros([d_x, h2]);
+            maskT.matrix = cat(1,maskT.matrix, new_mat);
+        end
+        [w1, ~] = size(self.matrix);
+        if(d_y <=0) 
+            new_mat = zeros([w1, abs(d_y)]);
+            self.matrix = cat(2,self.matrix, new_mat);
+            self.cut_im = cat(2,self.cut_im, new_mat);
+        else
+            new_mat = zeros([w1, d_y]);
+            maskT.matrix = cat(2,maskT.matrix, new_mat);
+        end
     end
    
     end

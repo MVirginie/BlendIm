@@ -22,7 +22,7 @@ function varargout = poisson_interface(varargin)
 
 % Edit the above text to modify the response to help poisson_interface
 
-% Last Modified by GUIDE v2.5 04-Mar-2020 13:01:27
+% Last Modified by GUIDE v2.5 09-Mar-2020 13:37:49
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -60,8 +60,7 @@ handles.output = hObject;
 
 % Update handles structure
 guidata(hObject, handles);
-%handles.axes1.XAxis.Visible = 'off';
-
+hideAxes(handles);
 
 % UIWAIT makes poisson_interface wait for user response (see UIRESUME)
  %uiwait(handles.figure1);
@@ -91,6 +90,7 @@ handles.imageS = imageS;
 guidata(gca, handles);
 axesIm = imshow(handles.imageS, 'Parent', handles.axes1);
 set(axesIm, 'ButtonDownFcn', @axeImS_ButtonDownFcn);
+hideAxes(handles);
 
 
 
@@ -107,7 +107,7 @@ handles.imageT = imageT;
 guidata(gca, handles);
 axesIm2 = imshow(handles.imageT, 'Parent', handles.axes2);
 set(axesIm2, 'ButtonDownFcn', @axeImT_ButtonDownFcn);
-
+hideAxes(handles);
 
 
 % --- Executes on mouse press over axes background.
@@ -126,7 +126,7 @@ maskS.associate_im = handles.imageS;
 handles.maskS = maskS;
 guidata(gca,handles);
 imshow(handles.maskS.matrix ,'Parent', handles.axes3);
-
+hideAxes(handles);
 
 
  % --- Executes on mouse press over axes background.
@@ -149,7 +149,7 @@ handles.maskT = maskT;
 handles.maskS.pos_to_move = maskT.pos;
 guidata(gca,handles);
 imshow(handles.maskT.cut_im, 'Parent', handles.axes4);
-
+hideAxes(handles);
 
 % --- Executes on button press in pasteButton.
 % First : simple cut/paste with clonage_v1.
@@ -170,12 +170,16 @@ if(handles.DFButton.Value == 1)
     imshow(new_cut, 'Parent', handles.axes3);
     imshow(image, 'Parent', handles.axes5);
     imshow(sol, 'Parent', handles.axes4);
+    
 elseif (handles.FourierButton.Value == 1)
     [im_i, im_j, sol] = fourier_clonage(handles.imageS, handles.imageT, handles.maskS, handles.maskT);
     imshow(im_i, 'Parent', handles.axes4);
     imshow(im_j, 'Parent', handles.axes3);
     imshow(sol, 'Parent', handles.axes5);
 end
+hideAxes(handles);
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                       FUNCTIONS
@@ -196,7 +200,7 @@ function [sol, img, new_cut] = clonage_v2(maskS, im, rect, maskT)
     sol = new_system.solve(rect);
     
     maskS.cut_im = sol.*maskS.matrix;
-    adjust_size(maskS, maskT);
+    maskS.adjust_size(maskT);
     [row, col] = find(maskS.matrix);
     maskS.pos = [min(row), min(col)];
     
@@ -217,7 +221,7 @@ function [sol, img, new_cut] = clonage_v2(maskS, im, rect, maskT)
     % Add the two corresponding masks, perfectly complementary.
 function [im, rect] =  clonage_v1(maskS, maskT)
 maskS.cut_im= maskS.matrix.*maskS.associate_im;
-adjust_size(maskS, maskT);
+maskS.adjust_size(maskT);
 rect = maskS.transform_to_rect(maskS.associate_im);% resize S into a rect 
 maskS.move_roi();
 [k,l] = find(maskS.matrix);
@@ -226,34 +230,39 @@ mask2 = maskS.invert_mask();
 maskT2 = mask2.*maskT.associate_im;
 im = maskS.cut_im+maskT2;
 
-function adjust_size(maskS, maskT)
-masko1 = maskS.cut_im;
-masko = maskS.matrix;
-maskt = maskT.matrix;
-[w1, h1]  = size(maskS.matrix);
-[w2, h2] = size(maskT.matrix);
-d_x = w1-w2;
-d_y = h1-h2;
-if(d_x<=0)
-    new_mat = zeros([abs(d_x), h1]);
-    masko = cat(1,maskS.matrix,new_mat);
-    masko1 = cat(1,maskS.cut_im,new_mat);
-else
-    new_mat = zeros([d_x, h2]);
-    maskt = cat(1,maskT.matrix, new_mat);
-end
-[w1, h1] = size(masko);
-if(d_y <=0) 
-    new_mat = zeros([w1, abs(d_y)]);
-    masko = cat(2,masko, new_mat);
-    masko1 = cat(2,masko1, new_mat);
-else
-    new_mat = zeros([w1, d_y]);
-    maskt = cat(2,maskt, new_mat);
-end
-maskS.cut_im = masko1;
-maskS.matrix = masko;
-maskT.matrix = maskt;
+function [im_i, im_j, sol] = fourier_clonage(imS, imT, maskS, maskT)
+     stockage =maskS.matrix;
+     pos = maskS.pos;
+     pos_to_move= maskS.pos_to_move;
+     f = Fourier(imS, imT);
+     maskS.associate_im = f.grad_S_i;
+     maskT.associate_im = f.grad_T_i;
+     size(maskS.matrix);
+     [im_i, ~] = clonage_v1(maskS,maskT);% IMAGE I COLLEE
+     fprintf('Image I paste\n');
+     maskS.associate_im = f.grad_S_j;
+     maskT.associate_im = f.grad_T_j;
+     fprintf('Reinitialisation\n');
+     maskS.shift_done =[0,0];
+     maskS.pos = pos;
+     maskS.matrix = stockage;
+     maskS.pos_to_move = pos_to_move;
+     fprintf('Done\n');
+     [im_j, ~] = clonage_v1(maskS, maskT);% IMAGE J COLLEE
+
+     sol = f.solve(im_i, im_j);
+
+function hideAxes(handles)
+    handles.axes1.XAxis.Visible = 'off';
+    handles.axes2.XAxis.Visible = 'off';
+    handles.axes3.XAxis.Visible = 'off';
+    handles.axes4.XAxis.Visible = 'off';
+    handles.axes5.XAxis.Visible = 'off';
+    handles.axes1.YAxis.Visible = 'off';
+    handles.axes2.YAxis.Visible = 'off';
+    handles.axes3.YAxis.Visible = 'off';
+    handles.axes4.YAxis.Visible = 'off';
+    handles.axes5.YAxis.Visible = 'off';
 
 
 % --- Executes on button press in DFButton.
@@ -263,28 +272,23 @@ function DFButton_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of DFButton
-function [im_i, im_j, sol] = fourier_clonage(imS, imT, maskS, maskT)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% COMPUTE MEAN VALUE%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+if(isfield(handles, 'maskS') && isfield(handles, 'maskT'))
+    handles.maskS.reinitialize_mask(handles.maskT);
+    fprintf('done');
+elseif(isfield(handles, 'maskS') && ~isfield(handles, 'maskT'))
+    maskS = Mask();
+    handles.maskS = maskS;
+end
 
-     stockage =maskS.matrix;
-    pos = maskS.pos;
-     pos_to_move = maskS.pos_to_move;
-     
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-f = Fourier(imS, imT);
- maskS.associate_im = f.grad_S_i;
- maskT.associate_im = f.grad_T_i;
- size(maskS.matrix);
-[im_i, ~] = clonage_v1(maskS,maskT);% IMAGE I COLLEE
-maskS.associate_im = f.grad_S_j;
-maskT.associate_im = f.grad_T_j;
-maskS.pos = pos;
-maskS.pos_to_move = pos_to_move;
-maskS.shift_done =[0,0];
-maskS.matrix = stockage;
-[im_j, ~] = clonage_v1(maskS, maskT);% IMAGE J COLLEE
 
-sol = f.solve(im_i, im_j);
+% --- Executes on button press in FourierButton.
+function FourierButton_Callback(hObject, eventdata, handles)
+% hObject    handle to FourierButton (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
 
+% % Hint: get(hObject,'Value') returns toggle state of FourierButton
+ if(isfield(handles, 'maskS') && isfield(handles, 'maskT'))
+     handles.maskS.reinitialize_mask(handles.maskT);
+     fprintf('done');
+ end
