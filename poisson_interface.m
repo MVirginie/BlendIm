@@ -22,7 +22,7 @@ function varargout = poisson_interface(varargin)
 
 % Edit the above text to modify the response to help poisson_interface
 
-% Last Modified by GUIDE v2.5 09-Mar-2020 13:37:49
+% Last Modified by GUIDE v2.5 10-Mar-2020 10:37:25
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -88,6 +88,7 @@ imageS = imread(fullfile(path1,file1));
 imageS = im2double(imageS(:,:,1));
 handles.imageS = imageS;
 guidata(gca, handles);
+
 axesIm = imshow(handles.imageS, 'Parent', handles.axes1);
 set(axesIm, 'ButtonDownFcn', @axeImS_ButtonDownFcn);
 hideAxes(handles);
@@ -124,6 +125,8 @@ handles = guidata(gca);
 maskS = Mask();
 maskS.associate_im = handles.imageS;
 handles.maskS = maskS;
+s_init = maskS.save_mask_settings();
+handles.s_init = s_init;
 guidata(gca,handles);
 imshow(handles.maskS.matrix ,'Parent', handles.axes3);
 hideAxes(handles);
@@ -146,7 +149,10 @@ maskT = Mask();
 maskT.associate_im = handles.imageT;
 maskT.cut_im = maskT.matrix.*handles.imageT;
 handles.maskT = maskT;
+t_init = maskT.save_mask_settings();
+handles.t_init = t_init;
 handles.maskS.pos_to_move = maskT.pos;
+handles.s_init.pos_to_move = maskT.pos;
 guidata(gca,handles);
 imshow(handles.maskT.cut_im, 'Parent', handles.axes4);
 hideAxes(handles);
@@ -184,13 +190,14 @@ hideAxes(handles);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                       FUNCTIONS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%function clonage_v2
-%Create the smallest rectangle around the ROI in the cut_image 
-% Create the smallest rectangle around the ROI in the mask
-% Create a FDSystem object to solve the equation
-%Solve the equation
-% Transform the mask, adjust size & update the actual position of ROI
+
 function [sol, img, new_cut] = clonage_v2(maskS, im, rect, maskT)
+    %function clonage_v2
+    %Create the smallest rectangle around the ROI in the cut_image 
+    % Create the smallest rectangle around the ROI in the mask
+    % Create a FDSystem object to solve the equation
+    %Solve the equation
+    % Transform the mask, adjust size & update the actual position of ROI
     new_cut = maskS.transform_to_rect(im); % resize I into a rect (demarcation)
     maskS.cut_im = new_cut;
     maskS.matrix = maskS.transform_to_rect(maskS.matrix);% resize b&w mask
@@ -209,6 +216,7 @@ function [sol, img, new_cut] = clonage_v2(maskS, im, rect, maskT)
     maskT2 = mask2.*maskT.associate_im;
     img = maskS.cut_im+maskT2;
     
+function [im, rect] =  clonage_v1(maskS, maskT)
     %Function clonage_v1 : Does a cut/paste action without any modifications
     %Update properties of the mask (cut_im) 
     % Adjust the size of the smaller mask, then the dimensions of the two
@@ -219,7 +227,6 @@ function [sol, img, new_cut] = clonage_v2(maskS, im, rect, maskT)
     %Invert the mask to create complementaries masks && create the mask
     %associate to bg image
     % Add the two corresponding masks, perfectly complementary.
-function [im, rect] =  clonage_v1(maskS, maskT)
 maskS.cut_im= maskS.matrix.*maskS.associate_im;
 maskS.adjust_size(maskT);
 rect = maskS.transform_to_rect(maskS.associate_im);% resize S into a rect 
@@ -264,7 +271,6 @@ function hideAxes(handles)
     handles.axes4.YAxis.Visible = 'off';
     handles.axes5.YAxis.Visible = 'off';
 
-
 % --- Executes on button press in DFButton.
 function DFButton_Callback(hObject, eventdata, handles)
 % hObject    handle to DFButton (see GCBO)
@@ -273,13 +279,13 @@ function DFButton_Callback(hObject, eventdata, handles)
 
 % Hint: get(hObject,'Value') returns toggle state of DFButton
 if(isfield(handles, 'maskS') && isfield(handles, 'maskT'))
-    handles.maskS.reinitialize_mask(handles.maskT);
+    handles.maskS.reload_pdt_mask(handles.s_init);
+    handles.maskT.reload_pdt_mask(handles.t_init);
     fprintf('done');
 elseif(isfield(handles, 'maskS') && ~isfield(handles, 'maskT'))
     maskS = Mask();
     handles.maskS = maskS;
 end
-
 
 % --- Executes on button press in FourierButton.
 function FourierButton_Callback(hObject, eventdata, handles)
@@ -292,3 +298,62 @@ function FourierButton_Callback(hObject, eventdata, handles)
      handles.maskS.reinitialize_mask(handles.maskT);
      fprintf('done');
  end
+
+% --- Executes on button press in zoom_im.
+function zoom_im_Callback(hObject, eventdata, handles)
+% hObject    handle to zoom_im (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of zoom_im
+if( handles.zoom_im.Value == 1)
+    axes(handles.axes5);
+    h =  zoom(handles.axes5);
+   h.Enable = 'on';
+else
+    zoom off
+end
+
+
+% --- Executes on slider movement.
+function slider3_Callback(hObject, eventdata, handles)
+% hObject    handle to slider3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+
+
+% --- Executes during object creation, after setting all properties.
+function slider3_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to slider3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background.
+if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+end
+
+
+% --- Executes on slider movement.
+function slider4_Callback(hObject, eventdata, handles)
+% hObject    handle to slider4 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+
+
+% --- Executes during object creation, after setting all properties.
+function slider4_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to slider4 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background.
+if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+end

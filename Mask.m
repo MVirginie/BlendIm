@@ -50,18 +50,21 @@ classdef Mask <handle
         self.matrix = mask;
     end
     
-    function[pos, pos_to_move, matrix, cut_im] =save_mask_settings(self)
-        pos = self.pos;
-        pos_to_move = self.pos_to_move;
-        matrix = self.matrix;
-        cut_im = self.cut_im;
+    function[struct] =save_mask_settings(self)
+        struct.associate_im = self.associate_im;
+        struct.pos = self.pos;
+        struct.pos_to_move = self.pos_to_move;
+        struct.matrix = self.matrix;
+        struct.shift_done = self.shift_done;
     end
     
-    function reload_pdt_mask(self, pos, pos_to_move, matrix, cut_im)
-        self.pos = pos;
-        self.pos_to_move = pos_to_move;
-        self.matrix = matrix;
-        self.cut_im = cut_im;
+    function reload_pdt_mask(self,s)
+        
+        self.associate_im = s.associate_im;
+        self.pos = s.pos;
+        self.pos_to_move = s.pos_to_move;
+        self.matrix = s.matrix;
+        self.shift_done = s.shift_done;
     end
        
     function move_roi(self)
