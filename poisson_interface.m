@@ -22,7 +22,7 @@ function varargout = poisson_interface(varargin)
 
 % Edit the above text to modify the response to help poisson_interface
 
-% Last Modified by GUIDE v2.5 10-Mar-2020 10:37:25
+% Last Modified by GUIDE v2.5 10-Mar-2020 23:48:28
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -107,6 +107,8 @@ imageT = imread(fullfile(path2,file2));
 imageT = im2double(imageT(:,:,1));
 handles.imageT = imageT;
 guidata(gca, handles);
+slider3_CreateFcn(handles.slider3, eventdata, handles);
+slider4_CreateFcn(handles.slider4, eventdata, handles);
 axesIm2 = imshow(handles.imageT, 'Parent', handles.axes2);
 set(axesIm2, 'ButtonDownFcn', @axeImT_ButtonDownFcn);
 set(handles.error_text, 'String', 'Background image loaded, please select the region to cut in the first image');
@@ -186,6 +188,10 @@ elseif (handles.FourierButton.Value == 1)
     imshow(sol, 'Parent', handles.axes5);
 end
 hideAxes(handles);
+handles.maskT.pos(1,2)
+size(handles.imageT)
+set(handles.slider3,'Value', -handles.maskT.pos(1,2));
+set(handles.slider4, 'Value', handles.maskT.pos(1,1));
 
 
 
@@ -231,6 +237,7 @@ function [im, rect] =  clonage_v1(maskS, maskT)
     %Invert the mask to create complementaries masks && create the mask
     %associate to bg image
     % Add the two corresponding masks, perfectly complementary.
+
 maskS.cut_im= maskS.matrix.*maskS.associate_im;
 maskS.adjust_size(maskT);
 rect = maskS.transform_to_rect(maskS.associate_im);% resize S into a rect 
@@ -285,6 +292,7 @@ elseif(isfield(handles, 'maskS') && ~isfield(handles, 'maskT'))
     handles.maskS = maskS;
 end
 set(handles.error_text, 'String', 'DF method selected');
+set(handles.axes4, 'Value', handles.maskT.pos(1,2));
 
 % --- Executes on button press in FourierButton.
 function FourierButton_Callback(hObject, eventdata, handles)
@@ -324,8 +332,16 @@ function slider3_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hints: get(hObject,'Value') returns position of slider
-%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider      
+        y_1 = handles.maskT.pos(1,2);
+        y_2 = get(hObject, 'Value');
+        shift = abs(y_2)-y_1;
+        handles.maskS.pos_to_move(:,2) = handles.maskS.pos_to_move(:,2)+shift;
+        
+        handles.maskT.pos(:,2) = handles.maskT.pos(:,2)+shift;
+        handles.maskS.reinitialize_mask(handles.maskT); 
+        pasteButton_Callback(hObject, eventdata, handles);
+        
 
 % --- Executes during object creation, after setting all properties.
 function slider3_CreateFcn(hObject, eventdata, handles)
@@ -337,6 +353,14 @@ function slider3_CreateFcn(hObject, eventdata, handles)
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
+if(isfield(handles, 'imageT'))
+[height,~] = size(handles.imageT);
+set(hObject, 'Min',-height);
+else
+    set(hObject, 'Min', -100);
+end
+set(hObject, 'Max', 0);
+set(hObject, 'Value', 0);
 
 
 % --- Executes on slider movement.
@@ -347,8 +371,17 @@ function slider4_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-
-
+% Find the distance between & then shift all position to the new_one
+       
+        y_1 = handles.maskT.pos(1,1);
+        y_2 = get(hObject, 'Value');
+        shift = y_2-y_1;
+        handles.maskS.pos_to_move(:,1) = handles.maskS.pos_to_move(:,1)+shift;
+        
+        handles.maskT.pos(:,1) = handles.maskT.pos(:,1)+shift;
+        handles.maskS.reinitialize_mask(handles.maskT); 
+        pasteButton_Callback(hObject, eventdata, handles);
+        
 % --- Executes during object creation, after setting all properties.
 function slider4_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to slider4 (see GCBO)
@@ -359,3 +392,12 @@ function slider4_CreateFcn(hObject, eventdata, handles)
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
+if(isfield(handles, 'imageT'))
+[~,width] = size(handles.imageT);
+set(hObject, 'Max',width);
+fprintf('here')
+else
+    set(hObject, 'Max', 10);
+end
+set(hObject, 'Min', 1);
+set(hObject, 'Value', 1);
