@@ -16,7 +16,9 @@ classdef Fourier<handle
              [H,W] = size(imS);
              [u,v] = obj.compute_indices_matrix(imS, W, H);
              [obj.grad_S_i, obj.grad_S_j] = obj.compute_grad_vect( imS, W, H, u, v);
+
              obj.grad_S_i = obj.resize_mat( obj.grad_S_i, W, H);
+     
              obj.grad_S_j = obj.resize_mat( obj.grad_S_j, W, H);
              
              %SAME THING FOR IMAGE BACKGROUND
@@ -70,7 +72,7 @@ classdef Fourier<handle
             
             i_hat = numerator./denominator;
             i_hat((H/2),(W/2)) = 0;
-            I = ifft2(ifftshift(i_hat));
+            I = real(ifft2(ifftshift(i_hat)));
             I = self.resize_mat(I, W, H);            
         end
         

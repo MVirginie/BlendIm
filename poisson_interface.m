@@ -91,6 +91,7 @@ guidata(gca, handles);
 
 axesIm = imshow(handles.imageS, 'Parent', handles.axes1);
 set(axesIm, 'ButtonDownFcn', @axeImS_ButtonDownFcn);
+set(handles.error_text, 'String', 'Image to paste loaded, please select the background image');
 hideAxes(handles);
 
 
@@ -108,6 +109,7 @@ handles.imageT = imageT;
 guidata(gca, handles);
 axesIm2 = imshow(handles.imageT, 'Parent', handles.axes2);
 set(axesIm2, 'ButtonDownFcn', @axeImT_ButtonDownFcn);
+set(handles.error_text, 'String', 'Background image loaded, please select the region to cut in the first image');
 hideAxes(handles);
 
 
@@ -129,6 +131,7 @@ s_init = maskS.save_mask_settings();
 handles.s_init = s_init;
 guidata(gca,handles);
 imshow(handles.maskS.matrix ,'Parent', handles.axes3);
+set(handles.error_text, 'String', 'Region to cut selected, please click on the second image to select the paste region');
 hideAxes(handles);
 
 
@@ -155,6 +158,7 @@ handles.maskS.pos_to_move = maskT.pos;
 handles.s_init.pos_to_move = maskT.pos;
 guidata(gca,handles);
 imshow(handles.maskT.cut_im, 'Parent', handles.axes4);
+set(handles.error_text, 'String', 'Paste region selected, you can choose the method & then click on the paste button');
 hideAxes(handles);
 
 % --- Executes on button press in pasteButton.
@@ -172,15 +176,13 @@ function pasteButton_Callback(hObject, eventdata, handles)
 if(handles.DFButton.Value == 1)
     handles = guidata(handles.axes5);
     [im, rect] = clonage_v1(handles.maskS, handles.maskT);
-    [sol, image, new_cut] = clonage_v2(handles.maskS, im, rect, handles.maskT);
+    [sol, image, new_cut] = clonage_v2(handles, handles.maskS, im, rect, handles.maskT);
     imshow(new_cut, 'Parent', handles.axes3);
     imshow(image, 'Parent', handles.axes5);
     imshow(sol, 'Parent', handles.axes4);
     
 elseif (handles.FourierButton.Value == 1)
-    [im_i, im_j, sol] = fourier_clonage(handles.imageS, handles.imageT, handles.maskS, handles.maskT);
-    imshow(im_i, 'Parent', handles.axes4);
-    imshow(im_j, 'Parent', handles.axes3);
+    [~, ~, sol] = fourier_clonage(handles, handles.imageS, handles.imageT, handles.maskS, handles.maskT);
     imshow(sol, 'Parent', handles.axes5);
 end
 hideAxes(handles);
@@ -191,13 +193,14 @@ hideAxes(handles);
 %                       FUNCTIONS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function [sol, img, new_cut] = clonage_v2(maskS, im, rect, maskT)
+function [sol, img, new_cut] = clonage_v2(handles, maskS, im, rect, maskT)
     %function clonage_v2
     %Create the smallest rectangle around the ROI in the cut_image 
     % Create the smallest rectangle around the ROI in the mask
     % Create a FDSystem object to solve the equation
     %Solve the equation
     % Transform the mask, adjust size & update the actual position of ROI
+    set(handles.error_text, 'String', 'Wait please, DF method in progress ');
     new_cut = maskS.transform_to_rect(im); % resize I into a rect (demarcation)
     maskS.cut_im = new_cut;
     maskS.matrix = maskS.transform_to_rect(maskS.matrix);% resize b&w mask
@@ -205,7 +208,7 @@ function [sol, img, new_cut] = clonage_v2(maskS, im, rect, maskT)
     new_system = FDSystem(maskS);
     new_system.create_matrix(maskS, rect);
     sol = new_system.solve(rect);
-    
+    set(handles.error_text, 'String', 'Solution found, we actually try to display the result');
     maskS.cut_im = sol.*maskS.matrix;
     maskS.adjust_size(maskT);
     [row, col] = find(maskS.matrix);
@@ -215,6 +218,7 @@ function [sol, img, new_cut] = clonage_v2(maskS, im, rect, maskT)
     mask2 = maskS.invert_mask();
     maskT2 = mask2.*maskT.associate_im;
     img = maskS.cut_im+maskT2;
+    set(handles.error_text, 'String', 'New image, done with DF method');
     
 function [im, rect] =  clonage_v1(maskS, maskT)
     %Function clonage_v1 : Does a cut/paste action without any modifications
@@ -237,27 +241,21 @@ mask2 = maskS.invert_mask();
 maskT2 = mask2.*maskT.associate_im;
 im = maskS.cut_im+maskT2;
 
-function [im_i, im_j, sol] = fourier_clonage(imS, imT, maskS, maskT)
-     stockage =maskS.matrix;
-     pos = maskS.pos;
-     pos_to_move= maskS.pos_to_move;
+function [im_i, im_j, sol] = fourier_clonage(handles, imS, imT, maskS, maskT)
+     set(handles.error_text, 'String', 'Beginning');
      f = Fourier(imS, imT);
      maskS.associate_im = f.grad_S_i;
      maskT.associate_im = f.grad_T_i;
+     set(handles.error_text, 'String', 'End');
      size(maskS.matrix);
      [im_i, ~] = clonage_v1(maskS,maskT);% IMAGE I COLLEE
-     fprintf('Image I paste\n');
+     maskS.reload_pdt_mask(handles.s_init);
+     maskT.reload_pdt_mask(handles.t_init);
      maskS.associate_im = f.grad_S_j;
      maskT.associate_im = f.grad_T_j;
-     fprintf('Reinitialisation\n');
-     maskS.shift_done =[0,0];
-     maskS.pos = pos;
-     maskS.matrix = stockage;
-     maskS.pos_to_move = pos_to_move;
-     fprintf('Done\n');
      [im_j, ~] = clonage_v1(maskS, maskT);% IMAGE J COLLEE
-
      sol = f.solve(im_i, im_j);
+     set(handles.error_text, 'String', 'New image, done with Fourier method');
 
 function hideAxes(handles)
     handles.axes1.XAxis.Visible = 'off';
@@ -286,6 +284,7 @@ elseif(isfield(handles, 'maskS') && ~isfield(handles, 'maskT'))
     maskS = Mask();
     handles.maskS = maskS;
 end
+set(handles.error_text, 'String', 'DF method selected');
 
 % --- Executes on button press in FourierButton.
 function FourierButton_Callback(hObject, eventdata, handles)
@@ -298,6 +297,8 @@ function FourierButton_Callback(hObject, eventdata, handles)
      handles.maskS.reinitialize_mask(handles.maskT);
      fprintf('done');
  end
+ set(handles.error_text, 'String', 'Fourier method selected');
+ 
 
 % --- Executes on button press in zoom_im.
 function zoom_im_Callback(hObject, eventdata, handles)
@@ -313,6 +314,7 @@ if( handles.zoom_im.Value == 1)
 else
     zoom off
 end
+set(handles.error_text, 'String', 'Zoom mode');
 
 
 % --- Executes on slider movement.
