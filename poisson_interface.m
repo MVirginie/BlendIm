@@ -22,7 +22,7 @@ function varargout = poisson_interface(varargin)
 
 % Edit the above text to modify the response to help poisson_interface
 
-% Last Modified by GUIDE v2.5 10-Mar-2020 23:48:28
+% Last Modified by GUIDE v2.5 13-Mar-2020 17:11:42
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -214,11 +214,9 @@ function [sol, img, new_cut] = clonage_v2(handles, maskS, im, rect, maskT)
     rectT = maskT.transform_to_rect(maskT.associate_im);
     maskT.cut_im = rectT;
     maskS.matrix = maskS.transform_to_rect(maskS.matrix);   % resize b&w mask
-    [gradT, gradT1] = maskT.compute_grad();
-    [gradS, gradS1] = maskS.compute_grad();
-    sol = (abs(gradS.x)<abs(gradT.x) & abs(gradS.y)<abs(gradT.y) &abs(gradS1.x)<abs(gradT1.x) & abs(gradS1.y)<abs(gradT1.y));
-    maskS.matrix(sol) = 0;
-    maskS.cut_im(sol) = maskT.cut_im(sol);
+    if(handles.change_sel.Value == 1)
+    maskS.change_selection(maskT);
+    end
     new_system = FDSystem(maskS);
     new_system.create_matrix(maskS, rect, maskT);
     sol = new_system.solve(rect);
@@ -406,3 +404,21 @@ else
 end
 set(hObject, 'Min', 1);
 set(hObject, 'Value', 1);
+
+
+% --- Executes on button press in change_sel.
+function change_sel_Callback(hObject, eventdata, handles)
+% hObject    handle to change_sel (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of change_sel
+ if(isfield(handles, 'maskS') && isfield(handles, 'maskT'))
+    handles.maskS.reload_pdt_mask(handles.s_init);
+    handles.maskT.reload_pdt_mask(handles.t_init);
+    fprintf('done');
+elseif(isfield(handles, 'maskS') && ~isfield(handles, 'maskT'))
+    maskS = Mask();
+    handles.maskS = maskS;
+end
+ set(handles.error_text, 'String', 'Change selection selected');
