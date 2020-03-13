@@ -20,6 +20,7 @@ classdef Mask <handle
         cut_im
         shift_done
         boundaries
+        rect_zone
    
         
     end
@@ -152,6 +153,22 @@ classdef Mask <handle
         end
     end
    
+     function [grad, grad1]= compute_grad(self)
+         grad.x = zeros(size(self.cut_im));
+         grad.y = zeros(size(self.cut_im));
+          grad1.x = zeros(size(self.cut_im));
+         grad1.y = zeros(size(self.cut_im));
+         grad.x(2:end-1, :) = -self.cut_im(2:end-1,:)+self.cut_im(3:end, :);
+         grad.y(:, 2:end-1) = -self.cut_im (:, 2:end-1)+self.cut_im(:, 3:end);
+
+         grad1.x(2:end-1,:) = self.cut_im(2:end-1,:)-self.cut_im(1:end-2,:);
+         grad1.y(:, 2:end-1) = self.cut_im(:,2:end-1) -self.cut_im(:, 1:end-2);
+
+%grad.x = (circshift(self.cut_im,-1,2)-circshift(self.cut_im,1,2))./2;
+      %   grad.y = (circshift(self.cut_im,-1,1) -circshift(self.cut_im, 1, 1))./2;
+    
+     end
+     
     end
     
 end

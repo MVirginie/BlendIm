@@ -109,14 +109,17 @@ classdef FDSystem <handle
         %Function find_roi
         % find the pixels that are inside the ROI 
         % If their value == 1 then there are inside
-        function find_roi(self, mask)
-           [row, col]= find(mask.matrix);
-           row(:)= (col(:)-1).*size(mask.matrix,1)+row(:);
+        function find_roi(self, maskS, maskT)
+            
+           [row, col]= find(maskS.matrix);
+          
+           row(:)= (col(:)-1).*size(maskS.matrix,1)+row(:);
            col(:) = row(:);
            
-           self.is_inside(row(:), col(:), mask);
+           self.is_inside(row(:), col(:), maskS);
           
         end
+        
        
         %Function : find_useless
         % Find the pixels that are NOT in the ROI
@@ -191,10 +194,10 @@ classdef FDSystem <handle
         %Construct b_vector
         %Construct A sparse matrix : check if pixels are or not in \Omega
         %and then call the good function according to the answer.
-        function create_matrix(self, mask, image)
+        function create_matrix(self, maskS, image, maskT)
             self.compute_laplacian(image);
-            self.find_roi(mask);
-            self.find_useless(mask);
+            self.find_roi(maskS, maskT);
+            self.find_useless(maskS);
             self.matrix = sparse(self.i_vect, self.j_vect, self.v_vect, self.size_matrix, self.size_matrix);
             
             

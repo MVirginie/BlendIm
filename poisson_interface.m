@@ -192,7 +192,7 @@ handles.maskT.pos(1,2)
 size(handles.imageT)
 set(handles.slider3,'Value', -handles.maskT.pos(1,2));
 set(handles.slider4, 'Value', handles.maskT.pos(1,1));
-
+%addlistener(handles.slider4, 'ContinuousValueChange', @(hObject, eventdata) slider4_Callback(hObject, eventdata, handles))
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -209,10 +209,18 @@ function [sol, img, new_cut] = clonage_v2(handles, maskS, im, rect, maskT)
     set(handles.error_text, 'String', 'Wait please, DF method in progress ');
     new_cut = maskS.transform_to_rect(im); % resize I into a rect (demarcation)
     maskS.cut_im = new_cut;
-    maskS.matrix = maskS.transform_to_rect(maskS.matrix);% resize b&w mask
-    
+    maskT.pos = maskS.pos;
+    maskT.shift_done = maskS.shift_done;
+    rectT = maskT.transform_to_rect(maskT.associate_im);
+    maskT.cut_im = rectT;
+    maskS.matrix = maskS.transform_to_rect(maskS.matrix);   % resize b&w mask
+    [gradT, gradT1] = maskT.compute_grad();
+    [gradS, gradS1] = maskS.compute_grad();
+    sol = (abs(gradS.x)<abs(gradT.x) & abs(gradS.y)<abs(gradT.y) &abs(gradS1.x)<abs(gradT1.x) & abs(gradS1.y)<abs(gradT1.y));
+    maskS.matrix(sol) = 0;
+    maskS.cut_im(sol) = maskT.cut_im(sol);
     new_system = FDSystem(maskS);
-    new_system.create_matrix(maskS, rect);
+    new_system.create_matrix(maskS, rect, maskT);
     sol = new_system.solve(rect);
     set(handles.error_text, 'String', 'Solution found, we actually try to display the result');
     maskS.cut_im = sol.*maskS.matrix;
@@ -225,7 +233,6 @@ function [sol, img, new_cut] = clonage_v2(handles, maskS, im, rect, maskT)
     maskT2 = mask2.*maskT.associate_im;
     img = maskS.cut_im+maskT2;
     set(handles.error_text, 'String', 'New image, done with DF method');
-    
 function [im, rect] =  clonage_v1(maskS, maskT)
     %Function clonage_v1 : Does a cut/paste action without any modifications
     %Update properties of the mask (cut_im) 
@@ -361,8 +368,6 @@ else
 end
 set(hObject, 'Max', 0);
 set(hObject, 'Value', 0);
-
-
 % --- Executes on slider movement.
 function slider4_Callback(hObject, eventdata, handles)
 % hObject    handle to slider4 (see GCBO)
