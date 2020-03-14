@@ -22,7 +22,7 @@ function varargout = poisson_interface(varargin)
 
 % Edit the above text to modify the response to help poisson_interface
 
-% Last Modified by GUIDE v2.5 13-Mar-2020 17:11:42
+% Last Modified by GUIDE v2.5 14-Mar-2020 19:26:51
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -107,8 +107,10 @@ imageT = imread(fullfile(path2,file2));
 imageT = im2double(imageT(:,:,1));
 handles.imageT = imageT;
 guidata(gca, handles);
+
 slider3_CreateFcn(handles.slider3, eventdata, handles);
 slider4_CreateFcn(handles.slider4, eventdata, handles);
+
 axesIm2 = imshow(handles.imageT, 'Parent', handles.axes2);
 set(axesIm2, 'ButtonDownFcn', @axeImT_ButtonDownFcn);
 set(handles.error_text, 'String', 'Background image loaded, please select the region to cut in the first image');
@@ -126,12 +128,12 @@ function axeImS_ButtonDownFcn(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 handles = guidata(gca);
-maskS = Mask();
-maskS.associate_im = handles.imageS;
-handles.maskS = maskS;
+maskS = Mask(handles.imageS);
 s_init = maskS.save_mask_settings();
+handles.maskS = maskS;
 handles.s_init = s_init;
 guidata(gca,handles);
+
 imshow(handles.maskS.matrix ,'Parent', handles.axes3);
 set(handles.error_text, 'String', 'Region to cut selected, please click on the second image to select the paste region');
 hideAxes(handles);
@@ -150,21 +152,22 @@ function axeImT_ButtonDownFcn(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 handles = guidata(gca);
-maskT = Mask();
-maskT.associate_im = handles.imageT;
-maskT.cut_im = maskT.matrix.*handles.imageT;
-handles.maskT = maskT;
+maskT = Mask(handles.imageT);
 t_init = maskT.save_mask_settings();
+
+handles.maskT = maskT;
 handles.t_init = t_init;
+
 handles.maskS.pos_to_move = maskT.pos;
 handles.s_init.pos_to_move = maskT.pos;
 guidata(gca,handles);
+
 imshow(handles.maskT.cut_im, 'Parent', handles.axes4);
 set(handles.error_text, 'String', 'Paste region selected, you can choose the method & then click on the paste button');
 hideAxes(handles);
 
 % --- Executes on button press in pasteButton.
-% First : simple cut/paste with clonage_v1.
+% First : simple cut/paste with copyPaste.
 % Then : blend with clonage_v2 function
 % Display : 
 %---------- on axes3 :the cut image without any modification (cut/paste only)
@@ -175,99 +178,23 @@ function pasteButton_Callback(hObject, eventdata, handles)
 % hObject    handle to pasteButton (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+handles = guidata(handles.axes5);
+
 if(handles.DFButton.Value == 1)
-    handles = guidata(handles.axes5);
-    [im, rect] = clonage_v1(handles.maskS, handles.maskT);
+    %handles = guidata(handles.axes5);
+    rect = handles.maskS.transform_to_rect(handles.maskS.associate_im);% resize S into a rect 
+    [im] = copyPaste(handles.maskS, handles.maskT, handles.maskS.associate_im, handles.maskT.associate_im);
     [sol, image, new_cut] = clonage_v2(handles, handles.maskS, im, rect, handles.maskT);
     imshow(new_cut, 'Parent', handles.axes3);
     imshow(image, 'Parent', handles.axes5);
     imshow(sol, 'Parent', handles.axes4);
     
 elseif (handles.FourierButton.Value == 1)
-    [~, ~, sol] = fourier_clonage(handles, handles.imageS, handles.imageT, handles.maskS, handles.maskT);
+    [~, ~, sol] = fourier_clonage(handles, handles.maskS, handles.maskT);
     imshow(sol, 'Parent', handles.axes5);
 end
 hideAxes(handles);
-handles.maskT.pos(1,2)
-size(handles.imageT)
-set(handles.slider3,'Value', -handles.maskT.pos(1,2));
-set(handles.slider4, 'Value', handles.maskT.pos(1,1));
-%addlistener(handles.slider4, 'ContinuousValueChange', @(hObject, eventdata) slider4_Callback(hObject, eventdata, handles))
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                       FUNCTIONS
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-function [sol, img, new_cut] = clonage_v2(handles, maskS, im, rect, maskT)
-    %function clonage_v2
-    %Create the smallest rectangle around the ROI in the cut_image 
-    % Create the smallest rectangle around the ROI in the mask
-    % Create a FDSystem object to solve the equation
-    %Solve the equation
-    % Transform the mask, adjust size & update the actual position of ROI
-    set(handles.error_text, 'String', 'Wait please, DF method in progress ');
-    new_cut = maskS.transform_to_rect(im); % resize I into a rect (demarcation)
-    maskS.cut_im = new_cut;
-    maskT.pos = maskS.pos;
-    maskT.shift_done = maskS.shift_done;
-    rectT = maskT.transform_to_rect(maskT.associate_im);
-    maskT.cut_im = rectT;
-    maskS.matrix = maskS.transform_to_rect(maskS.matrix);   % resize b&w mask
-    if(handles.change_sel.Value == 1)
-    maskS.change_selection(maskT);
-    end
-    new_system = FDSystem(maskS);
-    new_system.create_matrix(maskS, rect, maskT);
-    sol = new_system.solve(rect);
-    set(handles.error_text, 'String', 'Solution found, we actually try to display the result');
-    maskS.cut_im = sol.*maskS.matrix;
-    maskS.adjust_size(maskT);
-    [row, col] = find(maskS.matrix);
-    maskS.pos = [min(row), min(col)];
-    
-    maskS.move_roi();
-    mask2 = maskS.invert_mask();
-    maskT2 = mask2.*maskT.associate_im;
-    img = maskS.cut_im+maskT2;
-    set(handles.error_text, 'String', 'New image, done with DF method');
-function [im, rect] =  clonage_v1(maskS, maskT)
-    %Function clonage_v1 : Does a cut/paste action without any modifications
-    %Update properties of the mask (cut_im) 
-    % Adjust the size of the smaller mask, then the dimensions of the two
-    % agrees
-    % Creates the smallest rect around the selection 
-    % Move the ROI to the wanted position on the bg image
-    % UPDATE  : this new position is now the new pos_to_move
-    %Invert the mask to create complementaries masks && create the mask
-    %associate to bg image
-    % Add the two corresponding masks, perfectly complementary.
-
-maskS.cut_im= maskS.matrix.*maskS.associate_im;
-maskS.adjust_size(maskT);
-rect = maskS.transform_to_rect(maskS.associate_im);% resize S into a rect 
-maskS.move_roi();
-[k,l] = find(maskS.matrix);
-maskS.pos_to_move = [min(l), min(k)];
-mask2 = maskS.invert_mask();
-maskT2 = mask2.*maskT.associate_im;
-im = maskS.cut_im+maskT2;
-
-function [im_i, im_j, sol] = fourier_clonage(handles, imS, imT, maskS, maskT)
-     set(handles.error_text, 'String', 'Beginning');
-     f = Fourier(imS, imT);
-     maskS.associate_im = f.grad_S_i;
-     maskT.associate_im = f.grad_T_i;
-     set(handles.error_text, 'String', 'End');
-     size(maskS.matrix);
-     [im_i, ~] = clonage_v1(maskS,maskT);% IMAGE I COLLEE
-     maskS.reload_pdt_mask(handles.s_init);
-     maskT.reload_pdt_mask(handles.t_init);
-     maskS.associate_im = f.grad_S_j;
-     maskT.associate_im = f.grad_T_j;
-     [im_j, ~] = clonage_v1(maskS, maskT);% IMAGE J COLLEE
-     sol = f.solve(im_i, im_j);
-     set(handles.error_text, 'String', 'New image, done with Fourier method');
 
 function hideAxes(handles)
     handles.axes1.XAxis.Visible = 'off';
@@ -338,14 +265,16 @@ function slider3_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider      
-        y_1 = handles.maskT.pos(1,2);
+handles = guidata(handles.axes5);       
+y_1 = handles.maskT.pos(1,2);
         y_2 = get(hObject, 'Value');
         shift = abs(y_2)-y_1;
         handles.maskS.pos_to_move(:,2) = handles.maskS.pos_to_move(:,2)+shift;
-        
         handles.maskT.pos(:,2) = handles.maskT.pos(:,2)+shift;
         handles.maskS.reinitialize_mask(handles.maskT); 
+         set(handles.slider3,'Value', -handles.maskT.pos(1,2));
         pasteButton_Callback(hObject, eventdata, handles);
+       
         
 
 % --- Executes during object creation, after setting all properties.
@@ -375,15 +304,17 @@ function slider4_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 % Find the distance between & then shift all position to the new_one
-       
+       handles = guidata(handles.axes5);
         y_1 = handles.maskT.pos(1,1);
         y_2 = get(hObject, 'Value');
         shift = y_2-y_1;
-        handles.maskS.pos_to_move(:,1) = handles.maskS.pos_to_move(:,1)+shift;
         
+        handles.maskS.pos_to_move(:,1) = handles.maskS.pos_to_move(:,1)+shift;
         handles.maskT.pos(:,1) = handles.maskT.pos(:,1)+shift;
-        handles.maskS.reinitialize_mask(handles.maskT); 
+        handles.maskS.reinitialize_mask(handles.maskT);
+        set(handles.slider4, 'Value', handles.maskT.pos(1,1));
         pasteButton_Callback(hObject, eventdata, handles);
+        handles.maskS.pos(:) = handles.maskS.pos(:,:)+shift;
         
 % --- Executes during object creation, after setting all properties.
 function slider4_CreateFcn(hObject, eventdata, handles)
@@ -422,3 +353,45 @@ elseif(isfield(handles, 'maskS') && ~isfield(handles, 'maskT'))
     handles.maskS = maskS;
 end
  set(handles.error_text, 'String', 'Change selection selected');
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                       FUNCTIONS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function [sol, img, new_cut] = clonage_v2(handles, maskS, im, rect, maskT)
+    %function clonage_v2
+    %Create the smallest rectangle around the ROI in the cut_image 
+    % Create the smallest rectangle around the ROI in the mask
+    % Create a FDSystem object to solve the equation
+    %Solve the equation
+    % Transform the mask, adjust size & update the actual position of ROI
+    set(handles.error_text, 'String', 'Wait please, DF method in progress ');
+    new_cut = maskS.transform_to_rect(im); % resize I into a rect (demarcation)
+    maskS.cut_im = new_cut;
+    maskT.cut_im = maskS.transform_to_rect(maskT.associate_im);
+    maskS.matrix = maskS.transform_to_rect(maskS.matrix);   % resize b&w mask
+        
+    if(handles.change_sel.Value == 1)
+    maskS.change_selection(maskT);
+    end
+    new_system = FDSystem(maskS);
+    new_system.create_matrix(maskS, rect, maskT);
+    sol = new_system.solve(rect);
+    set(handles.error_text, 'String', 'Solution found, we actually try to display the result');
+    [row, col] = find(maskS.matrix);
+    maskS.pos = [min(row), min(col)];
+    img = copyPaste(maskS, maskT,sol, maskT.associate_im);
+    set(handles.error_text, 'String', 'New image, done with DF method');
+
+
+function [im_i, im_j, sol] = fourier_clonage(handles, maskS, maskT)
+     set(handles.error_text, 'String', 'Beginning');
+     maskS.reload_pdt_mask(handles.s_init);
+     f = Fourier(maskS.associate_im, maskT.associate_im);
+     set(handles.error_text, 'String', 'End');
+     im_i = copyPaste(maskS,maskT, f.grad_S_i, f.grad_T_i);% IMAGE I COLLEE
+     maskS.reload_pdt_mask(handles.s_init);
+     maskT.reload_pdt_mask(handles.t_init);
+     im_j = copyPaste(maskS, maskT, f.grad_S_j, f.grad_T_j);% IMAGE J COLLEE
+     
+     sol = f.solve(im_i, im_j);
+     set(handles.error_text, 'String', 'New image, done with Fourier method');
