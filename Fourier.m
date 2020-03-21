@@ -4,7 +4,6 @@ classdef Fourier<handle
         grad_S_j
         grad_T_i
         grad_T_j
-        me 
         symmetric_i
         symmetric_j
     end
@@ -27,6 +26,7 @@ classdef Fourier<handle
              [obj.grad_T_i,obj.grad_T_j ] =  obj.compute_grad_vect(imT, W,H, u, v);
              obj.grad_T_i = obj.resize_mat( obj.grad_T_i, W, H);
              obj.grad_T_j = obj.resize_mat( obj.grad_T_j, W, H);
+             
         end
         
         function[row, col] = compute_indices_matrix(self,imS, W, H)
@@ -47,12 +47,16 @@ classdef Fourier<handle
         end
         
         function[i, j] =  symmetry(self, im1, im2)
-            new_mat = [im1, -im1];
+              b = flip(im1, 2);
+             new_mat = [im1, b];
+             h_new = flip(new_mat,1);
+             i= [ new_mat; h_new];
+
+            b = flip(im2, 2);
+            new_mat = [im2, b];
             h_new = flip(new_mat,1);
-            i= [ new_mat; h_new];
-            new_mat = [im2, -im2];
-            h_new = flip(new_mat,1);
-            j= [new_mat; h_new];  
+            j= [ new_mat; h_new];
+ 
         end
         
         function I = solve(self, im_x, im_y)
@@ -75,9 +79,6 @@ classdef Fourier<handle
             I = real(ifft2(ifftshift(i_hat)));
             I = self.resize_mat(I, W, H);            
         end
-        
- 
-
 
     end
 end

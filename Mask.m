@@ -20,8 +20,6 @@ classdef Mask <handle
         cut_im
         shift_done
         boundaries
-        rect_zone
-   
         
     end
     
@@ -43,6 +41,7 @@ classdef Mask <handle
     end
     
     function reinitialize_mask(self, maskT)
+        
         self.pos = getPosition(self.associate_roi);
         self.pos_to_move = maskT.pos;
         self.shift_done = [0,0];
@@ -80,6 +79,7 @@ classdef Mask <handle
         y_2 = self.pos_to_move(1,2);
         d_x = int32(x_2-x_1);
         d_y = int32(y_2-y_1);
+        
         self.shift_done = [d_x, d_y];
         mat = circshift(self.matrix,d_x,2);
         mat = circshift(mat, d_y,1);
@@ -106,8 +106,13 @@ classdef Mask <handle
         xmax = max(h(:,2))+self.shift_done(1,2);
         
         rect = zeros(size(I));
-        rect(int32(xmin-1):int32(xmax+1), int32(ymin-1):int32(ymax+1)) = I(int32(xmin-1):int32(xmax+1), int32(ymin-1):int32(ymax+1));
-        im = rect(int32(xmin-1):int32(xmax+1), int32(ymin-1):int32(ymax+1));
+        rect(int32(xmin-1):int32(xmax+1), ...
+            int32(ymin-1):int32(ymax+1)) =...
+            I(int32(xmin-1):int32(xmax+1), ...
+            int32(ymin-1):int32(ymax+1));
+        
+        im = rect(int32(xmin-1):int32(xmax+1),...
+            int32(ymin-1):int32(ymax+1));
     end
     
     function find_boundaries(self)

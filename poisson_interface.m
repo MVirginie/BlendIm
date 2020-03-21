@@ -180,8 +180,14 @@ function pasteButton_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 handles = guidata(handles.axes5);
 
+if (handles.slider3.Value == 0 && handles.slider4.Value == 1)
+    set(handles.slider3, 'Value', -handles.maskT.pos(1,1));
+    set(handles.slider4, 'Value', handles.maskS.pos(1,2));
+    handles.shift3 = 0;
+    handles.shift4 = 0;
+    guidata(gca, handles);
+end
 if(handles.DFButton.Value == 1)
-    %handles = guidata(handles.axes5);
     rect = handles.maskS.transform_to_rect(handles.maskS.associate_im);% resize S into a rect 
     [im] = copyPaste(handles.maskS, handles.maskT, handles.maskS.associate_im, handles.maskT.associate_im);
     [sol, image, new_cut] = clonage_v2(handles, handles.maskS, im, rect, handles.maskT);
@@ -215,6 +221,7 @@ function DFButton_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of DFButton
+size(handles.maskT.associate_im, 2)
 if(isfield(handles, 'maskS') && isfield(handles, 'maskT'))
     handles.maskS.reload_pdt_mask(handles.s_init);
     handles.maskT.reload_pdt_mask(handles.t_init);
@@ -235,7 +242,9 @@ function FourierButton_Callback(hObject, eventdata, handles)
 % % Hint: get(hObject,'Value') returns toggle state of FourierButton
  if(isfield(handles, 'maskS') && isfield(handles, 'maskT'))
      handles.maskS.reinitialize_mask(handles.maskT);
-     fprintf('done');
+     handles.maskT.associate_im = handles.imageT;
+     handles.maskS.associate_im = handles.imageS;
+     fprintf('done\n');
  end
  set(handles.error_text, 'String', 'Fourier method selected');
  
@@ -264,18 +273,18 @@ function slider3_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hints: get(hObject,'Value') returns position of slider
-%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider      
-handles = guidata(handles.axes5);       
-y_1 = handles.maskT.pos(1,2);
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider           
+ handles = guidata(handles.axes5);
+        y_1 = handles.maskT.pos(1,2);
         y_2 = get(hObject, 'Value');
-        shift = abs(y_2)-y_1;
-        handles.maskS.pos_to_move(:,2) = handles.maskS.pos_to_move(:,2)+shift;
-        handles.maskT.pos(:,2) = handles.maskT.pos(:,2)+shift;
+        handles.shift3 = abs(y_2)-y_1;
+        guidata(gca, handles);
+        handles.maskS.pos_to_move(:,2) = handles.maskS.pos_to_move(:,2)+handles.shift3;
+        handles.maskT.pos(:,2) = handles.maskT.pos(:,2)+handles.shift3;
         handles.maskS.reinitialize_mask(handles.maskT); 
-         set(handles.slider3,'Value', -handles.maskT.pos(1,2));
+        set(handles.slider3,'Value', -handles.maskT.pos(1,2));
         pasteButton_Callback(hObject, eventdata, handles);
-       
-        
+
 
 % --- Executes during object creation, after setting all properties.
 function slider3_CreateFcn(hObject, eventdata, handles)
@@ -288,7 +297,7 @@ if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColo
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
 if(isfield(handles, 'imageT'))
-[height,~] = size(handles.imageT);
+[~,height] = size(handles.imageT);
 set(hObject, 'Min',-height);
 else
     set(hObject, 'Min', -100);
@@ -304,18 +313,18 @@ function slider4_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 % Find the distance between & then shift all position to the new_one
-       handles = guidata(handles.axes5);
-        y_1 = handles.maskT.pos(1,1);
-        y_2 = get(hObject, 'Value');
-        shift = y_2-y_1;
-        
-        handles.maskS.pos_to_move(:,1) = handles.maskS.pos_to_move(:,1)+shift;
-        handles.maskT.pos(:,1) = handles.maskT.pos(:,1)+shift;
-        handles.maskS.reinitialize_mask(handles.maskT);
-        set(handles.slider4, 'Value', handles.maskT.pos(1,1));
-        pasteButton_Callback(hObject, eventdata, handles);
-        handles.maskS.pos(:) = handles.maskS.pos(:,:)+shift;
-        
+    handles = guidata(handles.axes5);
+    handles.maskT.reload_pdt_mask(handles.t_init);
+    y_1 = handles.maskT.pos(1,1);
+    y_2 = get(hObject, 'Value');
+    handles.shift4 = y_2-y_1;
+    guidata(gca, handles)
+    handles.maskT.pos(:,1) = handles.maskT.pos(:,1)+handles.shift4;
+    handles.maskS.reinitialize_mask(handles.maskT);
+    handles.maskT.associate_im = handles.imageT;
+    handles.maskS.associate_im = handles.imageS;
+    pasteButton_Callback(hObject, eventdata, handles);
+    
 % --- Executes during object creation, after setting all properties.
 function slider4_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to slider4 (see GCBO)
@@ -327,9 +336,8 @@ if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColo
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
 if(isfield(handles, 'imageT'))
-[~,width] = size(handles.imageT);
+[width, ~] = size(handles.imageT);
 set(hObject, 'Max',width);
-fprintf('here')
 else
     set(hObject, 'Max', 10);
 end
@@ -353,6 +361,7 @@ elseif(isfield(handles, 'maskS') && ~isfield(handles, 'maskT'))
     handles.maskS = maskS;
 end
  set(handles.error_text, 'String', 'Change selection selected');
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                       FUNCTIONS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -384,14 +393,21 @@ function [sol, img, new_cut] = clonage_v2(handles, maskS, im, rect, maskT)
 
 
 function [im_i, im_j, sol] = fourier_clonage(handles, maskS, maskT)
-     set(handles.error_text, 'String', 'Beginning');
-     maskS.reload_pdt_mask(handles.s_init);
-     f = Fourier(maskS.associate_im, maskT.associate_im);
-     set(handles.error_text, 'String', 'End');
-     im_i = copyPaste(maskS,maskT, f.grad_S_i, f.grad_T_i);% IMAGE I COLLEE
-     maskS.reload_pdt_mask(handles.s_init);
-     maskT.reload_pdt_mask(handles.t_init);
-     im_j = copyPaste(maskS, maskT, f.grad_S_j, f.grad_T_j);% IMAGE J COLLEE
-     
-     sol = f.solve(im_i, im_j);
-     set(handles.error_text, 'String', 'New image, done with Fourier method');
+set(handles.error_text, 'String', 'Beginning');
+    maskS.reload_pdt_mask(handles.s_init); 
+    maskT.reload_pdt_mask(handles.t_init); 
+    
+    handles.maskT.pos(:,1) = handles.maskT.pos(:,1)+handles.shift4;
+    handles.maskS.reinitialize_mask(handles.maskT);
+    
+    f = Fourier(maskS.associate_im, maskT.associate_im);
+    im_i = copyPaste(maskS,maskT, f.grad_S_i, f.grad_T_i);% IMAGE I COLLEE
+    
+    maskS.reload_pdt_mask(handles.s_init);
+    maskT.reload_pdt_mask(handles.t_init);
+    handles.maskT.pos(:,1) = handles.maskT.pos(:,1)+handles.shift4;
+    handles.maskS.reinitialize_mask(handles.maskT);
+    im_j = copyPaste(maskS, maskT, f.grad_S_j, f.grad_T_j);% IMAGE J COLLE
+    
+    sol = f.solve(im_i, im_j);
+    set(handles.error_text, 'String', 'New image, done with Fourier method');
