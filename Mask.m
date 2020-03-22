@@ -174,17 +174,11 @@ classdef Mask <handle
       %   grad.y = (circshift(self.cut_im,-1,1) -circshift(self.cut_im, 1, 1))./2;
     
      end
+     
      function change_selection(self, maskT)
          
         [gradT, gradT1] = maskT.compute_grad();
         [gradS, gradS1] = self.compute_grad();
-%         [c,r] = find(self.matrix);
-%         cm = int32(min(c));
-%         cM = int32(max(c));
-%         rm= int32(min(r));
-%         rM = int32(max(r));
-%         c = cm-1:cM+1;
-%         r = rm-1:rM+1;
         sol = (abs(gradS.x)<abs(gradT.x) & ...
                 abs(gradS.y)<abs(gradT.y) & ...
                 abs(gradS1.x)<abs(gradT1.x) & ...
@@ -192,10 +186,6 @@ classdef Mask <handle
         self.matrix(sol) = 0;
         self.cut_im(sol) = maskT.cut_im(sol);
      end
-    
-    
-     
-     
     end
     
 end
