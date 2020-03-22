@@ -29,12 +29,12 @@ classdef Fourier<handle
              
         end
         
-        function[row, col] = compute_indices_matrix(self,imS, W, H)
+        function[row, col] = compute_indices_matrix(~,imS, W, H)
             [H,W] = size(imS);
             [row,col] = meshgrid(-W/2+1:W/2, -H/2+1:H/2);
         end
         
-        function[im_x, im_y] = compute_grad_vect(self, im, W,H,x, y)
+        function[im_x, im_y] = compute_grad_vect(~, im, W,H,x, y)
             im_x= fftshift(fft2(im)).*((2*pi*1i/W).*x);
             im_x = (ifft2(ifftshift(im_x)));
             
@@ -42,11 +42,11 @@ classdef Fourier<handle
             im_y = (ifft2(ifftshift(im_y)));
         end
         
-        function im = resize_mat(self,im, W, H)
+        function im = resize_mat(~,im, W, H)
             im = im(1:H/2, 1:W/2);
         end
         
-        function[i, j] =  symmetry(self, im1, im2)
+        function[i, j] =  symmetry(~, im1, im2)
               b = flip(im1, 2);
              new_mat = [im1, b];
              h_new = flip(new_mat,1);

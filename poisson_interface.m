@@ -48,7 +48,7 @@ set(h,'Color', [0.5 0.5 0.5]);
 
 
 % --- Executes just before poisson_interface is made visible.
-function poisson_interface_OpeningFcn(hObject, eventdata, handles, varargin)
+function poisson_interface_OpeningFcn(hObject, ~, handles, varargin)
 % This function has no output args, see OutputFcn.
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -67,7 +67,7 @@ hideAxes(handles);
  
 
 % --- Outputs from this function are returned to the command line.
-function varargout = poisson_interface_OutputFcn(hObject, eventdata, handles) 
+function varargout = poisson_interface_OutputFcn(~, ~, handles) 
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -79,7 +79,7 @@ varargout{1} = handles.output;
 
 % --- Executes on button press in openImSButton.
 % Choose an image source to open, and display it in axes1
-function openImSButton_Callback(hObject, eventdata, handles)
+function openImSButton_Callback(~, ~, handles)
 % hObject    handle to openImSButton (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
@@ -98,7 +98,7 @@ hideAxes(handles);
 
 % --- Executes on button press in openImTButton.
 %Choose an image Target to open, and display it in axes2
-function openImTButton_Callback(hObject, eventdata, handles)
+function openImTButton_Callback(~, eventdata, handles)
 % hObject    handle to openImTButton (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
@@ -123,7 +123,7 @@ hideAxes(handles);
 %--------------- maskS as the black&white mask
 % The mask is created in the class (see the constructor)
 %Display the white&black mask created
-function axeImS_ButtonDownFcn(hObject, eventdata, handles)
+function axeImS_ButtonDownFcn(~, ~, ~)
 % hObject    handle to axes1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
@@ -147,7 +147,7 @@ hideAxes(handles);
  %Display the white&black mask created
  %UPDATE : Fill the property "pos_to_move" to maskS. = add the new position
  %to move for the maskS
-function axeImT_ButtonDownFcn(hObject, eventdata, handles)
+function axeImT_ButtonDownFcn(~, ~, ~)
 % hObject    handle to axes2 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
@@ -174,7 +174,7 @@ hideAxes(handles);
 %---------- on axes4 : applied modifications on the cut image 
 %---------- on axes 5: The final result the cut image is paste on the bg
 %one
-function pasteButton_Callback(hObject, eventdata, handles)
+function pasteButton_Callback(~, ~, handles)
 % hObject    handle to pasteButton (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
@@ -215,7 +215,7 @@ function hideAxes(handles)
     handles.axes5.YAxis.Visible = 'off';
 
 % --- Executes on button press in DFButton.
-function DFButton_Callback(hObject, eventdata, handles)
+function DFButton_Callback(~, ~, handles)
 % hObject    handle to DFButton (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
@@ -234,7 +234,7 @@ set(handles.error_text, 'String', 'DF method selected');
 set(handles.axes4, 'Value', handles.maskT.pos(1,2));
 
 % --- Executes on button press in FourierButton.
-function FourierButton_Callback(hObject, eventdata, handles)
+function FourierButton_Callback(~, ~, handles)
 % hObject    handle to FourierButton (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
@@ -250,7 +250,7 @@ function FourierButton_Callback(hObject, eventdata, handles)
  
 
 % --- Executes on button press in zoom_im.
-function zoom_im_Callback(hObject, eventdata, handles)
+function zoom_im_Callback(~, ~, handles)
 % hObject    handle to zoom_im (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
@@ -276,10 +276,10 @@ function slider3_Callback(hObject, eventdata, handles)
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider           
  handles = guidata(handles.axes5);
         y_1 = handles.maskT.pos(1,2);
-        y_2 = get(hObject, 'Value');
+        y_2 = get(hObject, 'Value')
+        
         handles.shift3 = abs(y_2)-y_1;
         guidata(gca, handles);
-        handles.maskS.pos_to_move(:,2) = handles.maskS.pos_to_move(:,2)+handles.shift3;
         handles.maskT.pos(:,2) = handles.maskT.pos(:,2)+handles.shift3;
         handles.maskS.reinitialize_mask(handles.maskT); 
         set(handles.slider3,'Value', -handles.maskT.pos(1,2));
@@ -287,7 +287,7 @@ function slider3_Callback(hObject, eventdata, handles)
 
 
 % --- Executes during object creation, after setting all properties.
-function slider3_CreateFcn(hObject, eventdata, handles)
+function slider3_CreateFcn(hObject, ~, handles)
 % hObject    handle to slider3 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
@@ -304,6 +304,7 @@ else
 end
 set(hObject, 'Max', 0);
 set(hObject, 'Value', 0);
+
 % --- Executes on slider movement.
 function slider4_Callback(hObject, eventdata, handles)
 % hObject    handle to slider4 (see GCBO)
@@ -314,7 +315,7 @@ function slider4_Callback(hObject, eventdata, handles)
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 % Find the distance between & then shift all position to the new_one
     handles = guidata(handles.axes5);
-    handles.maskT.reload_pdt_mask(handles.t_init);
+%     handles.maskT.reload_pdt_mask(handles.t_init);
     y_1 = handles.maskT.pos(1,1);
     y_2 = get(hObject, 'Value');
     handles.shift4 = y_2-y_1;
@@ -326,7 +327,7 @@ function slider4_Callback(hObject, eventdata, handles)
     pasteButton_Callback(hObject, eventdata, handles);
     
 % --- Executes during object creation, after setting all properties.
-function slider4_CreateFcn(hObject, eventdata, handles)
+function slider4_CreateFcn(hObject, ~, handles)
 % hObject    handle to slider4 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
@@ -346,16 +347,14 @@ set(hObject, 'Value', 1);
 
 
 % --- Executes on button press in change_sel.
-function change_sel_Callback(hObject, eventdata, handles)
+function change_sel_Callback(~, ~, handles)
 % hObject    handle to change_sel (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
 % Hint: get(hObject,'Value') returns toggle state of change_sel
+
  if(isfield(handles, 'maskS') && isfield(handles, 'maskT'))
-    handles.maskS.reload_pdt_mask(handles.s_init);
     handles.maskT.reload_pdt_mask(handles.t_init);
-    fprintf('done');
 elseif(isfield(handles, 'maskS') && ~isfield(handles, 'maskT'))
     maskS = Mask();
     handles.maskS = maskS;
@@ -391,22 +390,15 @@ function [sol, img, new_cut] = clonage_v2(handles, maskS, im, rect, maskT)
     img = copyPaste(maskS, maskT,sol, maskT.associate_im);
     set(handles.error_text, 'String', 'New image, done with DF method');
 
-
 function [im_i, im_j, sol] = fourier_clonage(handles, maskS, maskT)
-set(handles.error_text, 'String', 'Beginning');
-    maskS.reload_pdt_mask(handles.s_init); 
-    maskT.reload_pdt_mask(handles.t_init); 
-    
-    handles.maskT.pos(:,1) = handles.maskT.pos(:,1)+handles.shift4;
+    set(handles.error_text, 'String', 'Beginning');
     handles.maskS.reinitialize_mask(handles.maskT);
     
     f = Fourier(maskS.associate_im, maskT.associate_im);
     im_i = copyPaste(maskS,maskT, f.grad_S_i, f.grad_T_i);% IMAGE I COLLEE
     
-    maskS.reload_pdt_mask(handles.s_init);
-    maskT.reload_pdt_mask(handles.t_init);
-    handles.maskT.pos(:,1) = handles.maskT.pos(:,1)+handles.shift4;
     handles.maskS.reinitialize_mask(handles.maskT);
+    
     im_j = copyPaste(maskS, maskT, f.grad_S_j, f.grad_T_j);% IMAGE J COLLE
     
     sol = f.solve(im_i, im_j);
