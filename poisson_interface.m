@@ -22,7 +22,7 @@ function varargout = poisson_interface(varargin)
 
 % Edit the above text to modify the response to help poisson_interface
 
-% Last Modified by GUIDE v2.5 14-Mar-2020 19:26:51
+% Last Modified by GUIDE v2.5 22-Mar-2020 15:19:30
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -80,19 +80,18 @@ varargout{1} = handles.output;
 % --- Executes on button press in openImSButton.
 % Choose an image source to open, and display it in axes1
 function openImSButton_Callback(~, ~, handles)
-% hObject    handle to openImSButton (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-[file1,path1] = uigetfile('*.jpg;*.png', 'select an image');
-imageS = imread(fullfile(path1,file1));
-imageS = im2double(imageS(:,:,1));
-handles.imageS = imageS;
-guidata(gca, handles);
 
-axesIm = imshow(handles.imageS, 'Parent', handles.axes1);
-set(axesIm, 'ButtonDownFcn', @axeImS_ButtonDownFcn);
-set(handles.error_text, 'String', 'Image to paste loaded, please select the background image');
-hideAxes(handles);
+    [file1,path1] = uigetfile('*.jpg;*.png', 'select an image');
+    imageS = imread(fullfile(path1,file1));
+    imageS = im2double(imageS(:,:,1));
+    handles.imageS = imageS;
+    guidata(gca, handles);
+
+    axesIm = imshow(handles.imageS, 'Parent', handles.axes1);
+    set(axesIm, 'ButtonDownFcn', @axeImS_ButtonDownFcn);
+    set(handles.error_text, 'String', 'Image to paste loaded, please select the background image');
+    hideAxes(handles);
 
 
 
@@ -196,8 +195,10 @@ if(handles.DFButton.Value == 1)
     imshow(sol, 'Parent', handles.axes4);
     
 elseif (handles.FourierButton.Value == 1)
-    [~, ~, sol] = fourier_clonage(handles, handles.maskS, handles.maskT);
+    [new_cut, t, sol] = fourier_clonage(handles, handles.maskS, handles.maskT);
+    imshow(new_cut, 'Parent', handles.axes3);
     imshow(sol, 'Parent', handles.axes5);
+    imshow(t, 'Parent', handles.axes4);
 end
 hideAxes(handles);
 
@@ -225,13 +226,14 @@ size(handles.maskT.associate_im, 2)
 if(isfield(handles, 'maskS') && isfield(handles, 'maskT'))
     handles.maskS.reload_pdt_mask(handles.s_init);
     handles.maskT.reload_pdt_mask(handles.t_init);
+    set(handles.axes4, 'Value', handles.maskT.pos(1,2));
     fprintf('done');
 elseif(isfield(handles, 'maskS') && ~isfield(handles, 'maskT'))
     maskS = Mask();
     handles.maskS = maskS;
 end
 set(handles.error_text, 'String', 'DF method selected');
-set(handles.axes4, 'Value', handles.maskT.pos(1,2));
+
 
 % --- Executes on button press in FourierButton.
 function FourierButton_Callback(~, ~, handles)
@@ -274,9 +276,9 @@ function slider3_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider           
- handles = guidata(handles.axes5);
+        handles = guidata(handles.axes5);
         y_1 = handles.maskT.pos(1,2);
-        y_2 = get(hObject, 'Value')
+        y_2 = get(hObject, 'Value');
         
         handles.shift3 = abs(y_2)-y_1;
         guidata(gca, handles);
@@ -315,15 +317,12 @@ function slider4_Callback(hObject, eventdata, handles)
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 % Find the distance between & then shift all position to the new_one
     handles = guidata(handles.axes5);
-%     handles.maskT.reload_pdt_mask(handles.t_init);
     y_1 = handles.maskT.pos(1,1);
     y_2 = get(hObject, 'Value');
     handles.shift4 = y_2-y_1;
     guidata(gca, handles)
     handles.maskT.pos(:,1) = handles.maskT.pos(:,1)+handles.shift4;
     handles.maskS.reinitialize_mask(handles.maskT);
-    handles.maskT.associate_im = handles.imageT;
-    handles.maskS.associate_im = handles.imageS;
     pasteButton_Callback(hObject, eventdata, handles);
     
 % --- Executes during object creation, after setting all properties.
@@ -355,11 +354,19 @@ function change_sel_Callback(~, ~, handles)
 
  if(isfield(handles, 'maskS') && isfield(handles, 'maskT'))
     handles.maskT.reload_pdt_mask(handles.t_init);
+     handles.maskS.reinitialize_mask(handles.maskT);
 elseif(isfield(handles, 'maskS') && ~isfield(handles, 'maskT'))
     maskS = Mask();
     handles.maskS = maskS;
 end
  set(handles.error_text, 'String', 'Change selection selected');
+
+ % --- Executes on button press in Color_box.
+function Color_box_Callback(hObject, eventdata, handles)
+% hObject    handle to Color_box (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                       FUNCTIONS
@@ -390,15 +397,22 @@ function [sol, img, new_cut] = clonage_v2(handles, maskS, im, rect, maskT)
     img = copyPaste(maskS, maskT,sol, maskT.associate_im);
     set(handles.error_text, 'String', 'New image, done with DF method');
 
-function [im_i, im_j, sol] = fourier_clonage(handles, maskS, maskT)
+function [new_cut, new_T, sol] = fourier_clonage(handles, maskS, maskT)
+
+    new_cut = maskS.transform_to_rect(maskS.associate_im); % resize I into a rect (demarcation)
+    maskS.cut_im = new_cut;
+    new_T = maskS.transform_to_rect(maskT.associate_im);
+    maskT.cut_im = new_T;
+    maskS.matrix = maskS.transform_to_rect(maskS.matrix);   % resize b&w mask
+        
     set(handles.error_text, 'String', 'Beginning');
-    handles.maskS.reinitialize_mask(handles.maskT);
+    handles.maskS.reinitialize_mask(handles.maskT);    
     
     f = Fourier(maskS.associate_im, maskT.associate_im);
     im_i = copyPaste(maskS,maskT, f.grad_S_i, f.grad_T_i);% IMAGE I COLLEE
     
     handles.maskS.reinitialize_mask(handles.maskT);
-    
+
     im_j = copyPaste(maskS, maskT, f.grad_S_j, f.grad_T_j);% IMAGE J COLLE
     
     sol = f.solve(im_i, im_j);

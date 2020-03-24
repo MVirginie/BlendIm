@@ -140,8 +140,10 @@ classdef FDSystem <handle
             self.compute_laplacian(image);
             self.find_roi(maskS, maskT);
             self.find_useless(maskS);
-            self.matrix = sparse(self.i_vect, self.j_vect, self.v_vect, self.size_matrix, self.size_matrix);
-
+            a = sparse(self.i_vect, self.j_vect, self.v_vect, self.size_matrix, self.size_matrix);
+            self.matrix = a;
+            b = full(a);
+            save('matrix.mat','b'); 
         end
         
 
