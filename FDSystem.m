@@ -142,8 +142,6 @@ classdef FDSystem <handle
             self.find_useless(maskS);
             a = sparse(self.i_vect, self.j_vect, self.v_vect, self.size_matrix, self.size_matrix);
             self.matrix = a;
-            b = full(a);
-            save('matrix.mat','b'); 
         end
         
 

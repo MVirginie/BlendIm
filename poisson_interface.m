@@ -84,7 +84,11 @@ function openImSButton_Callback(~, ~, handles)
 
     [file1,path1] = uigetfile('*.jpg;*.png', 'select an image');
     imageS = imread(fullfile(path1,file1));
-    imageS = im2double(imageS(:,:,1));
+    if( handles.Color_box.Value == 0)
+        imageS = im2double(imageS(:,:,1));
+    else 
+        imageS = im2double(imageS(:,:,:));
+    end
     handles.imageS = imageS;
     guidata(gca, handles);
 
@@ -103,7 +107,11 @@ function openImTButton_Callback(~, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 [file2,path2] = uigetfile('*.jpg; *.png', 'select T image');
 imageT = imread(fullfile(path2,file2));
-imageT = im2double(imageT(:,:,1));
+    if( handles.Color_box.Value == 0)
+        imageT = im2double(imageT(:,:,1));
+    else 
+        imageT = im2double(imageT(:,:,:));
+    end
 handles.imageT = imageT;
 guidata(gca, handles);
 
@@ -165,6 +173,26 @@ imshow(handles.maskT.cut_im, 'Parent', handles.axes4);
 set(handles.error_text, 'String', 'Paste region selected, you can choose the method & then click on the paste button');
 hideAxes(handles);
 
+function [sol, image, new_cut] = color_mode_DF(handles)
+ for i = 1:3
+     handles.maskT.reload_pdt_mask(handles.t_init);
+     handles.maskS.reload_pdt_mask(handles.s_init);
+     handles.maskT.associate_im = handles.maskT.associate_im(:,:,i);
+     handles.maskS.associate_im = handles.maskS.associate_im(:,:,i);
+     rect(:,:,i) = handles.maskS.transform_to_rect(handles.maskS.associate_im);% resize S into a rect 
+     im(:,:,i) = copyPaste(handles.maskS, handles.maskT, handles.maskS.associate_im, handles.maskT.associate_im);
+     [sol(:,:,i), image(:,:,i), new_cut(:,:,i)] = clonage_v2(handles, handles.maskS, im(:,:,i), rect(:,:,i), handles.maskT);
+ end
+   
+function [new_cut, t, sol] = color_mode_Fourier(handles)
+ for i = 1:3
+     handles.maskT.reload_pdt_mask(handles.t_init);
+     handles.maskS.reload_pdt_mask(handles.s_init);
+     handles.maskT.associate_im = handles.maskT.associate_im(:,:,i);
+     handles.maskS.associate_im = handles.maskS.associate_im(:,:,i);
+    [new_cut(:,:,i), t(:,:,i), sol(:,:,i)] = fourier_clonage(handles, handles.maskS, handles.maskT);
+ end
+
 % --- Executes on button press in pasteButton.
 % First : simple cut/paste with copyPaste.
 % Then : blend with clonage_v2 function
@@ -187,15 +215,23 @@ if (handles.slider3.Value == 0 && handles.slider4.Value == 1)
     guidata(gca, handles);
 end
 if(handles.DFButton.Value == 1)
+    if (handles.Color_box.Value == 1)
+        [sol, image, new_cut] = color_mode_DF(handles);
+    else
     rect = handles.maskS.transform_to_rect(handles.maskS.associate_im);% resize S into a rect 
     [im] = copyPaste(handles.maskS, handles.maskT, handles.maskS.associate_im, handles.maskT.associate_im);
     [sol, image, new_cut] = clonage_v2(handles, handles.maskS, im, rect, handles.maskT);
+    end
     imshow(new_cut, 'Parent', handles.axes3);
     imshow(image, 'Parent', handles.axes5);
     imshow(sol, 'Parent', handles.axes4);
     
 elseif (handles.FourierButton.Value == 1)
-    [new_cut, t, sol] = fourier_clonage(handles, handles.maskS, handles.maskT);
+    if (handles.Color_box.Value == 1)
+        [new_cut, t, sol]=color_mode_Fourier(handles);
+    else
+        [new_cut, t, sol] = fourier_clonage(handles, handles.maskS, handles.maskT);
+    end
     imshow(new_cut, 'Parent', handles.axes3);
     imshow(sol, 'Parent', handles.axes5);
     imshow(t, 'Parent', handles.axes4);
@@ -226,7 +262,6 @@ size(handles.maskT.associate_im, 2)
 if(isfield(handles, 'maskS') && isfield(handles, 'maskT'))
     handles.maskS.reload_pdt_mask(handles.s_init);
     handles.maskT.reload_pdt_mask(handles.t_init);
-    set(handles.axes4, 'Value', handles.maskT.pos(1,2));
     fprintf('done');
 elseif(isfield(handles, 'maskS') && ~isfield(handles, 'maskT'))
     maskS = Mask();
@@ -366,6 +401,7 @@ function Color_box_Callback(hObject, eventdata, handles)
 % hObject    handle to Color_box (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
