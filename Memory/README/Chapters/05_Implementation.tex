@@ -1,19 +1,86 @@
-\subsection{Présentation de l'interface }
+Nous avons commencé à implémenter l'interface du projet.
+Voici une présentation de l'interface et ses fonctionnalités.
 
-Création d'une interface permettante de (1) choisir l'image Source qui sera coupée puis collée. (2) Choisir l'image Target qui sera l'image de fond. En cliquant sur l'une ou l'autre des images, il est possible de sélectionner une zone de l'image, afin de la récupérer. Des masques s'affichent alors dan (3) ou (4). Indique que la sélection s'est bien faite. 
-Enfin en cliquant sur "Paste", l'image finale apparait dans (5).
-Les fonctions : 
+\subsection{Interface}
+Voici comment se présente notre interface : 
+\begin{figure}[!h]
+    \centering
+    \includegraphics[scale = 0.2]{Images/interface.png}
+    \caption{Interface 1.0}
+\end{figure}{}
+\subsubsection{Ouverture d'images}
+Vous pouvez ouvrir n'importe quelle image en cliquant sur les boutons situés en haut à gauche de l'interface. EN cliquant sur eux, une boite de dialogue vous proposera de choisir une image présentes sur votre ordinateur. Une fois sélectionnée cette image sera affichée sur l'interface et nous pourrons travailler dessus. Image S correspond à l'image Source, c'est l'image que nous voulons coller. Et l'image T représente l'image Target, l'image sur laquelle nous souhaitons coller l'image S. C'est l'image d'arrière plan, en quelque sorte.\newline
+Ici nous avons choisi d'ouvrir ces deux images. L'image à coller s'affichera dans le premier rectangle, celui le plus haut. Tandis que l'image d'arrière plan s'affichera en dessous de la première. 
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[scale = 0.3]{Images/images_ouvertes.png}
+    \caption{Ouverture d'images}
+\end{figure}{}
+\newpage
+\subsubsection{Sélection}
+Une fois vos deux images ouvertes, il vous faut sélectionner la partie de l'image S que vous souhaitez coller dans l'image T. Pour cela cliquez une première fois sur l'image S : celle du haut puis cliquez une seconde fois pour dessiner sur l'image, la partie que vous souhaitez extraire. 
 \newline
-La fonction createmask 
-Elle prend en paramètre (L'image sur laquelle le découpage va s'effectuer.
-Elle commence par utiliser imfreehand  ce qui permet de dessiner et sélectionner une zone de l'image. La région d'intérêt "roi1". Une fois cette zone récupérée elle créée un masque "mask1" dans lequel tous les pixels situés à l'intérieur de "roi1", sont marqués comme true. ON récupère la position de la région d'intéret et la taille du masque.
-On modifie le masque afin de pouvoir trvaailler avec, en réalité on remplace juste les "0s" et "1s" par des int (0 ou 1). Ensuite pour afficher uniquement la sélection on multiplie le masque obtenu par l'image de départ. AInsi on obtient uniquement la zone sélectionnée et tout le reste de l'image vaut 0. \newline
-La fonction clonagev1. Elle prend en paramètre maskS, PosT et PosS et l'image source2. L'objectif ici est de coller les deux images l'une sur l'autre. ON récupère le masque qui a été créée sur l'image Source, la position de la région d'intérêt sur l'image source, la position où l'on doit coller le masque dans l'image T. ET l'image T. 
-On veut pouvoir coller l'image 1 sur l'image 2. POur ça on veut additionner les deux masques obtenus. Le premier masque est celui de l'image source, le second masque et celui de l'image Target qui sont complémentaires. 
-Pour pouvoir additionner les deux masques il faut qu'ils soient de la même taille. ON commence donc par ajuster la taille des images en agrandissant l'image la plus petite des 2. Puis on Bouge la zone qui nous intéresse à la position voulue dans l'image T. 
-On créée le second masque lié à l'image T qui doit être l'inverse de celui crée pour l'image  S. Et on additionne les deux masques pour obtenir l'image finale.
-\newline
-La fonction moveroi permet de bouger la région d'intérêt à la position voulue. On calcule la distance entre les deux points voulus et on circshift. 
-\newline
-La fonction adjustsize Permet d'agrandir le masque le plus petit afin qu'il soit de la même taille que la plus grande des deux images.\newline
-La fonction invertmask inverse le masque tous les 0 deviennent 1 et inversement. 
+Pour la seconde image, faites de même, cliquez une première fois sur l'image puis cliquez une seconde fois pour choisir l'endroit où vous souhaitez coller la partie sélectionnée plus tôt.  Voici ce que vous devriez obtenir. 
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[scale = 0.2]{Images/selection.png}
+    \caption{Sélection des parties}
+\end{figure}{}
+\subsubsection{Choix des méthodes}
+Vous pouvez sélectionner la méthode avec laquelle vous voulez coller l'image S dans l'image T. Vous avez pour l'instant deux méthodes : 
+\begin{itemize}
+    \item Avec les différences finies
+    \item Avec Fourier
+\end{itemize}{}
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[scale = 0.3]{Images/method.png}
+    \caption{Choisir une méthode}
+\end{figure}{}
+
+\subsubsection{Différences finies}
+Une fois la méthode DF choisie, il vous suffit de cliquer sur le bouton "Paste!" pour afficher le résultat. Ce résultat s'affiche dans la partie droite de l'interface. 
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[scale = 0.3]{Images/DF.png}
+    \caption{Différences finies}
+\end{figure}{}
+\newpage
+\subsubsection{Fourier}
+Pour afficher le résultat obtenus avec Fourier, il suffit de cocher la case Fourier
+\begin{figure}[!h]
+    \centering
+    \includegraphics[scale = 0.2]{Images/fourier.png}
+    \caption{Résultat obtenu avec la méthode de Fourier}
+\end{figure}{}
+Nous avons ajoutés des options comme l'option de zoom qui permet de zoomer sur une image pour voir de plus près le collage de l'image. 
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[scale = 0.3]{Images/zomm.png}
+    \caption{Zoom}
+\end{figure}{}
+\subsubsection{Amélioration avec change selection}
+\textbf{ATTENTION CETTE FONCTIONNALITE NE FONCTIONNE POUR L'INSTANT QU'AVEC LA METHODE DES DIFFERENCES FINIES}
+Nous avons aussi remarquer un problème en effectuant différents tests sur les images : 
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[scale = 0.15]{Images/pb.png}
+    \caption{Problème de collage}
+\end{figure}{}
+\newpage
+Ainsi nous avons ajouté, l'option Change sélection qui re-dimensionne automatique la sélection afin de résoudre ce pb. 
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[scale = 0.3]{Images/solve.png}
+    \caption{Résolution du problème}
+\end{figure}{}
+\newpage
+
+\subsubsection{Sliders}
+Vous pouvez bouger les sliders présents à droite afin de déplacer la zone collée dans l'image de fond. La solution au problème est alors automatiquement recalculée en fonction de l'endroit où l'objet à collé. 
+\begin{figure}[!h]
+    \centering
+    \includegraphics[scale = 0.2]{Images/move.png}
+    \caption{Modifier l'endroit de collage}
+\end{figure}

@@ -1,0 +1,35 @@
+Avec cette seconde méthode nous allons résoudre l'équation de Poisson à l'aide de la transformée de Fourier. Avant de formuler la résolution de ce problème. Rappelons la définition des opérateurs dont nous aurons besoin dans la suite
+\subsubsection{Rappel et définitions des opérateurs}
+\paragraph{Transformée de Fourier}
+Soit I une fonction, sa transformée de Fourier peut s'écrire de la façon suivante : 
+\begin{equation}
+\begin{aligned}
+\hat{I}(x,y) = \sum_{i = 0}^{W-1} \sum_{j = 0}{H-1} I(i,j) e^{-2\pi i\left(\frac{xi}{W}+\frac{yj}{H}\right)}
+\end{aligned}
+\end{equation}
+\paragraph{Gradient}
+Nous pouvons calculer le gradient d'une fonction dans le domaine de Fourier. Nous considérons toujours I la fonction que nous souhaitons étudier. 
+\begin{equation}
+\begin{aligned}
+\nabla (\hat{I}) =
+\begin{pmatrix}
+\frac{\partial\hat{I}}{\partial i}\\
+\frac{\partial \hat{I}}{\partial j}
+\end{pmatrix}
+\end{aligned}
+\end{equation}
+Avec 
+\begin{equation}
+\begin{aligned}
+\frac{\partial \hat{I}}{\partial i} = \left(\frac{2\pi i}{W}x\right) \hat{I}\\
+\frac{\partial \hat{I}}{\partial j} = \left(\frac{2\pi i}{H}y\right) \hat{I}\\
+\end{aligned}
+\end{equation}
+Enfin afin de retrouver la fonction initiale nous aurons besoin de la transformée de Fourier inverse : 
+\begin{equation}
+\begin{aligned}
+I(i,j) = \frac{1}{WH} \sum_{x = 0}^{W-1} \sum_{y = 0}^{H-1} \hat{I}(x,y) e^{2\pi i \left(\frac{xi}{W}+\frac{yj}{H}\right)}
+\end{aligned}
+\end{equation}
+
+\subsubsection{Résolution de la méthode Fourier}

@@ -32,11 +32,12 @@ Le résultat que nous attendons pour une incrustation "réussie" est un résulta
      \caption{Image  finale attendue}
 \end{figure}
 \end{center}
-Cette image est extraite d'une simulation effectuée sur 'ipol.im/...'.Nous comparerons nos images obtenues avec celle-ci à la fin de ce rapport.\newline
-Ce résultat semble naturel, les marques et bords de l'image qui a été collée sont très peu visibles, les oiseaux semblent faire partie de l'image finale.
+Cette image est extraite d'une simulation effectuée sur 'ipol.im/...'.Nous comparerons les images obtenues avec nos algorithmes avec celle-ci à la fin de ce rapport.\newline
+\paragraph{Remarques}
+Ce résultat semble naturel, les frontières entre l'image collée et l'arrière plan sont très peu visibles, les oiseaux semblent faire partie de l'image finale.
 Mais comment obtenir un tel résultat ? 
 \newline
-Reprenons nos deux images séparées, T et S. Commençons par effectuer un simple copier/coller. Pour faire cela, il suffit de prendre une partie de l'image S,  puis de la transférer à l'endroit voulu dans l'image T. En effectuant cette manipulation voici l'image que nous devrions obtenir : 
+Reprenons nos deux images séparées, T et S.  Commençons par effectuer un simple copier/coller. Certains pixels de T sont donc écrasés par ceux de S. En effectuant cette manipulation voici l'image que nous devrions obtenir : 
 \begin{center}
 \begin{figure}[H]
      \centering
@@ -45,9 +46,9 @@ Reprenons nos deux images séparées, T et S. Commençons par effectuer un simpl
 \end{figure}
 \end{center}
 
-Ce résultat n'est bien entendu pas convenable et bien loin de l'image finale attendue. Le découpage et la démarcation entre image originale et image collée sont beaucoup trop visibles, les couleurs ne sont pas les mêmes et incohérentes. Nous souhaitons obtenir un résultat beaucoup plus naturel, comme écrit plus haut. Cette simple manipulation n'est donc pas suffisante pour effectuer le clônage cohérent d'une image dans une autre. \newline
+Ce résultat n'est bien entendu pas convenable et bien loin de l'image finale attendue. Le découpage et le collage entre l'arrière-plan et l'image "objet" sont beaucoup trop visibles, les couleurs ne sont pas les mêmes et incohérentes. Nous souhaitons obtenir un résultat beaucoup plus naturel, comme écrit plus haut. Cette simple manipulation n'est donc pas suffisante pour effectuer le clônage cohérent  d'une image dans une autre. \newline
 
-Il semble donc évident de vouloir modifier l'image finale obtenue afin qu'elle paraisse la plus naturelle possible. Nous verrons tout au long de ce rapport, quels sont les changements a effectuer, et comment la résolution d'une équation aux dérivées partielles, nous permet d'obtenir un bien meilleur résultat. 
+Il semble évident de vouloir modifier l'image finale obtenue afin qu'elle paraisse la plus naturelle possible. Nous verrons tout au long de ce rapport, quels sont les changements a effectuer, et comment la résolution d'une équation aux dérivées partielles, nous permet d'obtenir un bien meilleur résultat. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %           TRADUCTION SOUS FORMES MATHEMATIQUES         %
@@ -69,16 +70,16 @@ Ici :
     \item I est notre inconnue, la partie de l'image que nous ne connaissons pas et que nous voulons remplir.
 \end{itemize}
 
-Nous souhaitons en effet, trouver une fonction I qui satisfasse un certain nombre de critères, afin de correspondre au résultat voulu.  
-IL faut donc déterminer la fonction $I$.Cette fonction représente notre image modifiée. Mais quelles sont les conditions qu'elle doit remplir pour que le rendu soit le meilleur possible? Notre nouvelle image I doit-elle être plus proche de l'image collée S, ou de l'image d'arrière-plan T ? \newline
+Nous souhaitons donc trouver une fonction I qui satisfasse un certain nombre de critères, afin de correspondre au résultat voulu.  
+Cette fonction représente notre image modifiée. Mais quelles sont les conditions qu'elle doit remplir pour que le rendu soit le meilleur possible? Notre nouvelle image I doit-elle être plus proche de l'image collée S, ou de l'image d'arrière-plan T ? \newline
 Pour répondre à cette question, reprenons le problème de départ. \newline
 
-Pour que l'image obtenue paraisse naturelle,il faut que l'image obtenue dénature le moins possible les deux images sélectionnées au départ. En effet, nous devons garder les détails de l'image collée S, ne pas modifier les variations qu'elle pourrait posséder comme les contours des objets lui appartenant, par exemple.Nous devons pouvoir retrouver les informations présentes dans celle-ci. Il faut donc que les variations présentes dans $I$ soient presque identiques à celles de S. Mathématiquement, cela est équivalent à dire que les gradients de $I$ et S soient très proches, voir identiques. Donc à résoudre cette équation :
+Pour que l'image obtenue paraisse naturelle,il faut que celle-ci dénature le moins possible les deux images sélectionnées au départ. En effet, nous devons garder les détails de l'image que nous voulons coller, S, ne pas modifier les variations qu'elle pourrait posséder comme les contours des objets lui appartenant, par exemple.Nous devons pouvoir retrouver les informations présentes dans celle-ci. Il faut donc que les variations présentes dans $I$ soient presque identiques à celles de S. Mathématiquement, de manière équivalente, nous cherchons une fonction I dont le gradient est le plus proche possible, ou identique à celui de l'image collée, S. Nous cherchons donc :
 \begin{center}
     $$ min \iint_\Omega || \nabla I_{x,y} - \nabla S_{x,y}||^2 dxdy$$
 \end{center} 
 
-Mais les démarcations entre l'image collée  et l'image d'arrière-plan T, ne doivent pas non plus être visibles, il faut donc que les pixels se situant sur cette partie là, i.e $\partial \Omega$, soient le plus proches possible de T .  Nous voulons donc, mathématiquement, chercher : 
+Mais les démarcations entre notre image collée et l'image d'arrière-plan T, ne doivent pas non plus être visibles, il faut donc que les pixels se situant sur cette partie là, i.e $\partial \Omega$, soient le plus proches possible de T .  Nous voulons donc, mathématiquement, chercher la fonction I qui vérifie: 
 \begin{center}
     $I_{(x,y)} = T_{x,y} \ sur\ \partial \Omega$
 \end{center}
@@ -98,40 +99,55 @@ Réécrivons le problème mathématique que nous cherchons à résoudre :
 \end{center}
 
 
-\subsection{Résolution dans le cas discret}
-Notons $g(\nabla f, v)$ la fonction  : 
-$$g(\nabla f, v) =\int ||\nabla f-v ||^2$$ 
-\newline
-Rappelons qu'ici $\nabla f$ est le gradient de f que l'on peut noter $\nabla f = (\frac{\partial f}{\partial x} \frac{\partial f}{\partial y})^T$ et v est un vecteur que l'on notera $v = (v_x, v_y)$. 
-Ainsi nous pouvons réecrire g sous la forme suivante : 
-$$g(\nabla f, v) =\int( (\frac{\partial f}{\partial x}-v_x)^2+(\frac{\partial f}{\partial y}-v_y)^2) $$\newline
-
-Mais la fonction f qui minimise le problème posé,  satisfait l'équation d'Euler-Lagrange ci-dessous : 
-
-\begin{equation*}
-    \frac{\partial g}{\partial f}-\frac{d}{dx}\frac{\partial g}{\partial f   }-\frac{d}{dy}\frac{\partial g}{\partial f}= 0 \\
-\end{equation*}
-\begin{equation*}
-    \frac{\partial g}{\partial f}-\frac{d}{dx}\frac{\partial g}{\partial f}-\frac{d}{dy}\frac{\partial g}{\partial f}= 0 \\
-\end{equation*}
-
-\begin{equation*}
-    2\times()
-\end{equation*}
-
+\subsection{Résolution}
+Pour résoudre cette équation, nous devons trouver le minimum de la fonction g suivante  : 
 \begin{center}
-    \includegraphics[width = 100pt]{Images/EXPLICATIONS_needed.png}
-\end{center}
-
-\begin{equation*}
-    2(\frac{\partial^2 f}{\partial x^2}-\frac{\partial v_x}{\partial x}+\frac{\partial^2 f}{\partial y^2}\frac{\partial v_y}{\partial y}) = 0 ?
-\end{equation*}
-
 \begin{equation}
-    \Delta f = div v
+\begin{aligned}
+g(I) = \int_\Omega || \nabla I(x) - v(x)||^2 dx\\
+\end{aligned}
 \end{equation}
+\end{center}
+Si g admet un minimum alors, celui-ci annule son gradient. 
+\subparagraph{Calcul du gradient de g}
+\begin{equation*} 
+\begin{aligned}
+    g(I+\epsilon u) -g(I) =  \int_\Omega || \nabla (I+\epsilon u) - v||^2 - ||\nabla I -v ||^2 dx\\
+\end{aligned}
+\end{equation*}
+En  développant : 
+\begin{equation*} 
+\left.
+\begin{aligned}
+    g(I+\epsilon u) -g(I) &=  \int_\Omega || \nabla I - v||^2+ ||\nabla \epsilon u||^2 +<2(\nabla I - v), \epsilon \nabla u>  - ||\nabla I -v ||^2 dx\\
+  &=  \int_\Omega \epsilon ^2||\nabla u||^2 +<2(\nabla I - v), \epsilon \nabla u> dx\\
+    & = 2\int_\Omega (\nabla I - v) \times (\nabla \epsilon u ) + O (\epsilon^2) \\ 
+      &  =   -2\epsilon\int_\Omega <\nabla I - v,  \nabla u> + O (\epsilon^2) \\ 
+         &  = -2\int_\Omega<\nabla I - v,  \nabla u > + O (\epsilon)\\ 
+    & =  2 <div(\nabla I - v), u > + O (\epsilon)\\
+\end{aligned}
+\right.
+\end{equation*}
+Par identification, le gradient de g vaut 
+\begin{center}
+		$\nabla g(I) = (\Delta I-div( v))$
+\end{center} 
+Le minimum de g annule son gradient donc on cherche I tel que : 
+\begin{center}
+		$0= (\Delta I-div( v))$
+\end{center}
+Ici v = $\nabla S$ 
+\begin{center}
+		$\Delta I =div(\nabla S)$\\
+		$\Delta I = \Delta S$
+		
+\end{center} 
 
-
+Trouver le minimum de la fonction revient donc à résoudre l'équation : 
+\begin{center}
+$\Delta I = \Delta S$
+\end{center}
+Cette équation est l'équation de Poisson. 
 
 Résoudre ce problème variationnel est équivalent à résoudre l'équation de poisson avec conditions aux bords de Dirichlet, suivante :
 \begin{center}
@@ -146,4 +162,3 @@ Résoudre ce problème variationnel est équivalent à résoudre l'équation de 
 \end{center}
 
 Nous verrons deux approches afin de résoudre cette équation, la première utilisant des discrétisations, la seconde la méthode de Fourier. 
-

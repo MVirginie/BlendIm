@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.3.3)  6 MAR 2020 20:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.3.3)  18 APR 2020 19:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -602,6 +602,22 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \float@box=\box39
 \@float@everytoks=\toks41
 \@floatcapt=\box40
+)
+(/usr/share/texlive/texmf-dist/tex/generic/systeme/systeme.sty
+(/usr/share/texlive/texmf-dist/tex/generic/xstring/xstring.sty
+(/usr/share/texlive/texmf-dist/tex/generic/xstring/xstring.tex
+\@xs@message=\write4
+\integerpart=\count140
+\decimalpart=\count141
+)
+Package: xstring 2013/10/13  v1.7c  String manipulations (C Tellechea)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/systeme/systeme.tex
+\SYS@systemecode=\toks42
+\SYS@systempreamble=\toks43
+\SYSeqnum=\count142
+)
+Package: systeme 2018/01/01 v0.31 Mise en forme de systemes d'equations (CT)
 ) (./main.aux
 
 LaTeX Warning: Label `fig:my_label' multiply defined.
@@ -609,20 +625,20 @@ LaTeX Warning: Label `fig:my_label' multiply defined.
 )
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
  (/usr/share/texlive/texmf-dist/tex/latex/ucs/ucsencs.def
 File: ucsencs.def 2011/01/21 Fixes to fontencodings LGR, T3
 )
@@ -662,17 +678,17 @@ File: ucsencs.def 2011/01/21 Fixes to fontencodings LGR, T3
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count140
+\scratchcounter=\count143
 \scratchdimen=\dimen175
 \scratchbox=\box41
-\nofMPsegments=\count141
-\nofMParguments=\count142
-\everyMPshowfont=\toks42
-\MPscratchCnt=\count143
+\nofMPsegments=\count144
+\nofMParguments=\count145
+\everyMPshowfont=\toks44
+\MPscratchCnt=\count146
 \MPscratchDim=\dimen176
-\MPnumerator=\count144
-\makeMPintoPDFobject=\count145
-\everyMPtoPDFconversion=\toks43
+\MPnumerator=\count147
+\makeMPintoPDFobject=\count148
+\everyMPtoPDFconversion=\toks45
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -692,7 +708,7 @@ e
 ))
 ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box42
-Package hyperref Info: Link coloring OFF on input line 13.
+Package hyperref Info: Link coloring OFF on input line 14.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -700,95 +716,100 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count146
+\c@section@level=\count149
 )
-LaTeX Info: Redefining \ref on input line 13.
-LaTeX Info: Redefining \pageref on input line 13.
-LaTeX Info: Redefining \nameref on input line 13.
+LaTeX Info: Redefining \ref on input line 14.
+LaTeX Info: Redefining \pageref on input line 14.
+LaTeX Info: Redefining \nameref on input line 14.
 
 (./main.out) (./main.out)
-\@outlinefile=\write4
-\openout4 = `main.out'.
+\@outlinefile=\write5
+\openout5 = `main.out'.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-0.def
 File: uni-0.def 2013/05/13 UCS: Unicode data U+0000..U+00FF
 )
-<Images/logo.png, id=75, 317.185pt x 115.43124pt>
+<Images/logo.png, id=115, 317.185pt x 115.43124pt>
 File: Images/logo.png Graphic file (type png)
 <use Images/logo.png>
-Package pdftex.def Info: Images/logo.png  used on input line 38.
+Package pdftex.def Info: Images/logo.png  used on input line 39.
 (pdftex.def)             Requested size: 426.82608pt x 155.33226pt.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./Images/logo.png>] (./mai
 n.toc)
-\tf@toc=\write5
-\openout5 = `main.toc'.
+\tf@toc=\write6
+\openout6 = `main.toc'.
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.45 \newpage
+l.46 \newpage
               [1] (./Chapters/01_Probleme.tex
-<Images/Montagne.jpg, id=107, 2449.15pt x 2168.1pt>
+<Images/Montagne.jpg, id=157, 2449.15pt x 2168.1pt>
 File: Images/Montagne.jpg Graphic file (type jpg)
 <use Images/Montagne.jpg>
 Package pdftex.def Info: Images/Montagne.jpg  used on input line 15.
 (pdftex.def)             Requested size: 150.0pt x 132.76007pt.
-<Images/Oiseau.jpg, id=108, 310.42148pt x 143.81245pt>
+<Images/Oiseau.jpg, id=158, 310.42148pt x 143.81245pt>
 File: Images/Oiseau.jpg Graphic file (type jpg)
 <use Images/Oiseau.jpg>
 Package pdftex.def Info: Images/Oiseau.jpg  used on input line 20.
 (pdftex.def)             Requested size: 150.0pt x 69.4944pt.
-<Images/clonage_done.png, id=109, 460.72125pt x 381.425pt>
+<Images/clonage_done.png, id=159, 460.72125pt x 381.425pt>
 File: Images/clonage_done.png Graphic file (type png)
 <use Images/clonage_done.png>
 Package pdftex.def Info: Images/clonage_done.png  used on input line 31.
 (pdftex.def)             Requested size: 150.0pt x 124.18282pt.
-<Images/collage1.jpg, id=110, 6865.65pt x 2256.43pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 35--36
+
+ []
+
+<Images/collage1.jpg, id=160, 6865.65pt x 2256.43pt>
 File: Images/collage1.jpg Graphic file (type jpg)
 <use Images/collage1.jpg>
-Package pdftex.def Info: Images/collage1.jpg  used on input line 43.
+Package pdftex.def Info: Images/collage1.jpg  used on input line 44.
 (pdftex.def)             Requested size: 200.0pt x 65.72745pt.
- [2pdfTeX warning (ext4): destination with the same identifier (name{figure.1})
- has been already used, duplicate ignored
+[2pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) 
+has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.46 \end{center}
+l.47 \end{center}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{figure.2}) has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.46 \end{center}
+l.47 \end{center}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{figure.3}) has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.46 \end{center}
+l.47 \end{center}
                   <./Images/Montagne.jpg> <./Images/Oiseau.jpg> <./Images/clona
 ge_done.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 48--49
+Underfull \hbox (badness 10000) in paragraph at lines 49--50
 
  []
 
-<Images/Schee.jpg, id=118, 3293.30376pt x 1823.81375pt>
+<Images/Schee.jpg, id=169, 3293.30376pt x 1823.81375pt>
 File: Images/Schee.jpg Graphic file (type jpg)
 <use Images/Schee.jpg>
-Package pdftex.def Info: Images/Schee.jpg  used on input line 60.
+Package pdftex.def Info: Images/Schee.jpg  used on input line 61.
 (pdftex.def)             Requested size: 200.0pt x 110.73207pt.
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 65.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 66.
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 65.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 66.
 
-Underfull \hbox (badness 10000) in paragraph at lines 72--75
+Underfull \hbox (badness 10000) in paragraph at lines 73--76
 
  []
 
@@ -797,97 +818,264 @@ has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.78 ...\nabla I_{x,y} - \nabla S_{x,y}||^2 dxdy$$
+l.79 ...\nabla I_{x,y} - \nabla S_{x,y}||^2 dxdy$$
                                                    <./Images/collage1.jpg> <./I
-mages/Schee.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 107--108
-
- []
-
-<Images/EXPLICATIONS_needed.png, id=126, 184.43906pt x 164.86594pt>
-File: Images/EXPLICATIONS_needed.png Graphic file (type png)
-<use Images/EXPLICATIONS_needed.png>
-Package pdftex.def Info: Images/EXPLICATIONS_needed.png  used on input line 123
-.
-(pdftex.def)             Requested size: 100.0pt x 89.386pt.
-) [4 <./Images/EXPLICATIONS_needed.png>] (./Chapters/02_Resolution.tex)
+mages/Schee.jpg>] [4]) (./Chapters/02_Resolution.tex)
 (./Chapters/03_Discretisation.tex
-<Images/Montagne_grille.jpg, id=137, 2433.09pt x 2095.83pt>
+<Images/Montagne_grille.jpg, id=187, 2433.09pt x 2095.83pt>
 File: Images/Montagne_grille.jpg Graphic file (type jpg)
 <use Images/Montagne_grille.jpg>
 Package pdftex.def Info: Images/Montagne_grille.jpg  used on input line 7.
 (pdftex.def)             Requested size: 170.3337pt x 146.72308pt.
-<Images/grille.jpg, id=138, 401.5pt x 301.125pt>
-File: Images/grille.jpg Graphic file (type jpg)
-<use Images/grille.jpg>
-Package pdftex.def Info: Images/grille.jpg  used on input line 15.
-(pdftex.def)             Requested size: 200.7495pt x 150.56212pt.
+<Images/grille.png, id=188, 687.56876pt x 493.845pt>
+File: Images/grille.png Graphic file (type png)
+<use Images/grille.png>
+Package pdftex.def Info: Images/grille.png  used on input line 15.
+(pdftex.def)             Requested size: 343.78354pt x 246.92189pt.
  [5pdfTeX warning (ext4): destination with the same identifier (name{figure.5})
  has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
 l.20 \newpage
-              <./Images/Montagne_grille.jpg>]
-<Images/Laplacian.png, id=144, 100.375pt x 100.375pt>
+              <./Images/Montagne_grille.jpg>] [6pdfTeX warning (ext4): destinat
+ion with the same identifier (name{figure.6}) has been already used, duplicate 
+ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.73 \end{equation*}
+                     <./Images/grille.png>]
+<Images/Laplacian.png, id=206, 100.375pt x 100.375pt>
 File: Images/Laplacian.png Graphic file (type png)
 <use Images/Laplacian.png>
-Package pdftex.def Info: Images/Laplacian.png  used on input line 77.
+Package pdftex.def Info: Images/Laplacian.png  used on input line 84.
 (pdftex.def)             Requested size: 80.3001pt x 80.3001pt.
- [6pdfTeX warning (ext4): destination with the same identifier (name{figure.6})
+
+Underfull \hbox (badness 10000) in paragraph at lines 88--90
+
+ []
+
+[7 <./Images/Laplacian.png>]
+<Images/square.png, id=216, 628.3475pt x 617.30624pt>
+File: Images/square.png Graphic file (type png)
+<use Images/square.png>
+Package pdftex.def Info: Images/square.png  used on input line 171.
+(pdftex.def)             Requested size: 62.83842pt x 61.73424pt.
+<Images/pix.png, id=217, 456.70625pt x 448.67625pt>
+File: Images/pix.png Graphic file (type png)
+<use Images/pix.png>
+Package pdftex.def Info: Images/pix.png  used on input line 173.
+(pdftex.def)             Requested size: 45.6733pt x 44.87024pt.
+<Images/carre_selection.png, id=218, 331.2375pt x 326.21875pt>
+File: Images/carre_selection.png Graphic file (type png)
+<use Images/carre_selection.png>
+Package pdftex.def Info: Images/carre_selection.png  used on input line 179.
+(pdftex.def)             Requested size: 99.37201pt x 97.86636pt.
+<Images/numerote.png, id=219, 332.24126pt x 326.21875pt>
+File: Images/numerote.png Graphic file (type png)
+<use Images/numerote.png>
+Package pdftex.def Info: Images/numerote.png  used on input line 185.
+(pdftex.def)             Requested size: 99.67314pt x 97.86636pt.
+ [8pdfTeX warning (ext4): destination with the same identifier (name{figure.7})
  has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.78 \end{center}
-                  <./Images/grille.jpg>]
-<Images/image_needed.png, id=153, 184.43906pt x 164.86594pt>
-File: Images/image_needed.png Graphic file (type png)
-<use Images/image_needed.png>
-Package pdftex.def Info: Images/image_needed.png  used on input line 116.
-(pdftex.def)             Requested size: 200.0pt x 178.77452pt.
-) (./Chapters/04_Fourier.tex)
-(./Chapters/05_Implementation.tex) [7 <./Images/Laplacian.png> <./Images/image_
-needed.png>] (./Chapters/05bis_Resultats_obtenus.tex)
-(./Chapters/06_Comparaison.tex) (./Chapters/07_Optimisation.tex)
-(./Chapters/08_Conclusion.tex) [8]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 65.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 65.
+l.206 \end{equation}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{figure.8}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.206 \end{equation}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{figure.9}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.206 \end{equation}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{figure.10}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.206 \end{equation}
+                     <./Images/square.png> <./Images/pix.png> <./Images/carre_s
+election.png> <./Images/numerote.png>]
+<Images/matrice.png, id=237, 867.24pt x 356.33125pt>
+File: Images/matrice.png Graphic file (type png)
+<use Images/matrice.png>
+Package pdftex.def Info: Images/matrice.png  used on input line 212.
+(pdftex.def)             Requested size: 433.61894pt x 178.16518pt.
+ [9pdfTeX warning (ext4): destination with the same identifier (name{figure.11}
+) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.249 \end{equation}
+                     <./Images/matrice.png>]) (./Chapters/04_Fourier.tex)
+(./Chapters/05_Implementation.tex
+<Images/interface.png, id=246, 1302.8675pt x 642.4pt>
+File: Images/interface.png Graphic file (type png)
+<use Images/interface.png>
+Package pdftex.def Info: Images/interface.png  used on input line 8.
+(pdftex.def)             Requested size: 260.56888pt x 128.47772pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<Images/images_ouvertes.png, id=247, 766.865pt x 351.3125pt>
+File: Images/images_ouvertes.png Graphic file (type png)
+<use Images/images_ouvertes.png>
+Package pdftex.def Info: Images/images_ouvertes.png  used on input line 16.
+(pdftex.def)             Requested size: 230.06128pt x 105.39455pt.
+[10] [11pdfTeX warning (ext4): destination with the same identifier (name{figur
+e.12}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.19 \newpage
+             pdfTeX warning (ext4): destination with the same identifier (name{
+figure.13}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.19 \newpage
+              <./Images/interface.png> <./Images/images_ouvertes.png>]
+<Images/selection.png, id=268, 1300.86pt x 584.1825pt>
+File: Images/selection.png Graphic file (type png)
+<use Images/selection.png>
+Package pdftex.def Info: Images/selection.png  used on input line 26.
+(pdftex.def)             Requested size: 260.16739pt x 116.83443pt.
+<Images/method.png, id=269, 764.8575pt x 337.26pt>
+File: Images/method.png Graphic file (type png)
+<use Images/method.png>
+Package pdftex.def Info: Images/method.png  used on input line 37.
+(pdftex.def)             Requested size: 229.45901pt x 101.17877pt.
+<Images/DF.png, id=270, 770.88pt x 356.33125pt>
+File: Images/DF.png Graphic file (type png)
+<use Images/DF.png>
+Package pdftex.def Info: Images/DF.png  used on input line 45.
+(pdftex.def)             Requested size: 231.26578pt x 106.90019pt.
+ [12pdfTeX warning (ext4): destination with the same identifier (name{figure.14
+}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.48 \newpage
+             pdfTeX warning (ext4): destination with the same identifier (name{
+figure.15}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.48 \newpage
+              <./Images/selection.png> <./Images/method.png>]
+<Images/fourier.png, id=280, 1287.81125pt x 590.205pt>
+File: Images/fourier.png Graphic file (type png)
+<use Images/fourier.png>
+Package pdftex.def Info: Images/fourier.png  used on input line 53.
+(pdftex.def)             Requested size: 257.5577pt x 118.0389pt.
+<Images/zomm.png, id=281, 766.865pt x 351.3125pt>
+File: Images/zomm.png Graphic file (type png)
+<use Images/zomm.png>
+Package pdftex.def Info: Images/zomm.png  used on input line 60.
+(pdftex.def)             Requested size: 230.06128pt x 105.39455pt.
+<Images/pb.png, id=282, 1292.83pt x 557.08125pt>
+File: Images/pb.png Graphic file (type png)
+<use Images/pb.png>
+Package pdftex.def Info: Images/pb.png  used on input line 68.
+(pdftex.def)             Requested size: 193.91614pt x 83.55858pt.
+ [13pdfTeX warning (ext4): destination with the same identifier (name{figure.16
+}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.71 \newpage
+             pdfTeX warning (ext4): destination with the same identifier (name{
+figure.17}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.71 \newpage
+             pdfTeX warning (ext4): destination with the same identifier (name{
+figure.18}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.71 \newpage
+              <./Images/DF.png> <./Images/fourier.png> <./Images/zomm.png>]
+<Images/solve.png, id=293, 761.84625pt x 325.215pt>
+File: Images/solve.png Graphic file (type png)
+<use Images/solve.png>
+Package pdftex.def Info: Images/solve.png  used on input line 75.
+(pdftex.def)             Requested size: 228.55563pt x 97.56525pt.
+
+[14pdfTeX warning (ext4): destination with the same identifier (name{figure.19}
+) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.78 \newpage
+             pdfTeX warning (ext4): destination with the same identifier (name{
+figure.20}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.78 \newpage
+              <./Images/pb.png> <./Images/solve.png>]
+<Images/move.png, id=302, 768.8725pt x 336.25626pt>
+File: Images/move.png Graphic file (type png)
+<use Images/move.png>
+Package pdftex.def Info: Images/move.png  used on input line 84.
+(pdftex.def)             Requested size: 153.77177pt x 67.25005pt.
+)
+(./Chapters/05bis_Resultats_obtenus.tex) (./Chapters/06_Comparaison.tex)
+(./Chapters/07_Optimisation.tex) (./Chapters/08_Conclusion.tex) [15pdfTeX warni
+ng (ext4): destination with the same identifier (name{figure.21}) has been alre
+ady used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.66 \end{document}
+                    <./Images/move.png>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 66.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 66.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 65.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 65.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 66.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 66.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: C8C8206C196F1087C73B5D9DD5D1A20A;1176.
+(rerunfilecheck)             Checksum: E84129A2A8BC0C29EAE7C38D1A218424;1973.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 65.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 66.
  ) 
 Here is how much of TeX's memory you used:
- 17846 strings out of 494880
- 328515 string characters out of 6179602
- 408403 words of memory out of 5000000
- 20779 multiletter control sequences out of 15000+600000
+ 18360 strings out of 494880
+ 336518 string characters out of 6179602
+ 421034 words of memory out of 5000000
+ 21221 multiletter control sequences out of 15000+600000
  6820 words of font info for 25 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 62i,9n,56p,711b,596s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,15n,56p,756b,596s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/tex
 live/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/t
 exmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-sy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pf
-b>
-Output written on main.pdf (9 pages, 5830137 bytes).
+ist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pf
+b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
+Output written on main.pdf (16 pages, 6804322 bytes).
 PDF statistics:
- 221 PDF objects out of 1000 (max. 8388607)
- 183 compressed objects within 2 object streams
- 40 named destinations out of 1000 (max. 500000)
- 204 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 373 PDF objects out of 1000 (max. 8388607)
+ 298 compressed objects within 3 object streams
+ 88 named destinations out of 1000 (max. 500000)
+ 349 words of extra memory for PDF output out of 10000 (max. 10000000)
 
