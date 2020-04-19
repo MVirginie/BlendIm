@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.3.3)  19 APR 2020 21:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.3.3)  19 APR 2020 22:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -963,18 +963,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 86--87
 File: Images/Resultats/LuneLand.png Graphic file (type png)
 <use Images/Resultats/LuneLand.png>
 Package pdftex.def Info: Images/Resultats/LuneLand.png  used on input line 4.
-(pdftex.def)             Requested size: 150.0pt x 219.7163pt.
+(pdftex.def)             Requested size: 120.0pt x 175.76654pt.
 <Images/Resultats/LuneDF.png, id=300, 305.14pt x 218.8175pt>
 File: Images/Resultats/LuneDF.png Graphic file (type png)
 <use Images/Resultats/LuneDF.png>
 Package pdftex.def Info: Images/Resultats/LuneDF.png  used on input line 9.
-(pdftex.def)             Requested size: 150.0pt x 107.56874pt.
+(pdftex.def)             Requested size: 120.0pt x 86.053pt.
 <Images/Resultats/LuneFourier.png, id=301, 301.125pt x 222.8325pt>
 File: Images/Resultats/LuneFourier.png Graphic file (type png)
 <use Images/Resultats/LuneFourier.png>
 Package pdftex.def Info: Images/Resultats/LuneFourier.png  used on input line 1
 4.
-(pdftex.def)             Requested size: 150.0pt x 111.00455pt.
+(pdftex.def)             Requested size: 120.0pt x 88.8016pt.
 <Images/Resultats/LuneDFChangeSel.png, id=302, 299.1175pt x 218.8175pt>
 File: Images/Resultats/LuneDFChangeSel.png Graphic file (type png)
 <use Images/Resultats/LuneDFChangeSel.png>
@@ -990,37 +990,37 @@ File: Images/Resultats/LuneOiseau.png Graphic file (type png)
 <use Images/Resultats/LuneOiseau.png>
 Package pdftex.def Info: Images/Resultats/LuneOiseau.png  used on input line 28
 .
-(pdftex.def)             Requested size: 150.0pt x 222.15932pt.
+(pdftex.def)             Requested size: 120.0pt x 177.72208pt.
 <Images/Resultats/LuneOiseauD.png, id=304, 316.18124pt x 256.96pt>
 File: Images/Resultats/LuneOiseauD.png Graphic file (type png)
 <use Images/Resultats/LuneOiseauD.png>
 Package pdftex.def Info: Images/Resultats/LuneOiseauD.png  used on input line 3
 3.
-(pdftex.def)             Requested size: 150.0pt x 121.90434pt.
+(pdftex.def)             Requested size: 120.0pt x 97.52034pt.
 <Images/Resultats/LuneOiseauF.png, id=305, 317.185pt x 263.98625pt>
 File: Images/Resultats/LuneOiseauF.png Graphic file (type png)
 <use Images/Resultats/LuneOiseauF.png>
 Package pdftex.def Info: Images/Resultats/LuneOiseauF.png  used on input line 3
 8.
-(pdftex.def)             Requested size: 150.0pt x 124.84291pt.
+(pdftex.def)             Requested size: 120.0pt x 99.87271pt.
 <Images/Resultats/OiseauMont.png, id=306, 204.765pt x 355.3275pt>
 File: Images/Resultats/OiseauMont.png Graphic file (type png)
 <use Images/Resultats/OiseauMont.png>
 Package pdftex.def Info: Images/Resultats/OiseauMont.png  used on input line 47
 .
-(pdftex.def)             Requested size: 150.0pt x 260.30862pt.
+(pdftex.def)             Requested size: 120.0pt x 208.23714pt.
 <Images/Resultats/oiseauRenduDF.png, id=307, 203.76125pt x 219.82124pt>
 File: Images/Resultats/oiseauRenduDF.png Graphic file (type png)
 <use Images/Resultats/oiseauRenduDF.png>
 Package pdftex.def Info: Images/Resultats/oiseauRenduDF.png  used on input line
  52.
-(pdftex.def)             Requested size: 150.0pt x 161.82997pt.
+(pdftex.def)             Requested size: 120.0pt x 129.4586pt.
 <Images/Resultats/OiseauRenduFourier.png, id=308, 204.765pt x 220.825pt>
 File: Images/Resultats/OiseauRenduFourier.png Graphic file (type png)
 <use Images/Resultats/OiseauRenduFourier.png>
 Package pdftex.def Info: Images/Resultats/OiseauRenduFourier.png  used on input
  line 57.
-(pdftex.def)             Requested size: 150.0pt x 161.77371pt.
+(pdftex.def)             Requested size: 120.0pt x 129.4129pt.
 <Images/Resultats/zoomOiseauDF.png, id=309, 201.75375pt x 223.83624pt>
 File: Images/Resultats/zoomOiseauDF.png Graphic file (type png)
 <use Images/Resultats/zoomOiseauDF.png>
@@ -1035,124 +1035,190 @@ File: Images/Resultats/otariePlage.png Graphic file (type png)
 <use Images/Resultats/otariePlage.png>
 Package pdftex.def Info: Images/Resultats/otariePlage.png  used on input line 7
 1.
-(pdftex.def)             Requested size: 150.0pt x 172.37941pt.
+(pdftex.def)             Requested size: 120.0pt x 137.89716pt.
 <Images/Resultats/OtariePlageD.png, id=311, 393.47pt x 262.9825pt>
 File: Images/Resultats/OtariePlageD.png Graphic file (type png)
 <use Images/Resultats/OtariePlageD.png>
 Package pdftex.def Info: Images/Resultats/OtariePlageD.png  used on input line 
 76.
-(pdftex.def)             Requested size: 150.0pt x 100.25139pt.
+(pdftex.def)             Requested size: 120.0pt x 80.20352pt.
 <Images/Resultats/OtariePlageF.png, id=312, 393.47pt x 262.9825pt>
 File: Images/Resultats/OtariePlageF.png Graphic file (type png)
 <use Images/Resultats/OtariePlageF.png>
 Package pdftex.def Info: Images/Resultats/OtariePlageF.png  used on input line 
 81.
-(pdftex.def)             Requested size: 150.0pt x 100.25139pt.
+(pdftex.def)             Requested size: 120.0pt x 80.20352pt.
+<Images/Resultats/avionlac.png, id=313, 231.86626pt x 362.35374pt>
+File: Images/Resultats/avionlac.png Graphic file (type png)
+<use Images/Resultats/avionlac.png>
+Package pdftex.def Info: Images/Resultats/avionlac.png  used on input line 89.
+(pdftex.def)             Requested size: 120.0pt x 187.53485pt.
+<Images/Resultats/avion.png, id=314, 296.10625pt x 223.83624pt>
+File: Images/Resultats/avion.png Graphic file (type png)
+<use Images/Resultats/avion.png>
+Package pdftex.def Info: Images/Resultats/avion.png  used on input line 94.
+(pdftex.def)             Requested size: 120.0pt x 90.71124pt.
+<Images/Resultats/avionFourier.png, id=315, 297.11pt x 220.825pt>
+File: Images/Resultats/avionFourier.png Graphic file (type png)
+<use Images/Resultats/avionFourier.png>
+Package pdftex.def Info: Images/Resultats/avionFourier.png  used on input line 
+99.
+(pdftex.def)             Requested size: 120.0pt x 89.19102pt.
+<Images/Resultats/avionPlage.png, id=316, 272.01625pt x 363.3575pt>
+File: Images/Resultats/avionPlage.png Graphic file (type png)
+<use Images/Resultats/avionPlage.png>
+Package pdftex.def Info: Images/Resultats/avionPlage.png  used on input line 10
+6.
+(pdftex.def)             Requested size: 120.0pt x 160.29915pt.
+<Images/Resultats/avion1.png, id=317, 314.17375pt x 207.77625pt>
+File: Images/Resultats/avion1.png Graphic file (type png)
+<use Images/Resultats/avion1.png>
+Package pdftex.def Info: Images/Resultats/avion1.png  used on input line 111.
+(pdftex.def)             Requested size: 120.0pt x 79.35843pt.
+<Images/Resultats/avionF.png, id=318, 314.17375pt x 207.77625pt>
+File: Images/Resultats/avionF.png Graphic file (type png)
+<use Images/Resultats/avionF.png>
+Package pdftex.def Info: Images/Resultats/avionF.png  used on input line 116.
+(pdftex.def)             Requested size: 120.0pt x 79.35843pt.
 ) (./Chapters/06_Comparaison.tex [14]
-
-LaTeX Warning: Text page 15 contains only floats.
-
-[15pdfTeX warning (ext4): destination with the same identifier (name{figure.13}
-) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.1 \newpage
-            pdfTeX warning (ext4): destination with the same identifier (name{f
-igure.14}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.1 \newpage
-            pdfTeX warning (ext4): destination with the same identifier (name{f
-igure.15}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.1 \newpage
-            pdfTeX warning (ext4): destination with the same identifier (name{f
-igure.16}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.1 \newpage
-            pdfTeX warning (ext4): destination with the same identifier (name{f
-igure.17}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.1 \newpage
-            pdfTeX warning (ext4): destination with the same identifier (name{f
-igure.18}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.1 \newpage
-            pdfTeX warning (ext4): destination with the same identifier (name{f
-igure.19}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.1 \newpage
-             <./Images/Resultats/LuneLand.png> <./Images/Resultats/LuneDF.png> 
-<./Images/Resultats/LuneFourier.png> <./Images/Resultats/LuneDFChangeSel.png> <
-./Images/Resultats/LuneOiseau.png> <./Images/Resultats/LuneOiseauD.png> <./Imag
-es/Resultats/LuneOiseauF.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 3--5
 
  []
 
-[16pdfTeX warning (ext4): destination with the same identifier (name{figure.20}
-) has been already used, duplicate ignored
+) [15pdfTeX warning (ext4): destination with the same identifier (name{figure.1
+3}) has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.5 \subsection
-               {Différence de temps}pdfTeX warning (ext4): destination with th
-e same identifier (name{figure.21}) has been already used, duplicate ignored
+l.61 \section
+             {Optimisation}pdfTeX warning (ext4): destination with the same ide
+ntifier (name{figure.14}) has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.5 \subsection
-               {Différence de temps}pdfTeX warning (ext4): destination with th
-e same identifier (name{figure.22}) has been already used, duplicate ignored
+l.61 \section
+             {Optimisation}pdfTeX warning (ext4): destination with the same ide
+ntifier (name{figure.15}) has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.5 \subsection
-               {Différence de temps}pdfTeX warning (ext4): destination with th
-e same identifier (name{figure.23}) has been already used, duplicate ignored
+l.61 \section
+             {Optimisation}pdfTeX warning (ext4): destination with the same ide
+ntifier (name{figure.16}) has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.5 \subsection
-               {Différence de temps}pdfTeX warning (ext4): destination with th
-e same identifier (name{figure.24}) has been already used, duplicate ignored
+l.61 \section
+             {Optimisation}pdfTeX warning (ext4): destination with the same ide
+ntifier (name{figure.17}) has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.5 \subsection
-               {Différence de temps}pdfTeX warning (ext4): destination with th
-e same identifier (name{figure.25}) has been already used, duplicate ignored
+l.61 \section
+             {Optimisation}pdfTeX warning (ext4): destination with the same ide
+ntifier (name{figure.18}) has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.5 \subsection
-               {Différence de temps}pdfTeX warning (ext4): destination with th
-e same identifier (name{figure.26}) has been already used, duplicate ignored
+l.61 \section
+             {Optimisation}pdfTeX warning (ext4): destination with the same ide
+ntifier (name{figure.19}) has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.5 \subsection
-               {Différence de temps} <./Images/Resultats/OiseauMont.png> <./Im
-ages/Resultats/oiseauRenduDF.png> <./Images/Resultats/OiseauRenduFourier.png> <
-./Images/Resultats/zoomOiseauDF.png> <./Images/Resultats/otariePlage.png> <./Im
-ages/Resultats/OtariePlageD.png> <./Images/Resultats/OtariePlageF.png>])
-(./Chapters/07_Optimisation.tex) (./Chapters/08_Conclusion.tex) [17]
+l.61 \section
+             {Optimisation} <./Images/Resultats/LuneLand.png> <./Images/Resulta
+ts/LuneDF.png> <./Images/Resultats/LuneFourier.png> <./Images/Resultats/LuneDFC
+hangeSel.png> <./Images/Resultats/LuneOiseau.png> <./Images/Resultats/LuneOisea
+uD.png> <./Images/Resultats/LuneOiseauF.png>] (./Chapters/07_Optimisation.tex)
+(./Chapters/08_Conclusion.tex) [16pdfTeX warning (ext4): destination with the s
+ame identifier (name{figure.20}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.66 \end{document}
+                   pdfTeX warning (ext4): destination with the same identifier 
+(name{figure.21}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.66 \end{document}
+                   pdfTeX warning (ext4): destination with the same identifier 
+(name{figure.22}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.66 \end{document}
+                   pdfTeX warning (ext4): destination with the same identifier 
+(name{figure.23}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.66 \end{document}
+                   pdfTeX warning (ext4): destination with the same identifier 
+(name{figure.24}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.66 \end{document}
+                   pdfTeX warning (ext4): destination with the same identifier 
+(name{figure.25}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.66 \end{document}
+                   pdfTeX warning (ext4): destination with the same identifier 
+(name{figure.26}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.66 \end{document}
+                    <./Images/Resultats/OiseauMont.png> <./Images/Resultats/ois
+eauRenduDF.png> <./Images/Resultats/OiseauRenduFourier.png> <./Images/Resultats
+/zoomOiseauDF.png> <./Images/Resultats/otariePlage.png> <./Images/Resultats/Ota
+riePlageD.png> <./Images/Resultats/OtariePlageF.png>] [17pdfTeX warning (ext4):
+ destination with the same identifier (name{figure.27}) has been already used, 
+duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.66 \end{document}
+                   pdfTeX warning (ext4): destination with the same identifier 
+(name{figure.28}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.66 \end{document}
+                   pdfTeX warning (ext4): destination with the same identifier 
+(name{figure.29}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.66 \end{document}
+                   pdfTeX warning (ext4): destination with the same identifier 
+(name{figure.30}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.66 \end{document}
+                   pdfTeX warning (ext4): destination with the same identifier 
+(name{figure.31}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.66 \end{document}
+                   pdfTeX warning (ext4): destination with the same identifier 
+(name{figure.32}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.66 \end{document}
+                    <./Images/Resultats/avionlac.png> <./Images/Resultats/avion
+.png> <./Images/Resultats/avionFourier.png> <./Images/Resultats/avionPlage.png>
+ <./Images/Resultats/avion1.png> <./Images/Resultats/avionF.png>]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 66.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 66.
-
-(./main.aux)
+ (./main.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 66.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 66.
 Package rerunfilecheck Info: File `main.out' has not changed.
@@ -1160,10 +1226,10 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 66.
  ) 
 Here is how much of TeX's memory you used:
- 18408 strings out of 494880
- 338217 string characters out of 6179602
+ 18444 strings out of 494880
+ 339148 string characters out of 6179602
  420994 words of memory out of 5000000
- 21245 multiletter control sequences out of 15000+600000
+ 21269 multiletter control sequences out of 15000+600000
  6820 words of font info for 25 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  62i,14n,56p,756b,596s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1180,10 +1246,10 @@ nts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pf
 b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr
 /share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on main.pdf (18 pages, 7735176 bytes).
+Output written on main.pdf (18 pages, 8423405 bytes).
 PDF statistics:
- 427 PDF objects out of 1000 (max. 8388607)
- 338 compressed objects within 4 object streams
- 106 named destinations out of 1000 (max. 500000)
- 398 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 447 PDF objects out of 1000 (max. 8388607)
+ 346 compressed objects within 4 object streams
+ 112 named destinations out of 1000 (max. 500000)
+ 428 words of extra memory for PDF output out of 10000 (max. 10000000)
 
