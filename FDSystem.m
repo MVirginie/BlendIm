@@ -108,6 +108,7 @@ classdef FDSystem <handle
         % find the pixels that are inside the ROI 
         % If their value == 1 then there are inside
            [row, col]= find(maskS.matrix);
+           %%NEW POSITION IN MY VECTOR
            row(:)= (col(:)-1).*size(maskS.matrix,1)+row(:);
            col(:) = row(:);
            self.is_inside(row(:), col(:), maskS);     
@@ -142,6 +143,7 @@ classdef FDSystem <handle
             self.find_useless(maskS);
             a = sparse(self.i_vect, self.j_vect, self.v_vect, self.size_matrix, self.size_matrix);
             self.matrix = a;
+            
         end
         
 

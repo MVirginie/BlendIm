@@ -4,8 +4,6 @@ classdef Fourier<handle
         grad_S_j
         grad_T_i
         grad_T_j
-        symmetric_i
-        symmetric_j
     end
     
     methods
@@ -83,7 +81,7 @@ classdef Fourier<handle
             I = real(ifft2(ifftshift(i_hat)));
             I = self.resize_mat(I, W, H);            
         end
-
+    
     end
 end
     

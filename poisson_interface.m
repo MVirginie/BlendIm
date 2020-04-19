@@ -173,25 +173,7 @@ imshow(handles.maskT.cut_im, 'Parent', handles.axes4);
 set(handles.error_text, 'String', 'Paste region selected, you can choose the method & then click on the paste button');
 hideAxes(handles);
 
-function [sol, image, new_cut] = color_mode_DF(handles)
- for i = 1:3
-     handles.maskT.reload_pdt_mask(handles.t_init);
-     handles.maskS.reload_pdt_mask(handles.s_init);
-     handles.maskT.associate_im = handles.maskT.associate_im(:,:,i);
-     handles.maskS.associate_im = handles.maskS.associate_im(:,:,i);
-     rect(:,:,i) = handles.maskS.transform_to_rect(handles.maskS.associate_im);% resize S into a rect 
-     im(:,:,i) = copyPaste(handles.maskS, handles.maskT, handles.maskS.associate_im, handles.maskT.associate_im);
-     [sol(:,:,i), image(:,:,i), new_cut(:,:,i)] = clonage_v2(handles, handles.maskS, im(:,:,i), rect(:,:,i), handles.maskT);
- end
-   
-function [new_cut, t, sol] = color_mode_Fourier(handles)
- for i = 1:3
-     handles.maskT.reload_pdt_mask(handles.t_init);
-     handles.maskS.reload_pdt_mask(handles.s_init);
-     handles.maskT.associate_im = handles.maskT.associate_im(:,:,i);
-     handles.maskS.associate_im = handles.maskS.associate_im(:,:,i);
-    [new_cut(:,:,i), t(:,:,i), sol(:,:,i)] = fourier_clonage(handles, handles.maskS, handles.maskT);
- end
+
 
 % --- Executes on button press in pasteButton.
 % First : simple cut/paste with copyPaste.
@@ -320,6 +302,9 @@ function slider3_Callback(hObject, eventdata, handles)
         handles.maskT.pos(:,2) = handles.maskT.pos(:,2)+handles.shift3;
         handles.maskS.reinitialize_mask(handles.maskT); 
         set(handles.slider3,'Value', -handles.maskT.pos(1,2));
+        handles.s_init.pos_to_move(:,2) = handles.maskT.pos(:,2);
+        handles.t_init.pos(:,2) = handles.maskT.pos(:,2);
+        guidata(gca,handles);
         pasteButton_Callback(hObject, eventdata, handles);
 
 
@@ -358,6 +343,9 @@ function slider4_Callback(hObject, eventdata, handles)
     guidata(gca, handles)
     handles.maskT.pos(:,1) = handles.maskT.pos(:,1)+handles.shift4;
     handles.maskS.reinitialize_mask(handles.maskT);
+    handles.s_init.pos_to_move(:,1) = handles.maskT.pos(:,1);
+    handles.t_init.pos(:,1) = handles.maskT.pos(:,1);
+    guidata(gca,handles);
     pasteButton_Callback(hObject, eventdata, handles);
     
 % --- Executes during object creation, after setting all properties.
@@ -434,22 +422,39 @@ function [sol, img, new_cut] = clonage_v2(handles, maskS, im, rect, maskT)
     set(handles.error_text, 'String', 'New image, done with DF method');
 
 function [new_cut, new_T, sol] = fourier_clonage(handles, maskS, maskT)
-
     new_cut = maskS.transform_to_rect(maskS.associate_im); % resize I into a rect (demarcation)
     maskS.cut_im = new_cut;
     new_T = maskS.transform_to_rect(maskT.associate_im);
     maskT.cut_im = new_T;
     maskS.matrix = maskS.transform_to_rect(maskS.matrix);   % resize b&w mask
-        
     set(handles.error_text, 'String', 'Beginning');
-    handles.maskS.reinitialize_mask(handles.maskT);    
-    
+    maskS.reinitialize_mask(maskT);  
     f = Fourier(maskS.associate_im, maskT.associate_im);
     im_i = copyPaste(maskS,maskT, f.grad_S_i, f.grad_T_i);% IMAGE I COLLEE
     
-    handles.maskS.reinitialize_mask(handles.maskT);
-
+    maskS.reinitialize_mask(maskT);
+    
     im_j = copyPaste(maskS, maskT, f.grad_S_j, f.grad_T_j);% IMAGE J COLLE
     
     sol = f.solve(im_i, im_j);
     set(handles.error_text, 'String', 'New image, done with Fourier method');
+
+function [sol, image, new_cut] = color_mode_DF(handles)
+ for i = 1:3
+     handles.maskT.reload_pdt_mask(handles.t_init);
+     handles.maskS.reload_pdt_mask(handles.s_init);
+     handles.maskT.associate_im = handles.maskT.associate_im(:,:,i);
+     handles.maskS.associate_im = handles.maskS.associate_im(:,:,i);
+     rect(:,:,i) = handles.maskS.transform_to_rect(handles.maskS.associate_im);% resize S into a rect 
+     im(:,:,i) = copyPaste(handles.maskS, handles.maskT, handles.maskS.associate_im, handles.maskT.associate_im);
+     [sol(:,:,i), image(:,:,i), new_cut(:,:,i)] = clonage_v2(handles, handles.maskS, im(:,:,i), rect(:,:,i), handles.maskT);
+ end
+   
+function [new_cut, t, sol] = color_mode_Fourier(handles)
+ for i = 1:3
+     handles.maskT.reload_pdt_mask(handles.t_init);
+     handles.maskS.reload_pdt_mask(handles.s_init);
+     handles.maskT.associate_im = handles.maskT.associate_im(:,:,i);
+     handles.maskS.associate_im = handles.maskS.associate_im(:,:,i);
+    [new_cut(:,:,i), t(:,:,i), sol(:,:,i)] = fourier_clonage(handles, handles.maskS, handles.maskT);
+ end
