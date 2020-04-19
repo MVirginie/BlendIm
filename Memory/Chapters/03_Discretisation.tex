@@ -12,24 +12,30 @@ Nous numéroterons les pixels suivant la règle suivante. Le premier pixel est s
 
 	\begin{figure}[!htb]
 	\centering
-	\includegraphics[scale=0.5]{Images/grille.png}
+	\includegraphics[scale=0.3]{Images/grille.png}
 	\caption{Parcours d'une grille}
-	\label{fig:my_label}
 	\end{figure}
-Les pas d'espaces sont donc égaux et valent 1. Dans la suite nous considérons que notre image est de taille $N \times M$.
+Les pas d'espaces sont donc égaux et valent 1. Dans la suite nous considérons que notre image est de taille $M \times N$.
 \newpage
 
 
 \subsection{Les différents opérateurs nécessaires}
 Nous utiliserons certains opérateurs que nous définissons ici afin de ne pas alourdir les différentes sections. 
 \subparagraph{Le gradient}
-
+Le gradient est un vecteur composé des dérivées partielles d'une fonction. Soit la fonction, f(x,y), on note le gradient de f : 
+\begin{equation*}
+\begin{aligned}
+\nabla f = \begin{pmatrix}
+\frac{\partial f}{\partial x}\\
+\frac{\partial f}{\partial y}
+\end{pmatrix}
+\end{aligned}
+\end{equation*}
 \subparagraph{Le Laplacien}
-Le Laplacien peut s'écrire de la forme : 
-
+On note le Laplacien : $\Delta$, et :$\Delta = div(\nabla f)$.
 \begin{center}
 \begin{equation*}
-    \Delta I(x,y)  = \frac{\partial^2 I}{\partial x^2}+ \frac{\partial ^2 I}{\partial y^2}
+    \Delta f  = \frac{\partial^2 f}{\partial x^2}+ \frac{\partial ^2 f}{\partial y^2}
 \end{equation*}
 \end{center}
 
@@ -47,7 +53,7 @@ Nous cherchons à résoudre  :
 \end{equation*}
 \end{center}
 
-En utilisant la méthode des différences finie, commençons par discrétiser le Laplacien.
+En utilisant la méthode des différences finies, commençons par discrétiser le Laplacien.
 Pour discrétiser celui-ci, il faut donc commencer par discrétiser $\frac{\partial^2 I}{\partial x^2}$ et  $\frac{\partial^2 I}{\partial y^2}$. 
 
 \subparagraph{Discrétisation des dérivées secondes :}
@@ -159,12 +165,12 @@ g(M, N)
 Afin de pouvoir résoudre ce système, I doit être un vecteur colonne. Or dans notre cas, I est une matrice de taille (M,N). Le nouveau vecteur I, est la concaténation des colonnes de l'image I, comme ci dessous.
 
 \subparagraph{Ecriture de la matrice du système}
-Pour remplir la matrice A dont nous avons besoin.Premièrement
+La matrice A du système AI = b, est une matrice creuse, inversible. Nous verrons comment la remplir dans l'exemple ci-dessous.
 
 \subparagraph{Ecriture de vecteur}
 Après avoir calculé le Laplacien de l'image S, le vecteur b est obtenu en concaténant les colonnes de l'image $\Delta S$. 
 
-\subparagraph{Exemple simple}
+\subsection{Exemple}
 Considérons l'image S ci-contre que nous souhaitons coller. 
 \begin{figure}[!h]
 \centering
@@ -173,12 +179,13 @@ Considérons l'image S ci-contre que nous souhaitons coller.
 \includegraphics[scale=0.1]{Images/pix.png}
 \caption{Vue grille pixel}
 \end{figure}
-Nous souhaitons ici coller les deux carrés rouge sur une image que nous nommerons T. Commençons par sélectionner la zone que nous souhaitons coller, comme ci-dessous. 
+Nous souhaitons ici coller les deux carrés rouge sur une image que nous nommerons T.   
 \begin{figure}[!h]
 \centering
 \includegraphics[scale=0.3]{Images/carre_selection.png}
 \caption{Sélection à coller}
 \end{figure}
+Ici, notons $\Omega$, l'intérieur de la zone encadrée par la ligne verte, et des $\partial \Omega$, les pixels appartenant à $J /\ \Omega$
 
 \begin{figure}[!h]
 \centering
@@ -188,7 +195,6 @@ Nous souhaitons ici coller les deux carrés rouge sur une image que nous nommero
 
 
 \paragraph{Construction du système}
-Ici les pixels avec la pastille verte sont sur $\delta \Omega$. On veut donc résoudre le système suivant :  
 \begin{center}
 \begin{equation}
 \left\{

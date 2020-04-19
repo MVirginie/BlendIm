@@ -119,22 +119,23 @@ En  développant :
 \begin{equation*} 
 \left.
 \begin{aligned}
-    g(I+\epsilon u) -g(I) &=  \int_\Omega || \nabla I - v||^2+ ||\nabla \epsilon u||^2 +<2(\nabla I - v), \epsilon \nabla u>  - ||\nabla I -v ||^2 dx\\
-  &=  \int_\Omega \epsilon ^2||\nabla u||^2 +<2(\nabla I - v), \epsilon \nabla u> dx\\
+    g(I+\epsilon u) -g(I) &=  \int_\Omega || \nabla I - v||^2+ ||\nabla \epsilon u||^2 +2(\nabla I - v)\times \epsilon \nabla u  - ||\nabla I -v ||^2 dx\\
+  &=  \int_\Omega \epsilon ^2||\nabla u||^2 +2(\nabla I - v)\times \epsilon \nabla u dx\\
     & = 2\int_\Omega (\nabla I - v) \times (\nabla \epsilon u ) + O (\epsilon^2) \\ 
-      &  =   -2\epsilon\int_\Omega <\nabla I - v,  \nabla u> + O (\epsilon^2) \\ 
-         &  = -2\int_\Omega<\nabla I - v,  \nabla u > + O (\epsilon)\\ 
-    & =  2 <div(\nabla I - v), u > + O (\epsilon)\\
+    & = 2\left<\nabla I - v, \nabla \epsilon u \right> + O (\epsilon^2) \\ 
+      &  =   2\epsilon<\nabla I - v,  \nabla u> + O (\epsilon^2) \\ 
+         &  = 2\left<\nabla I - v,  \nabla u \right> + O (\epsilon)\\ 
+    & =  -2 <div(\nabla I - v), u > + O (\epsilon)\\
 \end{aligned}
 \right.
 \end{equation*}
 Par identification, le gradient de g vaut 
 \begin{center}
-		$\nabla g(I) = (\Delta I-div( v))$
+		$\nabla g(I) = -2(\Delta I-div( v))$
 \end{center} 
 Le minimum de g annule son gradient donc on cherche I tel que : 
 \begin{center}
-		$0= (\Delta I-div( v))$
+		$0= (-\Delta I+div( v))$
 \end{center}
 Ici v = $\nabla S$ 
 \begin{center}

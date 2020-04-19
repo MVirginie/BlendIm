@@ -56,14 +56,41 @@ $\widehat{\Delta S} = \widehat{\frac{\partial^2 S}{\partial k^2}}+ \widehat{\fra
 \end{equation}
 
 \subsubsection{Résolution de la méthode Fourier}
-Rappelons que nous devons résoudre l'équation : 
+La résolution dans le domaine de Fourier, nécessite quelques changements.Cette méthode ne fonctionnant que sur un domaine rectangulaire, nous devons donc modifier le domaine $\Omega$.\\
+Rappelons que nous voulions résoudre le problème suivant :
+\begin{equation}
+\left\{
+\begin{aligned}
+\Delta I(x,y) = \Delta S(x,y) \ si \ (x,y) \in \Omega\\
+I(x,y) = T(x,y) \ si \ (x,y) \notin \Omega
+\end{aligned}
+\right.
+\end{equation}
 
-Ainsi en calculant le laplacien dans le domaine de Fourier, on obtient  : $\widehat{\Delta I} = \widehat{\Delta S}$
+Afin d'obtenir un domaine régulier considérons R, le domaine de l'image entière. Afin de pouvoir utiliser Fourier, il faut que nous puissions travailler symétriquement en même temps sur les deux images.\\
+Nous voulons donc que $\nabla I$ soit très proche de $\nabla S$ dans $\Omega$ mais aussi que $\nabla I$ soit très proche de $\nabla T$ en dehors de $\Omega$. En notant V : 
+\begin{equation}
+V = 
+\left\{
+\begin{aligned}
+\nabla S \in \Omega\\
+\nabla T \notin \Omega
+\end{aligned}
+\right.
+\end{equation}
+Nous devons donc résoudre l'équation suivante : 
+\begin{center}
+$ \Delta I = div(V)$
+\end{center}
+Afin de pouvoir résoudre cette équation il faut imposer des conditions sur le bord. En appliquant l'effet miroir à l'image initiale alors, l'on obtient un signal symétrique  et l'on peut appliquer la transformée de Fourier, pour résoudre le problème. 
+
+Ainsi en calculant le laplacien dans le domaine de Fourier, on obtient  : $\widehat{\Delta I} = \widehat{div(V)}$
+
 \begin{equation}
 \begin{aligned}
-\left(\frac{2\pi i x}{W}\right)^2 \widehat{I}+\left(\frac{2\pi i y}{H}\right)^2 \widehat{I} & = \left(\frac{2\pi i x}{W}\right) \widehat{S}+\left(\frac{2\pi i y}{H}\right) \widehat{S}\\
-\left(\left(\frac{2\pi i x}{W}\right)^2+\left(\frac{2\pi i y}{H}\right)^2\right) \widehat{I} & = \left(\frac{2\pi i x}{W}\right) \widehat{S}+\left(\frac{2\pi i y}{H}\right) \widehat{S}\\
-\widehat{I} = \frac{\left(\frac{2\pi i x}{W}\right) \widehat{S}+\left(\frac{2\pi i y}{H}\right) \widehat{S}}{\left(\left(\frac{2\pi i x}{W}\right)^2+\left(\frac{2\pi i y}{H}\right)^2\right)}
+\left(\frac{2\pi i x}{W}\right)^2 \widehat{I}+\left(\frac{2\pi i y}{H}\right)^2 \widehat{I} & = \left(\frac{2\pi i x}{W}\right) \widehat{V_1}+\left(\frac{2\pi i y}{H}\right) \widehat{V_2}\\
+\left(\left(\frac{2\pi i x}{W}\right)^2+\left(\frac{2\pi i y}{H}\right)^2\right) \widehat{I} & = \left(\frac{2\pi i x}{W}\right) \widehat{V_1}+\left(\frac{2\pi i y}{H}\right) \widehat{V_2}\\
+\widehat{I} = \frac{\left(\frac{2\pi i x}{W}\right) \widehat{V_1}+\left(\frac{2\pi i y}{H}\right) \widehat{V_2}}{\left(\left(\frac{2\pi i x}{W}\right)^2+\left(\frac{2\pi i y}{H}\right)^2\right)}
 \end{aligned}
 \end{equation}
 Afin de retrouver I, il suffit d'appliquer la transformée inverse, à l'équation ci-dessus.
