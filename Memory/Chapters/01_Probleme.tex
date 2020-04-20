@@ -56,7 +56,7 @@ Il semble évident de vouloir modifier l'image finale obtenue afin qu'elle parai
 
 \subsection{Traduction du problème sous formes mathématiques.}
 
-Comme écrit plus haut nous souhaitons apporter des modifications au précédent collage afin qu'il corresponde au mieux à nos attentes. Pour ce faire, considérons I, la partie de l'image finale à modifier. Nous pouvons ainsi représenter le problème sous forme schématique. 
+Comme écrit plus haut nous souhaitons apporter des modifications au précédent collage afin qu'il corresponde au mieux à nos attentes. En réalité nous ne souhaitons pas modifier l'entièreté de l'image mais seulement un "sous-domaine" correspondant à l'endroit du collage. Pour ce faire, considérons I, la partie de l'image finale à modifier. Nous pouvons ainsi représenter le problème sous forme schématique. 
 \begin{center}
     \includegraphics[width = 200pt]{Images/Schee.jpg}
 \end{center}
@@ -71,15 +71,15 @@ Ici :
 \end{itemize}
 
 Nous souhaitons donc trouver une fonction I qui satisfasse un certain nombre de critères, afin de correspondre au résultat voulu.  
-Cette fonction représente notre image modifiée. Mais quelles sont les conditions qu'elle doit remplir pour que le rendu soit le meilleur possible? Notre nouvelle image I doit-elle être plus proche de l'image collée S, ou de l'image d'arrière-plan T ? \newline
+Cette fonction représente la partie modifiée de notre image. Mais quelles sont les conditions qu'elle doit remplir pour que le rendu soit le meilleur possible? Notre nouvelle image I doit-elle être plus proche de l'image collée S, ou de l'image d'arrière-plan T ? \newline
 Pour répondre à cette question, reprenons le problème de départ. \newline
 
-Pour que l'image obtenue paraisse naturelle,il faut que celle-ci dénature le moins possible les deux images sélectionnées au départ. En effet, nous devons garder les détails de l'image que nous voulons coller, S, ne pas modifier les variations qu'elle pourrait posséder comme les contours des objets lui appartenant, par exemple.Nous devons pouvoir retrouver les informations présentes dans celle-ci. Il faut donc que les variations présentes dans $I$ soient presque identiques à celles de S. Mathématiquement, de manière équivalente, nous cherchons une fonction I dont le gradient est le plus proche possible, ou identique à celui de l'image collée, S. Nous cherchons donc :
+Pour que l'image obtenue s'incruste parfaitement,il faut que celle-ci dénature le moins possible les deux images sélectionnées au départ. En effet, nous devons garder les détails de l'image que nous voulons coller, S, ne pas modifier les variations qu'elle pourrait posséder comme les contours des objets lui appartenant, par exemple.Nous devons pouvoir retrouver les informations présentes dans celle-ci. Il faut donc que les variations présentes dans $I$ soient presque identiques à celles de S. Mathématiquement, de manière équivalente, nous cherchons une fonction I dont le gradient est le plus proche possible, ou identique à celui de l'image collée, S. Nous cherchons donc :
 \begin{center}
     $$ min \iint_\Omega || \nabla I_{x,y} - \nabla S_{x,y}||^2 dxdy$$
 \end{center} 
 
-Mais les démarcations entre notre image collée et l'image d'arrière-plan T, ne doivent pas non plus être visibles, il faut donc que les pixels se situant sur cette partie là, i.e $\partial \Omega$, soient le plus proches possible de T .  Nous voulons donc, mathématiquement, chercher la fonction I qui vérifie: 
+Mais les "frontières" entre notre image collée et l'image d'arrière-plan T, ne doivent pas non plus être visibles, il faut donc que les pixels se situant sur cette partie là, i.e $\partial \Omega$, soient le plus proches possible de T .  Nous voulons donc, mathématiquement, chercher la fonction I qui vérifie: 
 \begin{center}
     $I_{(x,y)} = T_{x,y} \ sur\ \partial \Omega$
 \end{center}
@@ -161,5 +161,3 @@ Résoudre ce problème variationnel est équivalent à résoudre l'équation de 
         \right.
     \end{equation*}
 \end{center}
-
-Nous verrons deux approches afin de résoudre cette équation, la première utilisant des discrétisations, la seconde la méthode de Fourier. 
