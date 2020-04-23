@@ -82,7 +82,7 @@ Nous devons donc résoudre l'équation suivante :
 \begin{center}
 $ \Delta I = div(V)$
 \end{center}
-Afin de pouvoir résoudre cette équation il faut imposer des conditions sur le bord. En appliquant l'effet miroir à l'image initiale alors, l'on obtient un signal symétrique  et l'on peut appliquer la transformée de Fourier, pour résoudre le problème. 
+Afin de pouvoir résoudre cette équation il faut imposer des conditions sur le bord. En appliquant l'effet miroir à l'image initiale alors, on obtient un signal symétrique  et on peut appliquer la transformée de Fourier, pour résoudre le problème. 
 
 Ainsi en calculant le laplacien dans le domaine de Fourier, on obtient  : $\widehat{\Delta I} = \widehat{div(V)}$
 
@@ -90,7 +90,7 @@ Ainsi en calculant le laplacien dans le domaine de Fourier, on obtient  : $\wide
 \begin{aligned}
 \left(\frac{2\pi i x}{M}\right)^2 \widehat{I}+\left(\frac{2\pi i y}{N}\right)^2 \widehat{I} & = \left(\frac{2\pi i x}{M}\right) \widehat{\partial _1 V}+\left(\frac{2\pi i y}{N}\right) \widehat{\partial _2 V}\\
 \left(\left(\frac{2\pi i x}{M}\right)^2+\left(\frac{2\pi i y}{N}\right)^2\right) \widehat{I} & = \left(\frac{2\pi i x}{M}\right) \widehat{\partial _1 V}+\left(\frac{2\pi i y}{N}\right) \widehat{V}\\
-\widehat{I} = \frac{\left(\frac{2\pi i x}{M}\right) \widehat{V_1}+\left(\frac{2\pi i y}{N}\right) \widehat{V_2}}{\left(\left(\frac{2\pi i x}{M}\right)^2+\left(\frac{2\pi i y}{N}\right)^2\right)}
+\widehat{I} = \frac{\left(\frac{2\pi i x}{M}\right) \widehat{\partial _1 V}+\left(\frac{2\pi i y}{N}\right) \widehat{\partial _1 V}}{\left(\left(\frac{2\pi i x}{M}\right)^2+\left(\frac{2\pi i y}{N}\right)^2\right)}
 \end{aligned}
 \end{equation}
 Afin de retrouver I, il suffit d'appliquer la transformée inverse, à l'équation ci-dessus.
