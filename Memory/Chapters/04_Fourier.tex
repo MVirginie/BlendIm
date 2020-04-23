@@ -1,6 +1,6 @@
 Avec cette seconde méthode nous allons résoudre l'équation de Poisson à l'aide de la transformée de Fourier. Avant de formuler la résolution de ce problème. Rappelons la définition des opérateurs dont nous aurons besoin dans la suite
 \subsubsection{Rappel et définitions des opérateurs}
-\paragraph{Transformée de Fourier}
+\paragraph{Transformée de Fourier (discrète)}
 Soit S une fonction, sa transformée de Fourier peut s'écrire de la façon suivante : 
 \begin{equation}
 \begin{aligned}
@@ -27,7 +27,7 @@ Nous pouvons calculer le gradient d'une fonction dans le domaine de Fourier. Nou
 En dérivant l'expression ci-dessus par rapport à la première variable : 
 \begin{equation}
 \begin{aligned}
-\frac{\partial S}{\partial k} &= \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} S(x,y) e^{2\pi i\left(\frac{k\times x}{M}+\frac{l\times y}{N}\right)}\left(\frac{2\pi i x}{M}\right)\\
+\widehat{\frac{\partial S}{\partial k}} &= \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} S(x,y) e^{2\pi i\left(\frac{k\times x}{M}+\frac{l\times y}{N}\right)}\left(\frac{-\pi i x}{M}\right)\\
 & = \left(\frac{2\pi i x}{M}\right)\widehat{S(k,l)}\\
 \widehat{\frac{\partial S}{\partial k}} &= \left(\frac{2\pi i x}{M}\right)\widehat{S(k,l)}
 \end{aligned}
@@ -44,7 +44,7 @@ On a donc :
 \paragraph{Laplacien}
 \begin{equation}
 \begin{aligned}
-\frac{\partial^2 S}{\partial k ^2} & = \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} S(x,y) e^{2\pi i\left(\frac{k\times x}{M}+\frac{l\times y}{N}\right)}\left(\frac{2\pi i x}{M}\right)^2\\
+\widehat{\frac{\partial^2 S}{\partial k ^2}} & = \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} S(x,y) e^{2\pi i\left(\frac{k\times x}{M}+\frac{l\times y}{N}\right)}\left(\frac{2\pi i x}{M}\right)^2\\
 & = \left(\frac{2\pi i x}{M}\right)^2 \widehat{S(k,l)}\\
 \widehat{\frac{\partial^2 S}{\partial k^2}} &= \left(\frac{2\pi i x}{M}\right)^2\widehat{S(k,l)}
 \end{aligned}
@@ -56,8 +56,8 @@ $\widehat{\Delta S} = \widehat{\frac{\partial^2 S}{\partial k^2}}+ \widehat{\fra
 \end{equation}
 
 \subsubsection{Résolution de la méthode Fourier}
-La résolution dans le domaine de Fourier, nécessite quelques changements.Cette méthode ne fonctionnant que sur un domaine rectangulaire, nous devons donc modifier le domaine $\Omega$.\\
-Rappelons que nous voulions résoudre le problème suivant :
+La résolution dans le domaine de Fourier, nécessite quelques changements.Cette méthode fonctionnant mieux sur un domaine rectangulaire, nous devons donc modifier le domaine $\Omega$.\\
+Rappelons que nous voulons résoudre le problème suivant :
 \begin{equation}
 \left\{
 \begin{aligned}
@@ -73,8 +73,8 @@ Nous voulons donc que $\nabla I$ soit très proche de $\nabla S$ dans $\Omega$ m
 V = 
 \left\{
 \begin{aligned}
-\nabla S \in \Omega\\
-\nabla T \notin \Omega
+\nabla S(x,y) \ si \ (x,y) \in \Omega\\
+\nabla T(x,y) \ si \ (x,y) \notin \Omega
 \end{aligned}
 \right.
 \end{equation}
@@ -88,8 +88,8 @@ Ainsi en calculant le laplacien dans le domaine de Fourier, on obtient  : $\wide
 
 \begin{equation}
 \begin{aligned}
-\left(\frac{2\pi i x}{M}\right)^2 \widehat{I}+\left(\frac{2\pi i y}{N}\right)^2 \widehat{I} & = \left(\frac{2\pi i x}{M}\right) \widehat{V_1}+\left(\frac{2\pi i y}{N}\right) \widehat{V_2}\\
-\left(\left(\frac{2\pi i x}{M}\right)^2+\left(\frac{2\pi i y}{N}\right)^2\right) \widehat{I} & = \left(\frac{2\pi i x}{M}\right) \widehat{V_1}+\left(\frac{2\pi i y}{N}\right) \widehat{V_2}\\
+\left(\frac{2\pi i x}{M}\right)^2 \widehat{I}+\left(\frac{2\pi i y}{N}\right)^2 \widehat{I} & = \left(\frac{2\pi i x}{M}\right) \widehat{\partial _1 V}+\left(\frac{2\pi i y}{N}\right) \widehat{\partial _2 V}\\
+\left(\left(\frac{2\pi i x}{M}\right)^2+\left(\frac{2\pi i y}{N}\right)^2\right) \widehat{I} & = \left(\frac{2\pi i x}{M}\right) \widehat{\partial _1 V}+\left(\frac{2\pi i y}{N}\right) \widehat{V}\\
 \widehat{I} = \frac{\left(\frac{2\pi i x}{M}\right) \widehat{V_1}+\left(\frac{2\pi i y}{N}\right) \widehat{V_2}}{\left(\left(\frac{2\pi i x}{M}\right)^2+\left(\frac{2\pi i y}{N}\right)^2\right)}
 \end{aligned}
 \end{equation}
