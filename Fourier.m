@@ -81,7 +81,16 @@ classdef Fourier<handle
             I = real(ifft2(ifftshift(i_hat)));
             I = self.resize_mat(I, W, H);            
         end
-    
+         function change_selection(self, maskS, maskT)
+             gradSi = maskS.transform_to_rect(self.grad_S_i);
+             gradTi = maskS.transform_to_rect(self.grad_T_i);
+             gradSj = maskS.transform_to_rect(self.grad_S_j);
+             gradTj = maskS.transform_to_rect(self.grad_T_j);
+        sol = (abs(gradSi)<abs(gradTi) & ...
+                abs(gradSj)<abs(gradTj));
+        maskS.matrix(sol) = 0;
+        maskS.cut_im(sol) = maskT.cut_im(sol);
+         end    
     end
 end
     

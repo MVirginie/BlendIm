@@ -160,7 +160,7 @@ classdef Mask <handle
      function [grad, grad1]= compute_grad(self)
          grad.x = zeros(size(self.cut_im));
          grad.y = zeros(size(self.cut_im));
-          grad1.x = zeros(size(self.cut_im));
+         grad1.x = zeros(size(self.cut_im));
          grad1.y = zeros(size(self.cut_im));
          grad.x(2:end-1, :) = -self.cut_im(2:end-1,:)+self.cut_im(3:end, :);
          grad.y(:, 2:end-1) = -self.cut_im (:, 2:end-1)+self.cut_im(:, 3:end);
@@ -177,8 +177,8 @@ classdef Mask <handle
         [gradT, gradT1] = maskT.compute_grad();
         [gradS, gradS1] = self.compute_grad();
         sol = (abs(gradS.x)<abs(gradT.x) & ...
-                abs(gradS.y)<abs(gradT.y) & ...
-                abs(gradS1.x)<abs(gradT1.x) & ...
+                abs(gradS.y)<abs(gradT.y)& ...
+                 abs(gradS1.x)<abs(gradT1.x) & ...
                 abs(gradS1.y)<abs(gradT1.y));
         self.matrix(sol) = 0;
         self.cut_im(sol) = maskT.cut_im(sol);
