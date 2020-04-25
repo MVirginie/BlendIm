@@ -5,6 +5,7 @@ function solve = method()
         solve.color_mode_DF = @color_mode_DF;
         solve.color_mode_Fourier = @color_mode_Fourier;
         solve.douglas = @douglas;
+        solve.color_mode_Douglas =@color_mode_Douglas;
 end
 function [new_cut, new_T, sol] = fourier_clonage(handles, maskS, maskT,im)
     set(handles.error_text, 'String', 'Beginning');
@@ -71,14 +72,31 @@ function [new_cut, t, sol] = color_mode_Fourier(handles)
      handles.maskS.associate_im = handles.maskS.associate_im(:,:,i);
     [new_cut(:,:,i), t(:,:,i), sol(:,:,i)] = fourier_clonage(handles, handles.maskS, handles.maskT);
  end
-
 end
-function [sol] = douglas(handles,im, maskS, maskT)
-    maskS.cut_im = im;
-%     maskT.cut_im = maskS.transform_to_rect(maskT.associate_im);
-%     maskS.matrix = maskS.transform_to_rect(maskS.matrix);   % resize b&w mask
-    dg = douglas(maskS, maskT);
-    k = 2;
-    y0 = maskS.cut_im;
-    sol = dg.douglas(y0, k);
+
+function [sol] = color_mode_Douglas(handles)
+  for i = 1:3
+     handles.maskT.reload_pdt_mask(handles.t_init);
+     handles.maskS.reload_pdt_mask(handles.s_init);
+     handles.maskT.associate_im(:,:,i) = handles.maskT.associate_im(:,:,i);
+     handles.maskS.associate_im(:,:,i) = handles.maskS.associate_im(:,:,i);
+     handles.maskS.cut_im(:,:,i) = handles.maskS.transform_to_rect(handles.maskS.associate_im(:,:,i));
+     handles.maskT.cut_im(:,:,i) = handles.maskS.transform_to_rect(handles.maskT.associate_im(:,:,i));
+     handles.maskS.matrix = handles.maskS.transform_to_rect(handles.maskS.matrix);   % resize b&w mask
+     dg = Douglas(handles.maskS, handles.maskT);
+     k =50;
+     y0 = handles.maskT.cut_im;
+     sol(:,:,i) = dg.douglas(y0, handles);
+   end
+end
+
+function [cut, sol] = douglas(maskS, maskT, handles)
+    maskS.cut_im = maskS.transform_to_rect(maskS.associate_im);
+    maskS.matrix = maskS.transform_to_rect(maskS.matrix);   % resize b&w mask
+    maskT.cut_im = maskS.transform_to_rect(maskT.associate_im);
+    cut = maskT.cut_im;
+    dg = Douglas(maskS, maskT);
+    y0 = maskT.cut_im;
+    temp = dg.douglas(y0, handles);
+    sol = copyPaste(maskS, maskT,temp, maskT.associate_im);
 end

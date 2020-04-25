@@ -385,7 +385,8 @@ if(handles.DFButton.Value == 1)
     [im] = copyPaste(handles.maskS, handles.maskT, handles.maskS.associate_im, handles.maskT.associate_im);
     [sol, image, new_cut] = solve.finiteDiff(handles, handles.maskS, im, rect, handles.maskT);
     end
-    imshow(new_cut, 'Parent', handles.axes3);
+    %imshow(new_cut, 'Parent', handles.axes3);
+    imshow(handles.maskT.cut_im, 'Parent', handles.axes3);
     imshow(image, 'Parent', handles.axes5);
     imshow(sol, 'Parent', handles.axes4);
     
@@ -401,15 +402,14 @@ elseif (handles.FourierButton.Value == 1)
     imshow(sol, 'Parent', handles.axes5);
     imshow(t, 'Parent', handles.axes4);
 else 
-    handles.maskS.cut_im = handles.maskS.transform_to_rect(handles.maskS.associate_im);
-    handles.maskT.cut_im = handles.maskS.transform_to_rect(handles.maskT.associate_im);
-    handles.maskS.matrix = handles.maskS.transform_to_rect(handles.maskS.matrix);   % resize b&w mask
-    dg = Douglas(handles.maskS, handles.maskT);
-    k =50;
-    y0 = handles.maskT.cut_im;
-    sol = dg.douglas(y0, k, handles);
+    if(handles.Color_box.Value==1)
+        sol = solve.color_mode_Douglas(handles);
+    else
+    [cut_im,sol] = solve.douglas(handles.maskS, handles.maskT, handles);
     imshow(sol, 'Parent', handles.axes5);
     imshow(handles.maskS.cut_im, 'Parent', handles.axes4);
-    imshow(handles.maskT.cut_im , 'Parent', handles.axes3);
+    imshow(cut_im , 'Parent', handles.axes3);
+    end
+    
 end
 hideAxes(handles);
