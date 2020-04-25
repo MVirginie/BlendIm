@@ -386,30 +386,29 @@ if(handles.DFButton.Value == 1)
     [sol, image, new_cut] = solve.finiteDiff(handles, handles.maskS, im, rect, handles.maskT);
     end
     %imshow(new_cut, 'Parent', handles.axes3);
-    imshow(handles.maskT.cut_im, 'Parent', handles.axes3);
+    imshow(new_cut, 'Parent', handles.axes3);
     imshow(image, 'Parent', handles.axes5);
     imshow(sol, 'Parent', handles.axes4);
     
 elseif (handles.FourierButton.Value == 1)
     if (handles.Color_box.Value == 1)
-        [new_cut, t, sol]=solve.color_mode_Fourier(handles);
+        [cut_im, sol, img]=solve.color_mode_Fourier(handles);
     else
         [im] = copyPaste(handles.maskS, handles.maskT, handles.maskS.associate_im, handles.maskT.associate_im);
         handles.maskS.reload_pdt_mask(handles.s_init)
-        [new_cut, t, sol] = solve.fourier(handles, handles.maskS, handles.maskT, im);
+        [cut_im, sol, img] = solve.fourier(handles, handles.maskS, handles.maskT, im);
     end
-    imshow(new_cut, 'Parent', handles.axes3);
-    imshow(sol, 'Parent', handles.axes5);
-    imshow(t, 'Parent', handles.axes4);
+    imshow(cut_im, 'Parent', handles.axes3);
+    imshow(img, 'Parent', handles.axes5);
+    imshow(sol, 'Parent', handles.axes4);
 else 
     if(handles.Color_box.Value==1)
         sol = solve.color_mode_Douglas(handles);
-    else
-    [cut_im,sol] = solve.douglas(handles.maskS, handles.maskT, handles);
+    else   
+    [sol] = solve.douglas(handles.maskS, handles.maskT, handles);
+    end
     imshow(sol, 'Parent', handles.axes5);
     imshow(handles.maskS.cut_im, 'Parent', handles.axes4);
-    imshow(cut_im , 'Parent', handles.axes3);
-    end
-    
+    imshow(handles.maskT.cut_im , 'Parent', handles.axes3); 
 end
 hideAxes(handles);

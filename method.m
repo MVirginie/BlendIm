@@ -11,18 +11,18 @@ function [new_cut, new_T, sol] = fourier_clonage(handles, maskS, maskT,im)
     set(handles.error_text, 'String', 'Beginning');
     new_cut = maskS.transform_to_rect(maskS.associate_im); % resize I into a rect (demarcation)
     maskS.cut_im = new_cut;
-    maskT.cut_im = maskS.transform_to_rect(maskT.associate_im);
+    maskT.cut_im = maskS.transform_T_to_rect(maskT.associate_im);
     f = Fourier(maskS.associate_im, maskT.associate_im);
         if(handles.change_sel.Value == 1)
              f.change_selection(maskS,maskT);
         end
     im_i = copyPaste(maskS,maskT, f.grad_S_i, f.grad_T_i);% IMAGE I COLLEE
     maskS.reinitialize_mask(maskT);
-    maskS.cut_im = new_cut;
-    maskT.cut_im = maskS.transform_to_rect(maskT.associate_im);
     if(handles.change_sel.Value == 1)
       f.change_selection(maskS,maskT);
     end
+    maskS.cut_im = new_cut;
+    maskT.cut_im = maskS.transform_to_rect(maskT.associate_im);
     im_j = copyPaste(maskS, maskT, f.grad_S_j, f.grad_T_j);% IMAGE J COLLE
     new_T = maskT.associate_im;
     sol = f.solve(im_i, im_j);
@@ -78,23 +78,18 @@ function [sol] = color_mode_Douglas(handles)
   for i = 1:3
      handles.maskT.reload_pdt_mask(handles.t_init);
      handles.maskS.reload_pdt_mask(handles.s_init);
-     handles.maskT.associate_im(:,:,i) = handles.maskT.associate_im(:,:,i);
-     handles.maskS.associate_im(:,:,i) = handles.maskS.associate_im(:,:,i);
-     handles.maskS.cut_im(:,:,i) = handles.maskS.transform_to_rect(handles.maskS.associate_im(:,:,i));
-     handles.maskT.cut_im(:,:,i) = handles.maskS.transform_to_rect(handles.maskT.associate_im(:,:,i));
-     handles.maskS.matrix = handles.maskS.transform_to_rect(handles.maskS.matrix);   % resize b&w mask
-     dg = Douglas(handles.maskS, handles.maskT);
-     k =50;
-     y0 = handles.maskT.cut_im;
-     sol(:,:,i) = dg.douglas(y0, handles);
-   end
+     handles.maskT.associate_im = handles.maskT.associate_im(:,:,i);
+     handles.maskS.associate_im = handles.maskS.associate_im(:,:,i);
+     sol(:,:,i) = douglas(handles.maskS,handles.maskT, handles);
+  end
 end
 
-function [cut, sol] = douglas(maskS, maskT, handles)
+function sol = douglas(maskS, maskT, handles)
+    maskT.cut_im = maskS.transform_T_to_rect(maskT.associate_im);
     maskS.cut_im = maskS.transform_to_rect(maskS.associate_im);
     maskS.matrix = maskS.transform_to_rect(maskS.matrix);   % resize b&w mask
-    maskT.cut_im = maskS.transform_to_rect(maskT.associate_im);
-    cut = maskT.cut_im;
+    size(maskS.cut_im)
+    size(maskT.cut_im)
     dg = Douglas(maskS, maskT);
     y0 = maskT.cut_im;
     temp = dg.douglas(y0, handles);
