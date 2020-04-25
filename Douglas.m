@@ -1,8 +1,4 @@
 classdef Douglas<handle
-    %TO DO 
-        % FIND PROX F
-        % FIND PROX G
-        %COMPUTE DOUGLAS ALGORITHM
     properties
       pf
       pg
@@ -14,7 +10,7 @@ classdef Douglas<handle
             obj.maskS = maskS;
             obj.maskT = maskT;
         end
-        function pf = prox_f(self, S, y)
+        function  [A,b] = compute_matrix(self, S,y)
            new_sys = FDSystem(self.maskS.matrix); %Inversion matrix
            [row, col] = meshgrid(2:size(y,1)-1,2:size(y,2)-1);
            row(:)= (col(:)-1).*size(self.maskS.matrix,1)+row(:);
@@ -24,10 +20,16 @@ classdef Douglas<handle
            rectangle(2:size(y,1)-1, 2:size(y,2)-1) = 1;
            new_sys.find_useless(rectangle, self.maskT)
             
-           new_sys.matrix = sparse(new_sys.i_vect, new_sys.j_vect, new_sys.v_vect, new_sys.size_matrix, new_sys.size_matrix);
+           A = sparse(new_sys.i_vect, new_sys.j_vect, new_sys.v_vect, new_sys.size_matrix, new_sys.size_matrix);
            new_sys.compute_laplacian(S);
-           new_sys.vector = y(:)-2.*new_sys.vector;
-           pf = new_sys.matrix\new_sys.vector;
+           b = new_sys.vector;
+        end
+        
+        function pf = prox_f(self, A, b, y)
+           b = y(:)-2.*b;
+           %pf = A\b;
+           pf = grad_conj(A, b,b);
+           
            pf = reshape(pf, size(y,1), size(y,2));
         end
         
@@ -39,20 +41,26 @@ classdef Douglas<handle
         
         function x = douglas(self, y0, handles)
             y = y0;
+            [A,b] = self.compute_matrix(self.maskS.cut_im, y0);
             eps = 1;
             x = ones(size(y0,1),size(y0,2));
             i = 1;
+            tic
             while eps >10^-2
-                i = i+1
-                xx = self.prox_f(self.maskS.cut_im, y);
+                xx = self.prox_f(A, b, y);
                 y = y+self.prox_g(2.*xx-y)-xx;
                 eps = norm(xx-x, 2)^2;
                 x =xx;
+                i = i+1;
+               
             end
-%             handles.maskS.cut_im = x;
-%             img = copyPaste(handles.maskS, handles.maskT,x, handles.maskT.associate_im);
-
+            toc
+            i
+            eps
         end
+        
     end
+    
+    
     
 end

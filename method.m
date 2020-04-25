@@ -88,8 +88,9 @@ function sol = douglas(maskS, maskT, handles)
     maskT.cut_im = maskS.transform_T_to_rect(maskT.associate_im);
     maskS.cut_im = maskS.transform_to_rect(maskS.associate_im);
     maskS.matrix = maskS.transform_to_rect(maskS.matrix);   % resize b&w mask
-    size(maskS.cut_im)
-    size(maskT.cut_im)
+    if(handles.change_sel.Value == 1)
+        maskS.change_selection(maskT);
+    end
     dg = Douglas(maskS, maskT);
     y0 = maskT.cut_im;
     temp = dg.douglas(y0, handles);
