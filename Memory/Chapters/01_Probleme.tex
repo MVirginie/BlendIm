@@ -4,7 +4,7 @@
 
 Le traitement d'images est un ensemble de méthodes permettant d'étudier et de transformer une ou plusieurs images à l'aide de moyens mathématiques et numériques. Le principe du traitement d'images consiste à extraire certaines informations de celles-ci, afin de les étudier ou de les modifier.Il est utilisé dans beaucoup d'applications telles que l'amélioration du contraste, l'application d'un filtre(flou, lissage, changement de couleurs), ou encore les détections et identifications d'objets par exemple. 
 
-Aujourd'hui, nous nous intéressons à l'incrustation d'images. A partir de deux images, comment sélectionner une partie de la première et l'incruster de la manière la plus naturelle possible dans la seconde ? 
+Dans ce rapport, nous nous intéresserons à l'incrustation d'images. À partir de deux images, comment sélectionner une partie de la première et l'incruster de la manière la plus naturelle possible dans la seconde ? 
 \newline
 Afin d'éclaircir nos propos et d'identifier les problèmes que nous devons résoudre, voici un exemple de ce que nous souhaitons faire.\newline
 Nous disposons des deux images présentées ci-dessous, l'image T(arget) et l'image S(ource). 
@@ -32,10 +32,10 @@ Le résultat que nous attendons pour une incrustation "réussie" est un résulta
      \caption{Image  finale attendue}
 \end{figure}
 \end{center}
-Cette image est extraite d'une simulation effectuée sur 'ipol.im/...'.Nous comparerons les images obtenues avec nos algorithmes avec celle-ci à la fin de ce rapport.\newline
+Cette image est extraite d'une simulation effectuée sur 'demo.ipol.im/demo/163/'. Nous comparerons les images obtenues avec nos algorithmes avec celle-ci à la fin de ce rapport.\newline
 \paragraph{Remarques}
-Ce résultat semble naturel, les frontières entre l'image collée et l'arrière plan sont très peu visibles, les oiseaux semblent faire partie de l'image finale.
-Mais comment obtenir un tel résultat ? 
+Ce résultat est réussi parce qu'il semble naturel, les frontières entre l'image collée et l'arrière plan sont très peu visibles et on été estompées, les oiseaux présents dans la première image n'ont pas été déformé et semble faire parti de l'image. 
+Mais comment obtenir un tel résultat ?
 \newline
 Reprenons nos deux images séparées, T et S.  Commençons par effectuer un simple copier/coller. Certains pixels de T sont donc écrasés par ceux de S. En effectuant cette manipulation voici l'image que nous devrions obtenir : 
 \begin{center}
@@ -48,13 +48,14 @@ Reprenons nos deux images séparées, T et S.  Commençons par effectuer un simp
 
 Ce résultat n'est bien entendu pas convenable et bien loin de l'image finale attendue. Le découpage et le collage entre l'arrière-plan et l'image "objet" sont beaucoup trop visibles, les couleurs ne sont pas les mêmes et incohérentes. Nous souhaitons obtenir un résultat beaucoup plus naturel, comme écrit plus haut. Cette simple manipulation n'est donc pas suffisante pour effectuer le clônage cohérent  d'une image dans une autre. \newline
 
-Il semble évident de vouloir modifier l'image finale obtenue afin qu'elle paraisse la plus naturelle possible. Nous verrons tout au long de ce rapport, quels sont les changements à effectuer, et comment la résolution d'une équation aux dérivées partielles, nous permet d'obtenir un bien meilleur résultat. 
+Il semble évident de vouloir modifier l'image finale obtenue afin qu'elle paraisse la plus naturelle possible.
+Nous verrons tout au long de ce rapport, quels sont les changements à effectuer, et comment la résolution d'une équation aux dérivées partielles,l'équation de Poisson, nous permet d'obtenir un bien meilleur résultat. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %           TRADUCTION SOUS FORMES MATHEMATIQUES         %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Traduction du problème sous formes mathématiques.}
+\subsection{Problème mathématique associé}
 
 Comme écrit plus haut nous souhaitons apporter des modifications au précédent collage afin qu'il corresponde au mieux à nos attentes. En réalité nous ne souhaitons pas modifier l'entièreté de l'image mais seulement un "sous-domaine" correspondant à l'endroit du collage. Pour ce faire, considérons I, la partie de l'image finale à modifier. Nous pouvons ainsi représenter le problème sous forme schématique. 
 \begin{center}
@@ -70,16 +71,17 @@ Ici :
     \item I est notre inconnue, la partie de l'image que nous ne connaissons pas et que nous voulons remplir.
 \end{itemize}
 
-Nous souhaitons donc trouver une fonction I qui satisfasse un certain nombre de critères, afin de correspondre au résultat voulu.  
+Nous souhaitons donc trouver une fonction I qui satisfasse un certain nombre de critères, afin de correspondre au résultat attendu.  
 Cette fonction représente la partie modifiée de notre image. Mais quelles sont les conditions qu'elle doit remplir pour que le rendu soit le meilleur possible? Notre nouvelle image I doit-elle être plus proche de l'image collée S, ou de l'image d'arrière-plan T ? \newline
 Pour répondre à cette question, reprenons le problème de départ. \newline
 
-Pour que l'image obtenue s'incruste parfaitement,il faut que celle-ci dénature le moins possible les deux images sélectionnées au départ. En effet, nous devons garder les détails de l'image que nous voulons coller, S, ne pas modifier les variations qu'elle pourrait posséder comme les contours des objets lui appartenant, par exemple.Nous devons pouvoir retrouver les informations présentes dans celle-ci. Il faut donc que les variations présentes dans $I$ soient presque identiques à celles de S. Mathématiquement, de manière équivalente, nous cherchons une fonction I dont le gradient est le plus proche possible, ou identique à celui de l'image collée, S. Nous cherchons donc :
+Pour que l'image obtenue s'incruste parfaitement,il faut que celle-ci dénature le moins possible les deux images sélectionnées au départ. En effet, nous devons garder les détails de l'image que nous voulons coller, S, ne pas modifier les variations qu'elle pourrait posséder comme par exemple, les contours ou les objets, lui appartenant.Nous devons donc pouvoir retrouver les informations présentes dans celle-ci. Par conséquent, il faut que les variations présentes dans $I$ soient presque identiques à celles de S.Rappelons qu'en traitement d'image, les variations d'une image peuvent être obtenues en calculant le gradient de celle-ci. En effet, une variation peut-être représentée comme un changement "brutal" d'intensité entre deux pixels. Le gradient d'une image étant numériquement obtenu en effectuant la différence entre des pixels voisins. Par conséquent, un fort changement d'intensité, implique un fort gradient. Au contraire, l'absence de variations entraîne un gradient presque nul. Le gradient d'une image permet entre autre de détecter les contours de celle-ci.\\
+Nous souhaitons ici, que les contours de l'image finale soient très proches de l'image à coller. Mathématiquement, nous voulons donc une fonction I dont le gradient est le plus proche possible, ou identique à celui de l'image collée, S. Nous cherchons donc :
 \begin{center}
     $$ min \iint_\Omega || \nabla I_{x,y} - \nabla S_{x,y}||^2 dxdy$$
 \end{center} 
 
-Mais les "frontières" entre notre image collée et l'image d'arrière-plan T, ne doivent pas non plus être visibles, il faut donc que les pixels se situant sur cette partie là, i.e $\partial \Omega$, soient le plus proches possible de T .  Nous voulons donc, mathématiquement, chercher la fonction I qui vérifie: 
+Mais les "frontières" entre l'image collée et l'image d'arrière-plan T, ne doivent pas non plus être visibles, il faut donc que les pixels se situant sur cette partie là, i.e $\partial \Omega$, soient le plus proches possible de T .  Nous voulons donc, mathématiquement, chercher la fonction I qui vérifie: 
 \begin{center}
     $I_{(x,y)} = T_{x,y} \ sur\ \partial \Omega$
 \end{center}
@@ -88,18 +90,18 @@ Répondre au problème implique donc de résoudre un problème variationnel clas
 Réécrivons le problème mathématique que nous cherchons à résoudre :  
 
 \begin{center}
-\begin{equation*}
+\begin{equation}
 \left\{
 \begin{aligned}
  min \iint_\Omega || \nabla I_{x,y} - \nabla S_{x,y}||^2 dxdy\\
  I_{(x,y)} = T_{x,y} \ sur\ \partial \Omega
 \end{aligned}
 \right.
-\end{equation*}
+\end{equation}
 \end{center}
 
 
-\subsection{Résolution}
+\subsection{Résolution et équivalence avec l'équation de poisson}
 Pour résoudre cette équation, nous devons trouver le minimum de la fonction g suivante  : 
 \begin{center}
 \begin{equation}
@@ -109,7 +111,15 @@ g(I) = \int_\Omega || \nabla I(x) - v(x)||^2 dx\\
 \end{equation}
 \end{center}
 Si g admet un minimum alors, celui-ci annule son gradient. 
-\subparagraph{Calcul du gradient de g}
+\subparagraph{Calcul de $\nabla g(I)$ }
+À l'aide des formules de Taylor-Young à l'ordre 1 :\\
+Soit f une fonction: $\mathbb{R}^n\rightarrow \mathbb{R}$ et $u \in \mathbb{R}^n$, tel que $||u||=1$ :
+\begin{equation*}
+\begin{aligned}
+f(x_0+\epsilon u) = f(x_0) +\epsilon \left<\nabla f(x_0), u\right> + o(\epsilon)\\
+\end{aligned}
+\end{equation*}
+En appliquant ces formules à notre cas :
 \begin{equation*} 
 \begin{aligned}
     g(I+\epsilon u) -g(I) =  \int_\Omega || \nabla (I+\epsilon u) - v||^2 - ||\nabla I -v ||^2 dx\\
@@ -144,13 +154,11 @@ Ici v = $\nabla S$
 		
 \end{center} 
 
-Trouver le minimum de la fonction revient donc à résoudre l'équation : 
+Trouver le minimum de (2) revient donc à résoudre l'équation : 
 \begin{center}
 $\Delta I = \Delta S$
 \end{center}
-Cette équation est l'équation de Poisson. 
-
-Résoudre ce problème variationnel est équivalent à résoudre l'équation de poisson avec conditions aux bords de Dirichlet, suivante :
+En remplaçant dans (1). On obtient le problème suivant : 
 \begin{center}
     \begin{equation*}
         \left\{
@@ -161,3 +169,6 @@ Résoudre ce problème variationnel est équivalent à résoudre l'équation de 
         \right.
     \end{equation*}
 \end{center}
+qui n'est autre que l'équation de Poisson, avec conditions au bords de Dirichlet. 
+Ainsi : résoudre le problème variationnel est équivalent à résoudre l'équation de poisson avec conditions aux bords de Dirichlet. Nous décrirons dans ce rapport 3 manières de résoudre cette équation. 
+

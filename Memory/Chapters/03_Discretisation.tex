@@ -1,25 +1,5 @@
-Avant de discrétiser les Laplaciens de nos deux images, il faut définir le maillage que nous allons utiliser.
- 
-\subsubsection{Qu'est qu'une image}
-Une image peut être représentée comme une succession de pixels. En traitement d'image, ce sont d'ailleurs sur ces pixels que le traitement est effectué. Leur modification entraîne la modification de l'image globale.Nous verrons donc une image comme la succession de pixels et nous pouvons la représenter comme une grille, dans laquelle chaque carré représente un pixel.  Schématiquement, nous pourrions donc découper notre image comme ci-dessous
-    \begin{figure}[!htb]
-        \centering
-       \includegraphics[scale = 0.07]{Images/Montagne_grille.jpg}
-        \caption{Maillage d'une image}
-        \label{fig:my_label}
-    \end{figure}
-Nous numéroterons les pixels suivant la règle suivante. Le premier pixel est situé en haut en gauche, puis il suffit de parcourir la grille comme ci-dessous : 
-
-	\begin{figure}[!htb]
-	\centering
-	\includegraphics[scale=0.3]{Images/grille.png}
-	\caption{Parcours d'une grille}
-	\end{figure}
-Les pas d'espaces sont donc égaux et valent 1. Dans la suite nous considérons que notre image est de taille $M \times N$.
-\newpage
-
-
-\subsection{Les différents opérateurs nécessaires}
+Commençons par résoudre le problème à l'aide de la méthode des différences finies. Afin de résoudre le problème (2), il faut commencer par discrétiser le laplacien de notre image. 
+ \subsection{Notations}
 Nous utiliserons certains opérateurs que nous définissons ici afin de ne pas alourdir les différentes sections. 
 \subparagraph{Le gradient}
 Le gradient est un vecteur composé des dérivées partielles d'une fonction. Soit la fonction, f(x,y), on note le gradient de f : 

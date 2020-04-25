@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.3.3)  21 APR 2020 23:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.3.3)  25 APR 2020 23:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -93,6 +93,17 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@layoutvoffset=\dimen111
 \Gm@dimlist=\toks20
 )
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\@emptytoks=\toks21
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2017/09/02 v2.17a AMS math features
 \@mathmargin=\skip43
@@ -103,7 +114,7 @@ Package: amstext 2000/06/29 v2.01 AMS text
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks21
+\@emptytoks=\toks22
 \ex@=\dimen112
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
@@ -133,21 +144,21 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
 \dotsspace@=\muskip10
 \c@parentequation=\count100
 \dspbrk@lvl=\count101
-\tag@help=\toks22
+\tag@help=\toks23
 \row@=\count102
 \column@=\count103
 \maxfields@=\count104
-\andhelp@=\toks23
+\andhelp@=\toks24
 \eqnshift@=\dimen115
 \alignsep@=\dimen116
 \tagshift@=\dimen117
 \tagwidth@=\dimen118
 \totwidth@=\dimen119
 \lineht@=\dimen120
-\@envbody=\toks24
+\@envbody=\toks25
 \multlinegap=\skip44
 \multlinetaggap=\skip45
-\mathdisplay@stack=\toks25
+\mathdisplay@stack=\toks26
 LaTeX Info: Redefining \[ on input line 2817.
 LaTeX Info: Redefining \] on input line 2818.
 )
@@ -183,8 +194,8 @@ Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
 
 (/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkeyval.tex
 (/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkvutils.tex
-\XKV@toks=\toks26
-\XKV@tempa@toks=\toks27
+\XKV@toks=\toks27
+\XKV@tempa@toks=\toks28
 )
 \XKV@depth=\count105
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
@@ -210,7 +221,7 @@ Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
 (/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
 (/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex
-\pgfutil@everybye=\toks28
+\pgfutil@everybye=\toks29
 \pgfutil@tempdima=\dimen123
 \pgfutil@tempdimb=\dimen124
 
@@ -231,12 +242,12 @@ Package: pgf 2015/08/07 v3.0.1a (rcs-revision 1.15)
 Package: pgfsys 2014/07/09 v3.0.1a (rcs-revision 1.48)
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
-\pgfkeys@pathtoks=\toks29
-\pgfkeys@temptoks=\toks30
+\pgfkeys@pathtoks=\toks30
+\pgfkeys@temptoks=\toks31
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeysfiltered.code.t
 ex
-\pgfkeys@tmptoks=\toks31
+\pgfkeys@tmptoks=\toks32
 ))
 \pgf@x=\dimen125
 \pgf@y=\dimen126
@@ -252,9 +263,9 @@ ex
 \c@pgf@countb=\count107
 \c@pgf@countc=\count108
 \c@pgf@countd=\count109
-\t@pgf@toka=\toks32
-\t@pgf@tokb=\toks33
-\t@pgf@tokc=\toks34
+\t@pgf@toka=\toks33
+\t@pgf@tokb=\toks34
+\t@pgf@tokc=\toks35
  (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
 File: pgf.cfg 2008/05/14  (rcs-revision 1.7)
 )
@@ -287,9 +298,9 @@ Package: pgfcore 2010/04/11 v3.0.1a (rcs-revision 1.7)
 \pgfmath@dimen=\dimen133
 \pgfmath@count=\count112
 \pgfmath@box=\box29
-\pgfmath@toks=\toks35
-\pgfmath@stack@operand=\toks36
-\pgfmath@stack@operation=\toks37
+\pgfmath@toks=\toks36
+\pgfmath@stack@operand=\toks37
+\pgfmath@stack@operation=\toks38
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code
@@ -428,8 +439,8 @@ Package: pgffor 2013/12/13 v3.0.1a (rcs-revision 1.25)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)
 \pgffor@iter=\dimen160
 \pgffor@skip=\dimen161
-\pgffor@stack=\toks38
-\pgffor@toks=\toks39
+\pgffor@stack=\toks39
+\pgffor@toks=\toks40
 ))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
 Package: tikz 2015/08/07 v3.0.1a (rcs-revision 1.151)
@@ -598,9 +609,9 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 (/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count139
-\float@exts=\toks40
+\float@exts=\toks41
 \float@box=\box39
-\@float@everytoks=\toks41
+\@float@everytoks=\toks42
 \@floatcapt=\box40
 )
 (/usr/share/texlive/texmf-dist/tex/generic/systeme/systeme.sty
@@ -613,28 +624,28 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 Package: xstring 2013/10/13  v1.7c  String manipulations (C Tellechea)
 )
 (/usr/share/texlive/texmf-dist/tex/generic/systeme/systeme.tex
-\SYS@systemecode=\toks42
-\SYS@systempreamble=\toks43
+\SYS@systemecode=\toks43
+\SYS@systempreamble=\toks44
 \SYSeqnum=\count142
 )
 Package: systeme 2018/01/01 v0.31 Mise en forme de systemes d'equations (CT)
 ) (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
 
 (/usr/share/texlive/texmf-dist/tex/latex/ucs/ucsencs.def
 File: ucsencs.def 2011/01/21 Fixes to fontencodings LGR, T3
@@ -680,12 +691,12 @@ File: ucsencs.def 2011/01/21 Fixes to fontencodings LGR, T3
 \scratchbox=\box41
 \nofMPsegments=\count144
 \nofMParguments=\count145
-\everyMPshowfont=\toks44
+\everyMPshowfont=\toks45
 \MPscratchCnt=\count146
 \MPscratchDim=\dimen176
 \MPnumerator=\count147
 \makeMPintoPDFobject=\count148
-\everyMPtoPDFconversion=\toks45
+\everyMPtoPDFconversion=\toks46
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -705,7 +716,7 @@ e
 ))
 ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box42
-Package hyperref Info: Link coloring OFF on input line 14.
+Package hyperref Info: Link coloring OFF on input line 15.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -715,9 +726,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count149
 )
-LaTeX Info: Redefining \ref on input line 14.
-LaTeX Info: Redefining \pageref on input line 14.
-LaTeX Info: Redefining \nameref on input line 14.
+LaTeX Info: Redefining \ref on input line 15.
+LaTeX Info: Redefining \pageref on input line 15.
+LaTeX Info: Redefining \nameref on input line 15.
 
 (./main.out) (./main.out)
 \@outlinefile=\write5
@@ -727,10 +738,20 @@ LaTeX Info: Redefining \nameref on input line 14.
 (/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-0.def
 File: uni-0.def 2013/05/13 UCS: Unicode data U+0000..U+00FF
 )
-<Images/logo.png, id=127, 317.185pt x 115.43124pt>
+LaTeX Font Info:    Try loading font information for U+msa on input line 34.
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 34.
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+<Images/logo.png, id=155, 317.185pt x 115.43124pt>
 File: Images/logo.png Graphic file (type png)
 <use Images/logo.png>
-Package pdftex.def Info: Images/logo.png  used on input line 39.
+Package pdftex.def Info: Images/logo.png  used on input line 40.
 (pdftex.def)             Requested size: 426.82608pt x 155.33226pt.
  [1
 
@@ -743,19 +764,25 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.46 \newpage
+l.47 \newpage
               [1] (./Chapters/01_Probleme.tex
-<Images/Montagne.jpg, id=172, 2449.15pt x 2168.1pt>
+<Images/Montagne.jpg, id=208, 2449.15pt x 2168.1pt>
 File: Images/Montagne.jpg Graphic file (type jpg)
 <use Images/Montagne.jpg>
 Package pdftex.def Info: Images/Montagne.jpg  used on input line 15.
 (pdftex.def)             Requested size: 150.0pt x 132.76007pt.
-<Images/Oiseau.jpg, id=173, 310.42148pt x 143.81245pt>
+<Images/Oiseau.jpg, id=209, 310.42148pt x 143.81245pt>
 File: Images/Oiseau.jpg Graphic file (type jpg)
 <use Images/Oiseau.jpg>
 Package pdftex.def Info: Images/Oiseau.jpg  used on input line 20.
 (pdftex.def)             Requested size: 150.0pt x 69.4944pt.
-<Images/clonage_done.png, id=174, 460.72125pt x 381.425pt>
+
+Overfull \hbox (2.7287pt too wide) in paragraph at lines 7--24
+[]\OT1/cmr/m/n/10 Dans ce rap-port, nous nous int^^Seresserons ^^Ra l'incrustat
+ion d'images. []A par-tir de deux im-ages, com-ment s^^Selectionner
+ []
+
+<Images/clonage_done.png, id=210, 460.72125pt x 381.425pt>
 File: Images/clonage_done.png Graphic file (type png)
 <use Images/clonage_done.png>
 Package pdftex.def Info: Images/clonage_done.png  used on input line 31.
@@ -765,7 +792,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 35--36
 
  []
 
-<Images/collage1.jpg, id=175, 6865.65pt x 2256.43pt>
+<Images/collage1.jpg, id=211, 6865.65pt x 2256.43pt>
 File: Images/collage1.jpg Graphic file (type jpg)
 <use Images/collage1.jpg>
 Package pdftex.def Info: Images/collage1.jpg  used on input line 44.
@@ -794,19 +821,19 @@ Underfull \hbox (badness 10000) in paragraph at lines 49--50
 
  []
 
-<Images/Schee.jpg, id=185, 3293.30376pt x 1823.81375pt>
+<Images/Schee.jpg, id=220, 3293.30376pt x 1823.81375pt>
 File: Images/Schee.jpg Graphic file (type jpg)
 <use Images/Schee.jpg>
-Package pdftex.def Info: Images/Schee.jpg  used on input line 61.
+Package pdftex.def Info: Images/Schee.jpg  used on input line 62.
 (pdftex.def)             Requested size: 200.0pt x 110.73207pt.
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 66.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 67.
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 66.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 67.
 
-Underfull \hbox (badness 10000) in paragraph at lines 73--76
+Underfull \hbox (badness 10000) in paragraph at lines 74--77
 
  []
 
@@ -815,105 +842,112 @@ has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.79 ...\nabla I_{x,y} - \nabla S_{x,y}||^2 dxdy$$
-                                                   <./Images/collage1.jpg> <./I
-mages/Schee.jpg>] [4]) (./Chapters/02_Resolution.tex)
-(./Chapters/03_Discretisation.tex
-<Images/Montagne_grille.jpg, id=202, 2433.09pt x 2095.83pt>
+l.80 \begin{center}
+                    <./Images/collage1.jpg> <./Images/Schee.jpg>] [4])
+(./Chapters/02_Resolution.tex
+
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 1.
+
+<Images/Montagne_grille.jpg, id=239, 2433.09pt x 2095.83pt>
 File: Images/Montagne_grille.jpg Graphic file (type jpg)
 <use Images/Montagne_grille.jpg>
 Package pdftex.def Info: Images/Montagne_grille.jpg  used on input line 7.
 (pdftex.def)             Requested size: 170.3337pt x 146.72308pt.
-<Images/grille.png, id=203, 687.56876pt x 493.845pt>
+<Images/grille.png, id=240, 687.56876pt x 493.845pt>
 File: Images/grille.png Graphic file (type png)
 <use Images/grille.png>
 Package pdftex.def Info: Images/grille.png  used on input line 15.
 (pdftex.def)             Requested size: 206.27222pt x 148.15463pt.
- [5pdfTeX warning (ext4): destination with the same identifier (name{figure.5})
- has been already used, duplicate ignored
+[5pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) 
+has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
 l.19 \newpage
-              <./Images/Montagne_grille.jpg>] [6pdfTeX warning (ext4): destinat
-ion with the same identifier (name{figure.6}) has been already used, duplicate 
-ignored
+              <./Images/Montagne_grille.jpg>])
+(./Chapters/03_Discretisation.tex [6pdfTeX warning (ext4): destination with the
+ same identifier (name{figure.6}) has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.79 \end{equation*}
+l.47 \end{equation*}
                      <./Images/grille.png>]
-<Images/Laplacian.png, id=221, 100.375pt x 100.375pt>
+<Images/Laplacian.png, id=257, 100.375pt x 100.375pt>
 File: Images/Laplacian.png Graphic file (type png)
 <use Images/Laplacian.png>
-Package pdftex.def Info: Images/Laplacian.png  used on input line 90.
+Package pdftex.def Info: Images/Laplacian.png  used on input line 70.
 (pdftex.def)             Requested size: 80.3001pt x 80.3001pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 94--96
+Underfull \hbox (badness 10000) in paragraph at lines 74--76
 
  []
 
 [7 <./Images/Laplacian.png>]
-<Images/square.png, id=231, 628.3475pt x 617.30624pt>
+<Images/square.png, id=267, 628.3475pt x 617.30624pt>
 File: Images/square.png Graphic file (type png)
 <use Images/square.png>
-Package pdftex.def Info: Images/square.png  used on input line 177.
+Package pdftex.def Info: Images/square.png  used on input line 157.
 (pdftex.def)             Requested size: 62.83842pt x 61.73424pt.
-<Images/pix.png, id=232, 456.70625pt x 448.67625pt>
+<Images/pix.png, id=268, 456.70625pt x 448.67625pt>
 File: Images/pix.png Graphic file (type png)
 <use Images/pix.png>
-Package pdftex.def Info: Images/pix.png  used on input line 179.
+Package pdftex.def Info: Images/pix.png  used on input line 159.
 (pdftex.def)             Requested size: 45.6733pt x 44.87024pt.
-<Images/carre_selection.png, id=233, 239.89626pt x 236.885pt>
+<Images/carre_selection.png, id=269, 239.89626pt x 236.885pt>
 File: Images/carre_selection.png Graphic file (type png)
 <use Images/carre_selection.png>
-Package pdftex.def Info: Images/carre_selection.png  used on input line 185.
+Package pdftex.def Info: Images/carre_selection.png  used on input line 165.
 (pdftex.def)             Requested size: 71.96942pt x 71.06604pt.
-<Images/numerote.png, id=234, 332.24126pt x 326.21875pt>
+<Images/numerote.png, id=270, 332.24126pt x 326.21875pt>
 File: Images/numerote.png Graphic file (type png)
 <use Images/numerote.png>
-Package pdftex.def Info: Images/numerote.png  used on input line 192.
+Package pdftex.def Info: Images/numerote.png  used on input line 172.
 (pdftex.def)             Requested size: 99.67314pt x 97.86636pt.
- [8pdfTeX warning (ext4): destination with the same identifier (name{figure.7})
- has been already used, duplicate ignored
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[8pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) 
+has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.212 \end{equation}
+l.192 \end{equation}
                     pdfTeX warning (ext4): destination with the same identifier
  (name{figure.8}) has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.212 \end{equation}
+l.192 \end{equation}
                     pdfTeX warning (ext4): destination with the same identifier
  (name{figure.9}) has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.212 \end{equation}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{figure.10}) has been already used, duplicate ignored
-
-\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
-                                                  
-l.212 \end{equation}
+l.192 \end{equation}
                      <./Images/square.png> <./Images/pix.png> <./Images/carre_s
-election.png> <./Images/numerote.png>]
-<Images/matrice.png, id=251, 867.24pt x 356.33125pt>
+election.png>]
+<Images/matrice.png, id=285, 867.24pt x 356.33125pt>
 File: Images/matrice.png Graphic file (type png)
 <use Images/matrice.png>
-Package pdftex.def Info: Images/matrice.png  used on input line 218.
+Package pdftex.def Info: Images/matrice.png  used on input line 198.
 (pdftex.def)             Requested size: 433.61894pt x 178.16518pt.
- [9pdfTeX warning (ext4): destination with the same identifier (name{figure.11}
+ [9pdfTeX warning (ext4): destination with the same identifier (name{figure.10}
 ) has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.255 \end{equation}
-                     <./Images/matrice.png>]) (./Chapters/04_Fourier.tex
-[10]) (./Chapters/05_Implementation.tex
-<Images/interface.png, id=274, 722.7pt x 368.37625pt>
+l.219 \begin{equation}
+                      pdfTeX warning (ext4): destination with the same identifi
+er (name{figure.11}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.219 \begin{equation}
+                       <./Images/numerote.png> <./Images/matrice.png>])
+(./Chapters/04_Fourier.tex [10]) (./Chapters/05_Implementation.tex
+<Images/interface.png, id=311, 722.7pt x 368.37625pt>
 File: Images/interface.png Graphic file (type png)
 <use Images/interface.png>
 Package pdftex.def Info: Images/interface.png  used on input line 7.
@@ -959,23 +993,23 @@ Underfull \hbox (badness 10000) in paragraph at lines 86--87
  []
 
 [13]) (./Chapters/05bis_Resultats_obtenus.tex
-<Images/Resultats/LuneLand.png, id=299, 241.90375pt x 354.32375pt>
+<Images/Resultats/LuneLand.png, id=336, 241.90375pt x 354.32375pt>
 File: Images/Resultats/LuneLand.png Graphic file (type png)
 <use Images/Resultats/LuneLand.png>
 Package pdftex.def Info: Images/Resultats/LuneLand.png  used on input line 4.
 (pdftex.def)             Requested size: 120.0pt x 175.76654pt.
-<Images/Resultats/LuneDF.png, id=300, 305.14pt x 218.8175pt>
+<Images/Resultats/LuneDF.png, id=337, 305.14pt x 218.8175pt>
 File: Images/Resultats/LuneDF.png Graphic file (type png)
 <use Images/Resultats/LuneDF.png>
 Package pdftex.def Info: Images/Resultats/LuneDF.png  used on input line 9.
 (pdftex.def)             Requested size: 120.0pt x 86.053pt.
-<Images/Resultats/LuneFourier.png, id=301, 301.125pt x 222.8325pt>
+<Images/Resultats/LuneFourier.png, id=338, 301.125pt x 222.8325pt>
 File: Images/Resultats/LuneFourier.png Graphic file (type png)
 <use Images/Resultats/LuneFourier.png>
 Package pdftex.def Info: Images/Resultats/LuneFourier.png  used on input line 1
 4.
 (pdftex.def)             Requested size: 120.0pt x 88.8016pt.
-<Images/Resultats/LuneDFChangeSel.png, id=302, 299.1175pt x 218.8175pt>
+<Images/Resultats/LuneDFChangeSel.png, id=339, 299.1175pt x 218.8175pt>
 File: Images/Resultats/LuneDFChangeSel.png Graphic file (type png)
 <use Images/Resultats/LuneDFChangeSel.png>
 Package pdftex.def Info: Images/Resultats/LuneDFChangeSel.png  used on input li
@@ -985,43 +1019,43 @@ ne 21.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<Images/Resultats/LuneOiseau.png, id=303, 237.88875pt x 352.31625pt>
+<Images/Resultats/LuneOiseau.png, id=340, 237.88875pt x 352.31625pt>
 File: Images/Resultats/LuneOiseau.png Graphic file (type png)
 <use Images/Resultats/LuneOiseau.png>
 Package pdftex.def Info: Images/Resultats/LuneOiseau.png  used on input line 28
 .
 (pdftex.def)             Requested size: 120.0pt x 177.72208pt.
-<Images/Resultats/LuneOiseauD.png, id=304, 316.18124pt x 256.96pt>
+<Images/Resultats/LuneOiseauD.png, id=341, 316.18124pt x 256.96pt>
 File: Images/Resultats/LuneOiseauD.png Graphic file (type png)
 <use Images/Resultats/LuneOiseauD.png>
 Package pdftex.def Info: Images/Resultats/LuneOiseauD.png  used on input line 3
 3.
 (pdftex.def)             Requested size: 120.0pt x 97.52034pt.
-<Images/Resultats/LuneOiseauF.png, id=305, 317.185pt x 263.98625pt>
+<Images/Resultats/LuneOiseauF.png, id=342, 317.185pt x 263.98625pt>
 File: Images/Resultats/LuneOiseauF.png Graphic file (type png)
 <use Images/Resultats/LuneOiseauF.png>
 Package pdftex.def Info: Images/Resultats/LuneOiseauF.png  used on input line 3
 8.
 (pdftex.def)             Requested size: 120.0pt x 99.87271pt.
-<Images/Resultats/OiseauMont.png, id=306, 204.765pt x 355.3275pt>
+<Images/Resultats/OiseauMont.png, id=343, 204.765pt x 355.3275pt>
 File: Images/Resultats/OiseauMont.png Graphic file (type png)
 <use Images/Resultats/OiseauMont.png>
 Package pdftex.def Info: Images/Resultats/OiseauMont.png  used on input line 47
 .
 (pdftex.def)             Requested size: 120.0pt x 208.23714pt.
-<Images/Resultats/oiseauRenduDF.png, id=307, 203.76125pt x 219.82124pt>
+<Images/Resultats/oiseauRenduDF.png, id=344, 203.76125pt x 219.82124pt>
 File: Images/Resultats/oiseauRenduDF.png Graphic file (type png)
 <use Images/Resultats/oiseauRenduDF.png>
 Package pdftex.def Info: Images/Resultats/oiseauRenduDF.png  used on input line
  52.
 (pdftex.def)             Requested size: 120.0pt x 129.4586pt.
-<Images/Resultats/OiseauRenduFourier.png, id=308, 204.765pt x 220.825pt>
+<Images/Resultats/OiseauRenduFourier.png, id=345, 204.765pt x 220.825pt>
 File: Images/Resultats/OiseauRenduFourier.png Graphic file (type png)
 <use Images/Resultats/OiseauRenduFourier.png>
 Package pdftex.def Info: Images/Resultats/OiseauRenduFourier.png  used on input
  line 57.
 (pdftex.def)             Requested size: 120.0pt x 129.4129pt.
-<Images/Resultats/zoomOiseauDF.png, id=309, 201.75375pt x 223.83624pt>
+<Images/Resultats/zoomOiseauDF.png, id=346, 201.75375pt x 223.83624pt>
 File: Images/Resultats/zoomOiseauDF.png Graphic file (type png)
 <use Images/Resultats/zoomOiseauDF.png>
 Package pdftex.def Info: Images/Resultats/zoomOiseauDF.png  used on input line 
@@ -1030,52 +1064,52 @@ Package pdftex.def Info: Images/Resultats/zoomOiseauDF.png  used on input line
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<Images/Resultats/otariePlage.png, id=310, 363.3575pt x 417.56pt>
+<Images/Resultats/otariePlage.png, id=347, 363.3575pt x 417.56pt>
 File: Images/Resultats/otariePlage.png Graphic file (type png)
 <use Images/Resultats/otariePlage.png>
 Package pdftex.def Info: Images/Resultats/otariePlage.png  used on input line 7
 1.
 (pdftex.def)             Requested size: 120.0pt x 137.89716pt.
-<Images/Resultats/OtariePlageD.png, id=311, 393.47pt x 262.9825pt>
+<Images/Resultats/OtariePlageD.png, id=348, 393.47pt x 262.9825pt>
 File: Images/Resultats/OtariePlageD.png Graphic file (type png)
 <use Images/Resultats/OtariePlageD.png>
 Package pdftex.def Info: Images/Resultats/OtariePlageD.png  used on input line 
 76.
 (pdftex.def)             Requested size: 120.0pt x 80.20352pt.
-<Images/Resultats/OtariePlageF.png, id=312, 393.47pt x 262.9825pt>
+<Images/Resultats/OtariePlageF.png, id=349, 393.47pt x 262.9825pt>
 File: Images/Resultats/OtariePlageF.png Graphic file (type png)
 <use Images/Resultats/OtariePlageF.png>
 Package pdftex.def Info: Images/Resultats/OtariePlageF.png  used on input line 
 81.
 (pdftex.def)             Requested size: 120.0pt x 80.20352pt.
-<Images/Resultats/avionlac.png, id=313, 231.86626pt x 362.35374pt>
+<Images/Resultats/avionlac.png, id=350, 231.86626pt x 362.35374pt>
 File: Images/Resultats/avionlac.png Graphic file (type png)
 <use Images/Resultats/avionlac.png>
 Package pdftex.def Info: Images/Resultats/avionlac.png  used on input line 89.
 (pdftex.def)             Requested size: 120.0pt x 187.53485pt.
-<Images/Resultats/avion.png, id=314, 296.10625pt x 223.83624pt>
+<Images/Resultats/avion.png, id=351, 296.10625pt x 223.83624pt>
 File: Images/Resultats/avion.png Graphic file (type png)
 <use Images/Resultats/avion.png>
 Package pdftex.def Info: Images/Resultats/avion.png  used on input line 94.
 (pdftex.def)             Requested size: 120.0pt x 90.71124pt.
-<Images/Resultats/avionFourier.png, id=315, 297.11pt x 220.825pt>
+<Images/Resultats/avionFourier.png, id=352, 297.11pt x 220.825pt>
 File: Images/Resultats/avionFourier.png Graphic file (type png)
 <use Images/Resultats/avionFourier.png>
 Package pdftex.def Info: Images/Resultats/avionFourier.png  used on input line 
 99.
 (pdftex.def)             Requested size: 120.0pt x 89.19102pt.
-<Images/Resultats/avionPlage.png, id=316, 272.01625pt x 363.3575pt>
+<Images/Resultats/avionPlage.png, id=353, 272.01625pt x 363.3575pt>
 File: Images/Resultats/avionPlage.png Graphic file (type png)
 <use Images/Resultats/avionPlage.png>
 Package pdftex.def Info: Images/Resultats/avionPlage.png  used on input line 10
 6.
 (pdftex.def)             Requested size: 120.0pt x 160.29915pt.
-<Images/Resultats/avion1.png, id=317, 314.17375pt x 207.77625pt>
+<Images/Resultats/avion1.png, id=354, 314.17375pt x 207.77625pt>
 File: Images/Resultats/avion1.png Graphic file (type png)
 <use Images/Resultats/avion1.png>
 Package pdftex.def Info: Images/Resultats/avion1.png  used on input line 111.
 (pdftex.def)             Requested size: 120.0pt x 79.35843pt.
-<Images/Resultats/avionF.png, id=318, 314.17375pt x 207.77625pt>
+<Images/Resultats/avionF.png, id=355, 314.17375pt x 207.77625pt>
 File: Images/Resultats/avionF.png Graphic file (type png)
 <use Images/Resultats/avionF.png>
 Package pdftex.def Info: Images/Resultats/avionF.png  used on input line 116.
@@ -1090,43 +1124,43 @@ Underfull \hbox (badness 10000) in paragraph at lines 3--5
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.61 \section
+l.62 \section
              {Optimisation}pdfTeX warning (ext4): destination with the same ide
 ntifier (name{figure.14}) has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.61 \section
+l.62 \section
              {Optimisation}pdfTeX warning (ext4): destination with the same ide
 ntifier (name{figure.15}) has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.61 \section
+l.62 \section
              {Optimisation}pdfTeX warning (ext4): destination with the same ide
 ntifier (name{figure.16}) has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.61 \section
+l.62 \section
              {Optimisation}pdfTeX warning (ext4): destination with the same ide
 ntifier (name{figure.17}) has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.61 \section
+l.62 \section
              {Optimisation}pdfTeX warning (ext4): destination with the same ide
 ntifier (name{figure.18}) has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.61 \section
+l.62 \section
              {Optimisation}pdfTeX warning (ext4): destination with the same ide
 ntifier (name{figure.19}) has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.61 \section
+l.62 \section
              {Optimisation} <./Images/Resultats/LuneLand.png> <./Images/Resulta
 ts/LuneDF.png> <./Images/Resultats/LuneFourier.png> <./Images/Resultats/LuneDFC
 hangeSel.png> <./Images/Resultats/LuneOiseau.png> <./Images/Resultats/LuneOisea
@@ -1180,63 +1214,78 @@ l.2 \begin{center}
                    <./Images/Resultats/OiseauMont.png> <./Images/Resultats/oise
 auRenduDF.png> <./Images/Resultats/OiseauRenduFourier.png> <./Images/Resultats/
 zoomOiseauDF.png> <./Images/Resultats/otariePlage.png> <./Images/Resultats/Otar
-iePlageD.png> <./Images/Resultats/OtariePlageF.png>])
-(./Chapters/08_Conclusion.tex) [17pdfTeX warning (ext4): destination with the s
-ame identifier (name{figure.27}) has been already used, duplicate ignored
+iePlageD.png> <./Images/Resultats/OtariePlageF.png>] [17pdfTeX warning (ext4): 
+destination with the same identifier (name{figure.27}) has been already used, d
+uplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.66 \end{document}
-                   pdfTeX warning (ext4): destination with the same identifier 
-(name{figure.28}) has been already used, duplicate ignored
+l.18 \end{equation*}
+                    {}pdfTeX warning (ext4): destination with the same identifi
+er (name{figure.28}) has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.66 \end{document}
-                   pdfTeX warning (ext4): destination with the same identifier 
-(name{figure.29}) has been already used, duplicate ignored
+l.18 \end{equation*}
+                    {}pdfTeX warning (ext4): destination with the same identifi
+er (name{figure.29}) has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.66 \end{document}
-                   pdfTeX warning (ext4): destination with the same identifier 
-(name{figure.30}) has been already used, duplicate ignored
+l.18 \end{equation*}
+                    {}pdfTeX warning (ext4): destination with the same identifi
+er (name{figure.30}) has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.66 \end{document}
-                   pdfTeX warning (ext4): destination with the same identifier 
-(name{figure.31}) has been already used, duplicate ignored
+l.18 \end{equation*}
+                    {}pdfTeX warning (ext4): destination with the same identifi
+er (name{figure.31}) has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.66 \end{document}
-                   pdfTeX warning (ext4): destination with the same identifier 
-(name{figure.32}) has been already used, duplicate ignored
+l.18 \end{equation*}
+                    {}pdfTeX warning (ext4): destination with the same identifi
+er (name{figure.32}) has been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.66 \end{document}
-                    <./Images/Resultats/avionlac.png> <./Images/Resultats/avion
-.png> <./Images/Resultats/avionFourier.png> <./Images/Resultats/avionPlage.png>
- <./Images/Resultats/avion1.png> <./Images/Resultats/avionF.png>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 66.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 66.
+l.18 \end{equation*}
+                    {} <./Images/Resultats/avionlac.png> <./Images/Resultats/av
+ion.png> <./Images/Resultats/avionFourier.png> <./Images/Resultats/avionPlage.p
+ng> <./Images/Resultats/avion1.png> <./Images/Resultats/avionF.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 37--39
+
+ []
+
+[18]
+Underfull \hbox (badness 10000) in paragraph at lines 95--97
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 125--131
+
+ []
+
+) (./Chapters/08_Conclusion.tex) [19]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 67.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 67.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 66.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 66.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 67.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 67.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: CB21843A58E9989CFE0AC211FD5F0A9F;2154.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 66.
+(rerunfilecheck)             Checksum: B88B4DDC7952F7219CB0726F5777E4F4;2793.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 67.
  ) 
 Here is how much of TeX's memory you used:
- 18444 strings out of 494880
- 339148 string characters out of 6179602
- 420994 words of memory out of 5000000
- 21269 multiletter control sequences out of 15000+600000
- 6820 words of font info for 25 fonts, out of 8000000 for 9000
+ 18747 strings out of 494880
+ 342555 string characters out of 6179602
+ 420481 words of memory out of 5000000
+ 21541 multiletter control sequences out of 15000+600000
+ 8065 words of font info for 31 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 62i,14n,56p,761b,596s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,15n,56p,1169b,596s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/tex
@@ -1249,11 +1298,12 @@ c/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
 nts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pf
 b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr
-/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on main.pdf (18 pages, 8422177 bytes).
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (20 pages, 8441789 bytes).
 PDF statistics:
- 447 PDF objects out of 1000 (max. 8388607)
- 346 compressed objects within 4 object streams
- 112 named destinations out of 1000 (max. 500000)
- 428 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 501 PDF objects out of 1000 (max. 8388607)
+ 397 compressed objects within 4 object streams
+ 125 named destinations out of 1000 (max. 500000)
+ 484 words of extra memory for PDF output out of 10000 (max. 10000000)
 

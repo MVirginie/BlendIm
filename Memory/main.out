@@ -1,10 +1,10 @@
 \BOOKMARK [1][-]{section.1}{Pr\351sentation du probl\350me}{}% 1
-\BOOKMARK [2][-]{subsection.1.1}{Traduction du probl\350me sous formes math\351matiques.}{section.1}% 2
-\BOOKMARK [2][-]{subsection.1.2}{R\351solution}{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.1}{Probl\350me math\351matique associ\351}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{R\351solution et \351quivalence avec l'\351quation de poisson}{section.1}% 3
 \BOOKMARK [1][-]{section.2}{R\351solution}{}% 4
-\BOOKMARK [2][-]{subsection.2.1}{Discr\351tisation}{section.2}% 5
-\BOOKMARK [3][-]{subsubsection.2.1.1}{Qu'est qu'une image}{subsection.2.1}% 6
-\BOOKMARK [2][-]{subsection.2.2}{Les diff\351rents op\351rateurs n\351cessaires}{section.2}% 7
+\BOOKMARK [2][-]{subsubsection.2.0.1}{Qu'est qu'une image}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.1}{Discr\351tisation}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.2}{Notations}{section.2}% 7
 \BOOKMARK [2][-]{subsection.2.3}{M\351thode des diff\351rences finies}{section.2}% 8
 \BOOKMARK [3][-]{subsubsection.2.3.1}{Discr\351tisation du Laplacien}{subsection.2.3}% 9
 \BOOKMARK [3][-]{subsubsection.2.3.2}{R\351solution de l'\351quation de Poisson}{subsection.2.3}% 10
@@ -27,4 +27,11 @@
 \BOOKMARK [2][-]{subsection.5.2}{Diff\351rence de temps}{section.5}% 27
 \BOOKMARK [1][-]{section.6}{Optimisation}{}% 28
 \BOOKMARK [2][-]{subsection.6.1}{M\351thode de Douglas}{section.6}% 29
-\BOOKMARK [1][-]{section.7}{Conclusion}{}% 30
+\BOOKMARK [3][-]{subsubsection.6.1.1}{D'un probl\350me avec contraintes...}{subsection.6.1}% 30
+\BOOKMARK [3][-]{subsubsection.6.1.2}{... \300 un probl\350me sans contraintes}{subsection.6.1}% 31
+\BOOKMARK [3][-]{subsubsection.6.1.3}{La convexit\351...}{subsection.6.1}% 32
+\BOOKMARK [3][-]{subsubsection.6.1.4}{... Pour utiliser l'algorithme de Douglas...}{subsection.6.1}% 33
+\BOOKMARK [3][-]{subsubsection.6.1.5}{... Avec les op\351rateurs proximaux ...}{subsection.6.1}% 34
+\BOOKMARK [3][-]{subsubsection.6.1.6}{R\351sultats obtenus}{subsection.6.1}% 35
+\BOOKMARK [3][-]{subsubsection.6.1.7}{Temps et co\373t de l'algorithme}{subsection.6.1}% 36
+\BOOKMARK [1][-]{section.7}{Conclusion}{}% 37
