@@ -12,11 +12,9 @@ function [im] =  copyPaste(maskS, maskT, imS, imT)
 
 maskS.cut_im= maskS.matrix.*imS;
 maskS.adjust_size(maskT);
+maskS.pos_to_move(1,1);
 maskS.move_roi();
-[k,l] = find(maskS.matrix);
-maskS.pos_to_move = [min(l), min(k)];
-mask2 = maskS.invert_mask();
-maskT2 = mask2.*imT;
+maskT2 = ~maskS.matrix.*imT;
 im = maskS.cut_im+maskT2;
 
 end

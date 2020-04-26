@@ -7,22 +7,17 @@ function solve = method()
         solve.douglas = @douglas;
         solve.color_mode_Douglas =@color_mode_Douglas;
 end
-function [new_cut, new_T, sol] = fourier_clonage(handles, maskS, maskT,im)
+function [new_T, sol] = fourier_clonage(handles, maskS, maskT,im)
     set(handles.error_text, 'String', 'Beginning');
-    new_cut = maskS.transform_to_rect(maskS.associate_im); % resize I into a rect (demarcation)
-    maskS.cut_im = new_cut;
-    maskT.cut_im = maskS.transform_T_to_rect(maskT.associate_im);
     f = Fourier(maskS.associate_im, maskT.associate_im);
         if(handles.change_sel.Value == 1)
-             f.change_selection(maskS,maskT);
+             maskS.change_selection(maskT);
         end
     im_i = copyPaste(maskS,maskT, f.grad_S_i, f.grad_T_i);% IMAGE I COLLEE
     maskS.reinitialize_mask(maskT);
     if(handles.change_sel.Value == 1)
-      f.change_selection(maskS,maskT);
+      maskS.change_selection(maskT);
     end
-    maskS.cut_im = new_cut;
-    maskT.cut_im = maskS.transform_to_rect(maskT.associate_im);
     im_j = copyPaste(maskS, maskT, f.grad_S_j, f.grad_T_j);% IMAGE J COLLE
     new_T = maskT.associate_im;
     sol = f.solve(im_i, im_j);
@@ -41,7 +36,8 @@ function [sol, img, new_cut] = clonage_v2(handles, maskS, im, rect, maskT)
     maskT.cut_im = maskS.transform_to_rect(maskT.associate_im);
     maskS.matrix = maskS.transform_to_rect(maskS.matrix);   % resize b&w mask
     if(handles.change_sel.Value == 1)
-    maskS.change_selection(maskT);
+      maskS.change_selection(maskT);
+      imshow(maskS.matrix)
     end
     new_system = FDSystem(maskS.matrix);
     new_system.create_matrix(maskS, rect, maskT);
@@ -85,14 +81,17 @@ function [sol] = color_mode_Douglas(handles)
 end
 
 function sol = douglas(maskS, maskT, handles)
-    maskT.cut_im = maskS.transform_T_to_rect(maskT.associate_im);
-    maskS.cut_im = maskS.transform_to_rect(maskS.associate_im);
-    maskS.matrix = maskS.transform_to_rect(maskS.matrix);   % resize b&w mask
+maskS.cut_im = maskS.transform_to_rect(maskS.associate_im);
+maskS.matrix = maskS.transform_to_rect(maskS.matrix);
+maskT.cut_im = maskT.accord_rec(maskS.matrix,maskT.associate_im);   
     if(handles.change_sel.Value == 1)
         maskS.change_selection(maskT);
     end
+    maskS.pos_to_move(1,1)
     dg = Douglas(maskS, maskT);
     y0 = maskT.cut_im;
     temp = dg.douglas(y0, handles);
+    [row, col] = find(maskS.matrix);
+    maskS.pos = [min(row), min(col)];
     sol = copyPaste(maskS, maskT,temp, maskT.associate_im);
 end
