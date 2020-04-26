@@ -36,75 +36,7 @@ Vous pouvez bouger les sliders présents à droite afin de déplacer la zone col
 Nous avons organisé le code sous forme de classes. Le projet contient 2 classes principales, la classe, Fourier et la classe DFinies
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{center}
-\textbf{Classe Fourier}\\
-\end{center}
-\textbf{Propriétés}\\
-\begin{itemize}
-\item $grad_Tj$, $grad_Ti$ : permet de stocker le gradient de T, l'image d'arrière-plan\\
-\item $grad_Sj$, $grad_Si$  : Permet de stocker le gradient de S, l'image à coller. \\
-\end{itemize}
-\textbf{Méthodes}
-\begin{itemize}
-\item compute\_grad : permet de calculer le gradient d'une image.
-\item symmetry : Permet d'étendre l'image par symétrie, alors la taille de l'image est multipliée par 2. \\ 
-solve : utilise la formule [], pour trouver la solution de l'équation de Poisson à l'aide de la méthode de Fourier. 
-\item resize : permet de redimensionner l'image qui avait été symétrisée auparavant.
-\end{itemize}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{center}
-\textbf{Classe DFinies}\\
-\end{center}
-\textbf{Propriétés}\\
-\begin{itemize}
-\item $size$ : taille de la matrice.
-\item matrix : permet de stocker la matrice du système.
-\item vector : permet de stocker le vecteur b associé au système.
-\item $i_vect$ : Permet de stocker les numéros de lignes de la matrice creuse A
-\item $j_vect$ : Permet de stocker les numéros des colonnes de la matrice creuse A
-\item $v_vect$ : Permet de stocker les coefficients de la matrice creuse A
-\end{itemize}
-\textbf{Méthodes}
-\begin{itemize}
-\item $add\_four$ : ajoute à la matrice creuse le coefficient -4, à la position i, j
-\item $pix\_up\_is\_inside$ : ajoute le coefficient 1 à la matrice creuse, à la position
-\item $pix\_down\_is\_inside$ : ajoute le coefficient 1 à la matrice creuse, à la position
-\item $pix\_left\_is\_inside$ : ajoute le coefficient 1 à la matrice creuse, à la position
-\item $pix\_right\_is\_inside$ : ajoute le coefficient 1 à la matrice creuse, à la position
-\item $is\_inside$ : 
-\item $find\_roi$ :  Trouve la région d'intérêt dans l'image
-\item $find\_useless$ : Trouve les pixels, ne faisant pas partie de ma sélection
-\item $create\_matrix$  : Crée la matrice A, pour résoudre le système.
-\item $Laplacian$ :  Calcule le laplacien d'une image et met à jour le vecteur b.
-\item solve :  Résout le système Ax=b et trouve l'image finale.
-\end{itemize}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{center}
-\textbf{Classe Mask}\\
-\end{center}
-\textbf{Propriétés}\\
-\begin{itemize}
-\item $associate\_im$
-\item $associate\_roi$
-\item $matrix$
-\item $pos$
-\item $pos\_to\_move$
-\item $cut\_im$
-\item $shift\_done$
-\item $boundaries$
-\end{itemize}
-\textbf{Méthodes}
-\begin{itemize}
-\item $reinitialize\_mask$
-\item $save\_mask\_settings$
-\item $move\_roi$
-\item $ivert\_mask$
-\item $find\_boudaries$
-\item $modify\_mask\_values$
-\item $adjust\_size$
-\item $change\_selection$
-\end{itemize}
-\begin{center}
-\textbf{Fonction Copy/Paste}
-\end{center}
+\begin{figure}
+\includegraphics[scale=0.65]{Images/code/schema.png}
+\end{figure}

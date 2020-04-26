@@ -22,7 +22,7 @@ Nous disposons des deux images présentées ci-dessous, l'image T(arget) et l'im
    \end{minipage}
 \end{figure}
 
-L'objectif est d'incruster toute ou une partie de l'image S dans l'image T. En terme de manipulations, cela consiste à effectuer un copier/coller ou encore un clônage de la seconde image dans la première.
+L'objectif est d'incruster toute ou partie de l'image S dans l'image T. En terme de manipulations, cela consiste à effectuer un copier/coller ou encore un clônage de la seconde image dans la première.
 Le résultat que nous attendons pour une incrustation "réussie" est un résultat comme celui présenté ci-dessous : 
     
 \begin{center}
@@ -32,12 +32,12 @@ Le résultat que nous attendons pour une incrustation "réussie" est un résulta
      \caption{Image  finale attendue}
 \end{figure}
 \end{center}
-Cette image est extraite d'une simulation effectuée sur 'demo.ipol.im/demo/163/'. Nous comparerons les images obtenues avec nos algorithmes avec celle-ci à la fin de ce rapport.\newline
+Cette image est extraite d'une simulation effectuée sur \url{'demo.ipol.im/demo/163/'}. Nous comparerons les images obtenues à l'aide nos algorithmes avec celle-ci à la fin de ce rapport.\newline
 \paragraph{Remarques}
-Ce résultat est réussi parce qu'il semble naturel, les frontières entre l'image collée et l'arrière plan sont très peu visibles et on été estompées, les oiseaux présents dans la première image n'ont pas été déformé et semble faire parti de l'image. 
+Ce résultat est réussi parce qu'il semble naturel, les frontières entre l'image collée et l'arrière plan sont très peu visibles et ont été estompées, les oiseaux présents dans la première image n'ont pas été déformés et semblent faire parti de l'image. 
 Mais comment obtenir un tel résultat ?
 \newline
-Reprenons nos deux images séparées, T et S.  Commençons par effectuer un simple copier/coller. Certains pixels de T sont donc écrasés par ceux de S. En effectuant cette manipulation voici l'image que nous devrions obtenir : 
+Reprenons nos deux images séparées, T et S et commençons par effectuer un simple copier/coller. Certains pixels de T sont donc écrasés par ceux de S. En effectuant cette manipulation voici l'image que nous devrions obtenir : 
 \begin{center}
 \begin{figure}[H]
      \centering
@@ -48,9 +48,8 @@ Reprenons nos deux images séparées, T et S.  Commençons par effectuer un simp
 
 Ce résultat n'est bien entendu pas convenable et bien loin de l'image finale attendue. Le découpage et le collage entre l'arrière-plan et l'image "objet" sont beaucoup trop visibles, les couleurs ne sont pas les mêmes et incohérentes. Nous souhaitons obtenir un résultat beaucoup plus naturel, comme écrit plus haut. Cette simple manipulation n'est donc pas suffisante pour effectuer le clônage cohérent  d'une image dans une autre. \newline
 
-Il semble évident de vouloir modifier l'image finale obtenue afin qu'elle paraisse la plus naturelle possible.
-Nous verrons tout au long de ce rapport, quels sont les changements à effectuer, et comment la résolution d'une équation aux dérivées partielles,l'équation de Poisson, nous permet d'obtenir un bien meilleur résultat. 
-
+Il semble évident de vouloir modifier l'image finale obtenue ci-dessus afin qu'elle paraisse la plus naturelle possible.
+Nous verrons tout au long de ce rapport, quels sont les changements à effectuer, et comment la résolution d'une équation aux dérivées partielles,l'équation de Poisson, nous permet d'obtenir un bien meilleur résultat. Nous implémenterons trois algorithmes permettant de résoudre le problème posé, et comparerons les résultats obtenus à l'aide de ceux-ci
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %           TRADUCTION SOUS FORMES MATHEMATIQUES         %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -75,7 +74,8 @@ Nous souhaitons donc trouver une fonction I qui satisfasse un certain nombre de 
 Cette fonction représente la partie modifiée de notre image. Mais quelles sont les conditions qu'elle doit remplir pour que le rendu soit le meilleur possible? Notre nouvelle image I doit-elle être plus proche de l'image collée S, ou de l'image d'arrière-plan T ? \newline
 Pour répondre à cette question, reprenons le problème de départ. \newline
 
-Pour que l'image obtenue s'incruste parfaitement,il faut que celle-ci dénature le moins possible les deux images sélectionnées au départ. En effet, nous devons garder les détails de l'image que nous voulons coller, S, ne pas modifier les variations qu'elle pourrait posséder comme par exemple, les contours ou les objets, lui appartenant.Nous devons donc pouvoir retrouver les informations présentes dans celle-ci. Par conséquent, il faut que les variations présentes dans $I$ soient presque identiques à celles de S.Rappelons qu'en traitement d'image, les variations d'une image peuvent être obtenues en calculant le gradient de celle-ci. En effet, une variation peut-être représentée comme un changement "brutal" d'intensité entre deux pixels. Le gradient d'une image étant numériquement obtenu en effectuant la différence entre des pixels voisins. Par conséquent, un fort changement d'intensité, implique un fort gradient. Au contraire, l'absence de variations entraîne un gradient presque nul. Le gradient d'une image permet entre autre de détecter les contours de celle-ci.\\
+Pour que l'image obtenue s'incruste parfaitement,il faut que celle-ci dénature le moins possible les deux images sélectionnées au départ. En effet, nous devons garder les détails de l'image que nous voulons coller, S, ne pas modifier les variations qu'elle pourrait posséder comme par exemple, les contours ou les objets, lui appartenant.Nous devons donc pouvoir retrouver les informations présentes dans celle-ci. Par conséquent, il faut que les objets ou contours présents dans $I$ soient presque identiques à ceux de S.\\
+Rappelons qu'en traitement d'image, les variations d'une image peuvent être obtenues en calculant le gradient de celle-ci. En effet, une variation peut-être représentée comme un changement "brutal" d'intensité entre deux pixels. Le gradient d'une image étant numériquement obtenu en effectuant la différence entre des pixels voisins : si celle-ci est élevée alors il y a une fort changement d'intensité entre eux, (par exemple un pixel noir et un autre blanc), et donc possiblement la présence d'un contour. Par conséquent, un fort changement d'intensité, implique un fort gradient. Au contraire, l'absence de variations entraîne un gradient presque nul. Son calcul permet entre autre de détecter les contours d'une image.\\
 Nous souhaitons ici, que les contours de l'image finale soient très proches de l'image à coller. Mathématiquement, nous voulons donc une fonction I dont le gradient est le plus proche possible, ou identique à celui de l'image collée, S. Nous cherchons donc :
 \begin{center}
     $$ min \iint_\Omega || \nabla I_{x,y} - \nabla S_{x,y}||^2 dxdy$$
@@ -169,6 +169,6 @@ En remplaçant dans (1). On obtient le problème suivant :
         \right.
     \end{equation*}
 \end{center}
-qui n'est autre que l'équation de Poisson, avec conditions au bords de Dirichlet. 
+qui n'est autre que l'équation de Poisson, avec conditions aux bords de Dirichlet. 
 Ainsi : résoudre le problème variationnel est équivalent à résoudre l'équation de poisson avec conditions aux bords de Dirichlet. Nous décrirons dans ce rapport 3 manières de résoudre cette équation. 
 
