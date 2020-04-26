@@ -60,13 +60,13 @@ function [sol, image, new_cut] = color_mode_DF(handles)
      [sol(:,:,i), image(:,:,i), new_cut(:,:,i)] = clonage_v2(handles, handles.maskS, im(:,:,i), rect(:,:,i), handles.maskT);
  end
 end
-function [new_cut, t, sol] = color_mode_Fourier(handles)
+function [t, sol] = color_mode_Fourier(handles)
  for i = 1:3
      handles.maskT.reload_pdt_mask(handles.t_init);
      handles.maskS.reload_pdt_mask(handles.s_init);
      handles.maskT.associate_im = handles.maskT.associate_im(:,:,i);
      handles.maskS.associate_im = handles.maskS.associate_im(:,:,i);
-    [new_cut(:,:,i), t(:,:,i), sol(:,:,i)] = fourier_clonage(handles, handles.maskS, handles.maskT);
+    [t(:,:,i), sol(:,:,i)] = fourier_clonage(handles, handles.maskS, handles.maskT);
  end
 end
 
