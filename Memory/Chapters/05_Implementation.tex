@@ -33,10 +33,27 @@ En sélectionnant le mode couleur, (8) vous pourrez travailler sur des images en
 Vous pouvez bouger les sliders présents à droite afin de déplacer la zone collée dans l'image de fond. La solution au problème est alors automatiquement recalculée en fonction de l'endroit où l'objet à collé. 
 
 \subsection{Organisation du code}
-Nous avons organisé le code sous forme de classes. Le projet contient 2 classes principales, la classe, Fourier et la classe DFinies
+Nous avons organisé le code sous forme de classes. Le projet contient 4 classes principales, la classe, Fourier, la classe DFinies, la classe Douglas et enfin la classe  Mask. Notre projet contient aussi deux fonctions, la fonctions copier/coller et la fonction du gradient conjugué.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{figure}
 \includegraphics[scale=0.65]{Images/code/schema.png}
+\caption{Structure et interactions du code}
 \end{figure}
+\newpage
+
+\paragraph{Explication du schéma}
+Le code est organisé en différentes classes (4).
+\paragraph{Douglas}
+Cet algorithme étant plutôt long (en terme de temps), nous ne travaillerons pas sur l'image entière mais sur le plus petit rectangle autour de la sélection.En d'autre terme nous collerons l'image S sur une sous-image de T, que nous réinsérerons par la suite au bon endroit dans T. Afin de résoudre le problème à l'aide de l'algorithme de Douglas, nous avons crée une classe du même nom.  A l'intérieur de celle-ci nous calculons les opérateurs proximaux nécessaires. Avec une particularité, l'opérateur proximal de la norme, nécessite la construction d'une matrice. Afin d'éviter les doublons nous utilisons donc la classe FDSystem, pour calculer cette matrice, et le vecteur associé. Puis nous inversons le système à l'aide de l'algorithme du gradient conjugué. 
+\paragraph{Différences finies}
+Pour résoudre le problème avec les différences finies, la classe DFSystem, nous permet de calculer la matrice A, le vecteur b et enfin d'inverser le système pour trouver la solution. De la même manière que pour Douglas, nous ne travaillons pas sur l'image entière mais sur une sous-image que nous recollons au bon endroit à la fin.
+\paragraph{Fourier}
+Dans la classe Fourier nous symétrisons les images, puis calculons les gradients de celles-ci. Les images représentant les gradients sont par la suite fusionnées avant d'être envoyé à la fonction de résolution de la classe Fourier. 
+\paragraph{Mask}
+La classe Mask, permet le traitement d'images et de masque, elle est mise à jour pendant tout le programme. C'est notamment elle qui permet le découpage d'image, la fusion de deux images, le redimensionnement des masques si besoin. 
+\paragraph{La fonction gradient conjugué}
+Elle permet de trouver la solution au système Ax=b de manière plus rapide qu'une inversion dans matlab.
+\paragraph{La fonction copier coller} 
+Elle écrase certains pixels d'une images par les pixels d'une autre.
