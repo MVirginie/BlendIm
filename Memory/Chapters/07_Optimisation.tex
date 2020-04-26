@@ -10,7 +10,7 @@ Remarquons que le problème initial est un problème d'optimisation avec contrai
 Ce problème d'optimisation peut donc être résolu à l'aide de différents algorithmes, mais avant ça, transformons le en un problème sans contraintes. 
 
 \subsubsection{... À un problème sans contraintes}
-En utilisant des fonctions de pénalisation nous remarquons aisément que ce problème peut être ramené à un problème sans contraintes. Réécrivons donc le problème : 
+En utilisant des fonctions de pénalisation nous remarquons aisément que ce problème peut être ramené à un problème sans contraintes. Réécrivons donc celui-ci 
 \begin{equation*}
 \begin{aligned}{}
     min \int_\Omega ||\nabla I - \nabla S||^2 + \mathbb{1} _{D \backslash \Omega } (I) \\
@@ -26,7 +26,11 @@ avec
     \end{aligned}
     \right.
 \end{equation*}{}
-Nous avons bien équivalence entre notre problème sans contraintes et le problèmes (1). En effet, si I $\in T \backslash \Omega $, alors l'indicatrice vaut 0 et nous devons juste résoudre $min \int_\Omega ||\nabla I - \nabla S||^2 $. Si au contraire $I \notin T\backslash \Omega$, alors nous devons minimiser quelque chose qui vaut plus $+\infty$. Le minimum n'existe pas. En effet, la condition I = T en dehors du domaine n'étant pas respectée, le problème n'a pas de solution. Ce problème sans contraintes, traduit bien celui avec contraintes. Nous pouvons donc essayer de résoudre celui-ci, numériquement. Dans la suite nous prouverons que cette fonction est bien convexe,et par conséquent, qu'elle admet bien un minimum. 
+Dans la suite nous noterons $K = T\backslash \Omega$. K représente donc l'ensemble des images dont les pixels situés en dehors du domaine$\Omega$, coïncident avec T.\\
+
+Nous avons bien équivalence entre notre problème sans contraintes et le problème (1). En effet, si I $\in K$, alors l'indicatrice vaut 0 et nous devons juste résoudre $min \int_\Omega ||\nabla I - \nabla S||^2 $. Si au contraire $I \notin K$, alors nous devons minimiser quelque chose qui vaut plus $+\infty$. Le minimum n'existe pas, il n'y a pas de solutions.\\
+ En effet, la condition I = T en dehors du domaine n'étant pas respectée, le problème n'a pas de solution. \\
+ Ce problème sans contraintes, traduit bien celui avec contraintes. Nous pouvons donc essayer de résoudre celui-ci, numériquement. Afin d'être sûrs que le minimum existe, nous montrerons dans la suite que cette fonction est bien convexe. 
 \subsubsection{La convexité...}
 Montrons que K est convexe. 
 Soit u et v deux images appartenant à K, alors, les pixels de u et de v, se situant à l'extérieur de $\Omega$, coïncident avec les pixels de T. \\
@@ -131,9 +135,10 @@ L étant une image appartenant à K, et dont les pixels à l'intérieur de $\Ome
 \subsubsection{Convergence de l'algorithme vers la solution}
 
 \subsubsection{Résultats obtenus}
+Avec une précision de $10^{-3}$
 
 \subsubsection{Temps et coût de l'algorithme}
 
-
+\subsection{Tableau comparatif}
 
 
