@@ -12,7 +12,6 @@ function [im] =  copyPaste(maskS, maskT, imS, imT)
 
 maskS.cut_im= maskS.matrix.*imS;
 maskS.adjust_size(maskT);
-maskS.pos_to_move(1,1);
 maskS.move_roi();
 maskT2 = ~maskS.matrix.*imT;
 im = maskS.cut_im+maskT2;

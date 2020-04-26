@@ -46,7 +46,7 @@ classdef Douglas<handle
             x = ones(size(y0,1),size(y0,2));
             i = 1;
             tic
-            while eps >10^-2
+            while eps >10^-5
                 xx = self.prox_f(A, b, y);
                 y = y+self.prox_g(2.*xx-y)-xx;
                 eps = norm(xx-x, 2)^2;

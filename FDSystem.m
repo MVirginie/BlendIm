@@ -69,7 +69,7 @@ classdef FDSystem <handle
         function pix_right_is_inside(self, i_four, j_four, mask, val)
         %The pixel at the rightside of the pixel we want to compute is inside \Omega
         %Add the value '1' at the correct position
-        % A(i,j-nb_row(mask)) = 1
+        % A(i,j+nb_row(mask)) = 1
             j_four(:) = j_four(:)+ size(mask,1);
             n_vec = ones(1, size(i_four,1));
             self.i_vect = [ self.i_vect, i_four'];
@@ -158,8 +158,10 @@ classdef FDSystem <handle
         %Solve Ax = b 
         % x = A^-1 *b 
         % Reshape the  vector solution to a n by m matrix 
-            new_vector = self.matrix\self.vector;
-            im = reshape(new_vector, size(image,1), size(image,2));
+       % new_vector = grad_conj(self.matrix, self.vector, self.vector);
+        new_vector = self.matrix\self.vector;
+        im = reshape(new_vector, size(image,1), size(image,2));
+            
         end
         
         end
