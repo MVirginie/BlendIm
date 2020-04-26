@@ -133,12 +133,86 @@ Comme nous l'avons cette fonction n'admet un minimum que si $u \in K$. Supposons
 Dans notre cas, u $prox_g(x) = L$.
 L étant une image appartenant à K, et dont les pixels à l'intérieur de $\Omega$ coïncident avec x.\\
 \subsubsection{Convergence de l'algorithme vers la solution}
+\begin{figure}[!h]
+\includegraphics[scale=0.5]{Images/Resultats/conv1.png}
+\end{figure}
+\begin{figure}[!h]
+\includegraphics[scale=0.4]{Images/Resultats/conv2.png}
+\end{figure}
 
 \subsubsection{Résultats obtenus}
-Avec une précision de $10^{-3}$
+Avec une précision de $10^{-5}$
 
+\begin{figure}[!htb]
+   \begin{minipage}{0.5\textwidth}
+     \centering
+     \includegraphics[width = 120pt]{Images/Resultats/Douglas1b.png}
+     \caption{Images sélectionnées}
+      \end{minipage}\hfill
+   \begin{minipage}{0.5\textwidth}
+     \centering
+     \includegraphics[width = 120pt]{Images/Resultats/Douglas1.png}
+     \caption{Douglas}
+      \end{minipage}\hfill
+\end{figure}
+\begin{figure}[!htb]
+   \begin{minipage}{0.5\textwidth}
+     \centering
+     \includegraphics[width = 120pt]{Images/Resultats/Douglas2b.png}
+     \caption{Douglas}
+      \end{minipage}\hfill
+   \begin{minipage}{0.5\textwidth}
+     \centering
+     \includegraphics[width = 120pt]{Images/Resultats/Douglas2.png}
+     \caption{Douglas}
+      \end{minipage}\hfill
+\end{figure}
+
+\begin{figure}[!h]
+   \begin{minipage}{0.5\textwidth}
+     \centering
+     \includegraphics[width = 120pt]{Images/Resultats/douglas3b.png}
+     \caption{Images sélectionnées}
+      \end{minipage}\hfill
+   \begin{minipage}{0.5\textwidth}
+     \centering
+     \includegraphics[width = 120pt]{Images/Resultats/douglas3.png}
+     \caption{Douglas}
+      \end{minipage}\hfill
+\end{figure}
+\begin{figure}[!htb]
+   \begin{minipage}{0.5\textwidth}
+     \centering
+     \includegraphics[width = 120pt]{Images/Resultats/douglas4b.png}
+     \caption{Images sélectionnées}
+      \end{minipage}\hfill
+   \begin{minipage}{0.5\textwidth}
+     \centering
+     \includegraphics[width = 120pt]{Images/Resultats/douglas4.png}
+     \caption{Douglas}
+      \end{minipage}\hfill
+\end{figure}
+\newpage
 \subsubsection{Temps et coût de l'algorithme}
-
+L'algorithme semble être très efficace, malheureusement en termes de temps de calcul, il est très long. Nous ferons dans la prochaine partie un tableau comparatif des temps de calculs effectués sur des images de tailles différentes.\\
+Nous avons améliorer considérablement le temps de calcul de cet algorithme de Douglas-Rachford, en utilisant l'algorithme du gradient conjugué, afin d'inverser la matrice de l'opérateur proximal de f. Malgré tout, l'lagorithme est encore lent sur de grandes images. Nous choisissons une précision de $10^{-5}$, afin d'avoir des images "bien" incrustées. Le nombre d'itérations de l'algorithme devient alors très important, ce qui augmente considérablement le temps de calcul.\\ Afin de réduire ce temps de calcul il faudrait donc que l'algorithme converge plus rapidement vers la solution. Pour cela, nous proposons d'augmenter l'ordre de discrétisation du Laplacien. Nous étions jusqu'à présent d'ordre 2, peut -être faudrait-il augmenter cette précision jusqu'à l'ordre 8. 
 \subsection{Tableau comparatif}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Tailles de l'image S & Taille de l'image T& Temps Douglas & Temps différences finies & Temps Fourier\\
+\hline
+220 $\times$ 154 $\times$3 px & 304 $\times $252 $\times $3 px &  \shortstack{ 834 itérations\\ précision : 5$\times 10^{-5}$\\3.799 secondes} & 0.335 secondes & 0.355 secondes \\
 
+\hline
+304 $\times$ 252 $\times$3 px & 770$\times$844 $\times $3 px & \shortstack{ 1591 itérations\\ précision : 5$\times 10^{-5}$\\72.348 secondes} & 0.797 secondes & 1.640 secondes \\
+\hline
+400 $\times$ 300 $\times$3 px & 1200$\times$800$\times $3 px & \shortstack{ 6224 itérations\\ précision : 5$\times 10^{-5}$\\440.886 secondes} & 1.05 secondes & 2.102 secondes \\
+\hline
+400 $\times$ 300 $\times$3 px & 614$\times$441$\times $3 px & \shortstack{ 5448 itérations\\ précision : 5$\times 10^{-5}$\\366.0.34 secondes} & 0.877 secondes & 0.8576 secondes \\
+\hline
+220 $\times$ 154 $\times$3 px & 263$\times$192$\times $3 px & \shortstack{ 861 itérations\\ précision : 5$\times 10^{-5}$\\4.056 secondes} & 0.0892 secondes & 0.1754 secondes \\
+\hline
+
+\end{tabular}\\
+Les résultats que nous obtenons avec les différentes images sont à peu près similaires. Nous pouvons bien sûr raccourcir le temps de calcul de l'algorithme de Douglas-Rachford, en diminuant la précision. Mais dans ce cas, les résultats obtenus avec celui-ci sont moins bons, et pas comparables avec ceux des deux autres méthodes. 
 
