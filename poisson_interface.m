@@ -379,7 +379,9 @@ if (handles.slider3.Value == 0 && handles.slider4.Value == 1)
 end
 if(handles.DFButton.Value == 1)
     if (handles.Color_box.Value == 1)
+        tic
         [sol, image, new_cut] = solve.color_mode_DF(handles);
+        toc
     else
     rect = handles.maskS.transform_to_rect(handles.maskS.associate_im);% resize S into a rect 
     [im] = copyPaste(handles.maskS, handles.maskT, handles.maskS.associate_im, handles.maskT.associate_im);
@@ -392,7 +394,9 @@ if(handles.DFButton.Value == 1)
     
 elseif (handles.FourierButton.Value == 1)
     if (handles.Color_box.Value == 1)
+        tic
         [sol, img]=solve.color_mode_Fourier(handles);
+        toc
     else
         [im] = copyPaste(handles.maskS, handles.maskT, handles.maskS.associate_im, handles.maskT.associate_im);
         handles.maskS.reload_pdt_mask(handles.s_init)
@@ -403,7 +407,9 @@ elseif (handles.FourierButton.Value == 1)
     imshow(sol, 'Parent', handles.axes4);
 else 
     if(handles.Color_box.Value==1)
+        tic
         sol = solve.color_mode_Douglas(handles);
+        toc
     else   
     [sol] = solve.douglas(handles.maskS, handles.maskT, handles);
     end

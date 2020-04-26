@@ -13,7 +13,10 @@ function [im] =  copyPaste(maskS, maskT, imS, imT)
 maskS.cut_im= maskS.matrix.*imS;
 maskS.adjust_size(maskT);
 maskS.move_roi();
-maskT2 = ~maskS.matrix.*imT;
+[k,l] = find(maskS.matrix);
+maskS.pos_to_move = [min(l), min(k)];
+mask2 = maskS.invert_mask();
+maskT2 = mask2.*imT;
 im = maskS.cut_im+maskT2;
 
 end
