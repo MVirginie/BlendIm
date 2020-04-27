@@ -213,24 +213,36 @@ Avec une précision de $10^{-5}$
 \newpage
 \subsubsection{Temps et coût de l'algorithme}
 L'algorithme semble être très efficace, malheureusement en termes de temps de calcul, il est très long. Nous ferons dans la prochaine partie un tableau comparatif des temps de calculs effectués sur des images de tailles différentes.\\
-Nous avons considérablement amélioré  le temps de calcul de l'algorithme de Douglas-Rachford, en utilisant l'algorithme du gradient conjugué, afin d'inverser la matrice de l'opérateur proximal de f. Malgré tout, l'algorithme est encore lent sur de grandes images. Nous choisissons une précision de $10^{-5}$, afin d'avoir des résultats convenables et comparables à ceux obtenus avec les méthodes précédentes. Le nombre d'itérations de l'algorithme devient alors très important, car il semble converger plus lentement à partir de $10^-3$, ce qui augmente considérablement le temps de calcul.\\ Afin de réduire ce temps de calcul il faudrait donc que l'algorithme converge plus rapidement vers la solution. Pour cela, nous proposons d'augmenter l'ordre de discrétisation du Laplacien. Nous étions jusqu'à présent d'ordre 2, peut -être faudrait-il augmenter cette précision jusqu'à l'ordre 8. 
+Nous avons considérablement amélioré  le temps de calcul de l'algorithme de Douglas-Rachford, en utilisant l'algorithme du gradient conjugué, afin d'inverser la matrice de l'opérateur proximal de f. Malgré tout, l'algorithme est encore lent sur de grandes images. Nous choisissons une précision de $10^{-5}$, afin d'avoir des résultats convenables et comparables à ceux obtenus avec les méthodes précédentes. Le nombre d'itérations de l'algorithme devient alors très important, car il semble converger plus lentement à partir de $10^-3$, ce qui augmente considérablement le temps de calcul.\\
+Nous avons amélioré les temps de calculs en appliquant une méthode de sur-relaxation sur l'algorithme de Douglas-Rachford, avec un $\rho  =1.85$.A chaque itération nous calculons donc :
+\begin{center} 
+\begin{itemize}
+\item $x_{k+1} = prox_f(y_k)$
+\item $y_{k+1} = y_k+\rho_k(prox_g(2x_{k+1}-y_k)-x_{k+1})$
+\end{itemize}
+\end{center}
+($1<\rho<2$).\\
+Cependant, le temps de calcul est encore élevé sur de grandes images.
+Afin de réduire ce temps de calcul il faudrait donc que l'algorithme converge encore plus rapidement vers la solution. Pour cela, nous proposons d'augmenter l'ordre de discrétisation du Laplacien. Nous étions jusqu'à présent d'ordre 2, peut -être faudrait-il augmenter cette précision jusqu'à l'ordre 8. \\
 \subsection{Tableau comparatif}
-\begin{tabular}{|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|}
 \hline
-Tailles de l'image S & Taille de l'image T& Temps Douglas & Temps différences finies & Temps Fourier\\
+Taille de l'image S & Taille de l'image T& Temps Douglas & \shortstack{Temps Douglas \\(R)} &\shortstack{Temps différences\\ finies} & Temps Fourier\\
 \hline
-220 $\times$ 154 $\times$3 px & 304 $\times $252 $\times $3 px &  \shortstack{ 834 itérations\\ précision : 5$\times 10^{-5}$\\3.799 secondes} & 0.335 secondes & 0.355 secondes \\
+220 $\times$ 154 $\times$3 px & 304 $\times $252 $\times $3 px &  \shortstack{ 834 itérations\\ précision : 5$\times 10^{-5}$\\3.799 secondes} &\shortstack{ 547 itérations\\
+précision : $5 \times 10^{-5}$\\ 2.2233 secondes}&  0.335 secondes & 0.355 secondes \\
 
 \hline
-304 $\times$ 252 $\times$3 px & 770$\times$844 $\times $3 px & \shortstack{ 1591 itérations\\ précision : 5$\times 10^{-5}$\\72.348 secondes} & 0.797 secondes & 1.640 secondes \\
+304 $\times$ 252 $\times$3 px & 770$\times$844 $\times $3 px & \shortstack{ 1591 itérations\\ précision : 5$\times 10^{-5}$\\72.348 secondes} & \shortstack{ 1182 itérations\\
+précision : $5 \times 10^{-5}$\\ 46.1067 secondes} & 0.797 secondes & 1.640 secondes \\
 \hline
-400 $\times$ 300 $\times$3 px & 1200$\times$800$\times $3 px & \shortstack{ 6224 itérations\\ précision : 5$\times 10^{-5}$\\440.886 secondes} & 1.05 secondes & 2.102 secondes \\
+400 $\times$ 300 $\times$3 px & 1200$\times$800$\times $3 px & \shortstack{ 6224 itérations\\ précision : 5$\times 10^{-5}$\\440.886 secondes} &\shortstack{3884 itérations\\ précision : 5$\times 10^{-5}$\\205.8105 secondes} &1.05 secondes & 2.102 secondes \\
 \hline
-400 $\times$ 300 $\times$3 px & 614$\times$441$\times $3 px & \shortstack{ 5448 itérations\\ précision : 5$\times 10^{-5}$\\366.0.34 secondes} & 0.877 secondes & 0.8576 secondes \\
+400 $\times$ 300 $\times$3 px & 614$\times$441$\times $3 px & \shortstack{ 5448 itérations\\ précision : 5$\times 10^{-5}$\\366.0.34 secondes}&\shortstack{4046 itérations\\ précision : 5$\times 10^{-5}$\\224.3881 secondes} & 0.877 secondes & 0.8576 secondes \\
 \hline
-220 $\times$ 154 $\times$3 px & 263$\times$192$\times $3 px & \shortstack{ 861 itérations\\ précision : 5$\times 10^{-5}$\\4.056 secondes} & 0.0892 secondes & 0.1754 secondes \\
+220 $\times$ 154 $\times$3 px & 263$\times$192$\times $3 px & \shortstack{ 861 itérations\\ précision : 5$\times 10^{-5}$\\4.056 secondes} &\shortstack{510 itérations\\ précision : 5$\times 10^{-5}$\\2.3466 secondes}& 0.0892 secondes & 0.1754 secondes \\
 \hline
-
+Temps Douglas (R) est la méthode de surrelaxation couplée à la méthode de Douglas, $\rho = 1.89$. Nous remarquons qu'à l'aide de cette méthode, nous pouvons considérablement diminuer le nombre d'itérations de l'algorithme de Douglas-Rachford(il converge plus vite) et ainsi améliorer le temps de calcul de celui-ci. (jusqu'à t/2, sur de grandes images).
 \end{tabular}\\
 Les résultats que nous obtenons avec les différentes images sont à peu près similaires. Nous pouvons bien sûr raccourcir le temps de calcul de l'algorithme de Douglas-Rachford, en diminuant la précision. Mais dans ce cas, les résultats obtenus avec celui-ci sont moins bons, et non comparables avec ceux des deux autres méthodes. 
 \section{Amélioration du collage}

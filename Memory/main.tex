@@ -10,7 +10,9 @@
 \usepackage{float}
 \usepackage{systeme}
 \newcommand\tab[1][1cm]{\hspace*{#1}}
-
+\usepackage{booktabs}
+\usepackage{hyperref}
+\newcommand{\tabitem}{~~\llap{\textbullet}~~}
 
 \begin{document}
 \begin{titlepage}
@@ -53,8 +55,6 @@
 \input{Chapters/03_Discretisation.tex}
 \subsection{Fourier}
 \input{Chapters/04_Fourier.tex}
-\section{Implémentation}
-\input{Chapters/05_Implementation.tex}
 \section{Résultats obtenus}
 \input{Chapters/05bis_Resultats_obtenus.tex}
 \section{Comparaison}
@@ -62,6 +62,10 @@
 \section{Optimisation}
 \subsection{Méthode de Douglas}
 \input{Chapters/07_Optimisation.tex}
+\section{Implémentation}
+\input{Chapters/05_Implementation.tex}
 \section{Conclusion}
 \input{Chapters/08_Conclusion.tex}
+\bibliographystyle{plain}
+\bibliography{references}
 \end{document}
