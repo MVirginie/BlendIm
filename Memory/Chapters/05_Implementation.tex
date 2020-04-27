@@ -7,31 +7,23 @@ Voici comment se présente notre interface :
     \includegraphics[scale = 0.5]{Images/interface.png}
     \caption{Interface 1.0}
 \end{figure}{}
-\subsubsection{Ouverture d'images}
-Vous pouvez ouvrir n'importe quelle image en cliquant sur les boutons situés en haut à gauche de l'interface. En cliquant sur eux, une boite de dialogue vous proposera de choisir une image présente sur votre ordinateur. Une fois sélectionnée cette image sera affichée sur l'interface et vous pourrez travailler dessus. Image S correspond à l'image Source, c'est l'image que vous souhaitez coller. Et l'image T représente l'image Target, l'image d'arrière plan.\newline
-\subsubsection{Sélection}
-Une fois vos deux images ouvertes, il vous faut sélectionner la partie de l'image S (8) que vous souhaitez coller dans l'image T. Pour cela cliquez une première fois sur l'image S : celle du haut puis cliquez une seconde fois pour dessiner sur l'image, la partie que vous souhaitez extraire. 
-\newline
-Pour la seconde image, faites de même (9), cliquez une première fois sur l'image puis cliquez une seconde fois pour choisir l'endroit où vous souhaitez coller la partie sélectionnée plus tôt.  Voici ce que vous devriez obtenir. 
-\subsubsection{Choix des méthodes}
-Vous pouvez sélectionner la méthode avec laquelle vous voulez coller l'image S dans l'image T. Vous avez pour l'instant deux méthodes : 
+Elle est découpée en "blocs". Le premier bloc appelé "Open Button", se situe en haut à gauche, il permet l'ouverture d'images.En cliquant sur "Open Image S", une boite de dialogue s'ouvre et permet de charger une image, présente dans l'ordinateur. De même en cliquant sur le bouton T. Une fois ces images chargées elle s'affiche dans le bloc numéro 2 appelé "Images displayed". L'image la plus haute dans ce bloc correspond à l'image S, tandis que l'image si situant en bas affiche l'image T. Une fois affichées, il faut sélectionner la région dite "à coller" dans l'image S,  et la région où va se faire le collage dans l'image T.\\
+
+\paragraph{Choix des méthodes}
+Dans cette interface il est possible de sélectionner la méthode à utiliser. Le choix se porte sur 3 algorithmes : 
 \begin{itemize}
-    \item Avec les différences finies (4)
-    \item Avec Fourier (5)
+    \item Les différences finies
+    \item Fourier 
+    \item Douglas-Rachford
 \end{itemize}{}
-
-\subsubsection{Différences finies}
-Une fois la méthode DF choisie, il vous suffit de cliquer sur le bouton "Paste!"(3)  pour afficher le résultat.
-\subsubsection{Options}
-Nous avons ajouté des options comme l'option de zoom (6) qui permet de zoomer sur une image pour voir de plus près le collage de l'image. 
-\paragraph{ Amélioration avec change selection}
-Ainsi nous avons ajouté, l'option Change sélection qui re-dimensionne automatique la sélection afin de résoudre ce pb. 
-\paragraph{Mode couleur}
-En sélectionnant le mode couleur, (8) vous pourrez travailler sur des images en couleur. 
-
-\subsubsection{Sliders}
-Vous pouvez bouger les sliders présents à droite afin de déplacer la zone collée dans l'image de fond. La solution au problème est alors automatiquement recalculée en fonction de l'endroit où l'objet à collé. 
-
+IL suffit de sélectionner la méthode pour l'appliquer.
+En cliquant sur le bouton "Paste !", présent dans le bloc numéro 1, la nouvelle image est calculée et s'affiche dans le bloc situé en haut à droite. 
+\paragraph{Les options}
+D'autres options s'offrent à vous dans cette interface. Il est possible d'effectuer l'amélioration vue plus haut, en la sélectionnant, case : "Change selection". Il est aussi possible de zoomer sur les différentes images, à l'aide de la case zoom. Enfin il est possible de travailler sur des images en couleur, en cochant la case adéquate. Toutes ces options se trouvent dans e bloc :Customizer.
+\paragraph{Sliders}
+Des sliders sont situés de part et d'autres de l'image finale, dans le bloc en haut à droite. En activant ces sliders, il est donc possible de bouger la sélection à l'intérieur de l'image. Ainsi, l'image finale est recalculée, et l'image à coller, sera collée à la position indiquée par les sliders.
+\paragraph{Dernier bloc}
+Le dernier bloc est un bloc d'affichage, il affiche la sélection non modifiée et la sélection après passage de l'algorithme  sélectionné.
 \subsection{Organisation du code}
 Nous avons organisé le code sous forme de classes. Le projet contient 4 classes principales, la classe, Fourier, la classe DFinies, la classe Douglas et enfin la classe  Mask. Notre projet contient aussi deux fonctions, la fonctions copier/coller et la fonction du gradient conjugué.
 
