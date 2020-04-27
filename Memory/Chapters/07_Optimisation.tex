@@ -223,7 +223,7 @@ Nous avons amélioré les temps de calculs en appliquant une méthode de sur-rel
 \end{center}
 ($1<\rho<2$).\\
 Cependant, le temps de calcul est encore élevé sur de grandes images.
-Afin de réduire ce temps de calcul il faudrait donc que l'algorithme converge encore plus rapidement vers la solution. Pour cela, nous proposons d'augmenter l'ordre de discrétisation du Laplacien. Nous étions jusqu'à présent d'ordre 2, peut -être faudrait-il augmenter cette précision jusqu'à l'ordre 8. \\
+Afin de réduire ce temps de calcul il faudrait donc que l'algorithme converge encore plus rapidement vers la solution. Pour cela, nous proposons d'augmenter l'ordre de discrétisation du Laplacien. Nous étions jusqu'à présent d'ordre 2, peut -être faudrait-il augmenter cette précision jusqu'à l'ordre 8.
 \subsection{Tableau comparatif}
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
@@ -242,8 +242,8 @@ précision : $5 \times 10^{-5}$\\ 46.1067 secondes} & 0.797 secondes & 1.640 sec
 \hline
 220 $\times$ 154 $\times$3 px & 263$\times$192$\times $3 px & \shortstack{ 861 itérations\\ précision : 5$\times 10^{-5}$\\4.056 secondes} &\shortstack{510 itérations\\ précision : 5$\times 10^{-5}$\\2.3466 secondes}& 0.0892 secondes & 0.1754 secondes \\
 \hline
-Temps Douglas (R) est la méthode de surrelaxation couplée à la méthode de Douglas, $\rho = 1.89$. Nous remarquons qu'à l'aide de cette méthode, nous pouvons considérablement diminuer le nombre d'itérations de l'algorithme de Douglas-Rachford(il converge plus vite) et ainsi améliorer le temps de calcul de celui-ci. (jusqu'à t/2, sur de grandes images).
 \end{tabular}\\
+Temps Douglas (R) est la méthode de surrelaxation couplée à la méthode de Douglas, $\rho = 1.89$. Nous remarquons qu'à l'aide de cette méthode, nous pouvons considérablement diminuer le nombre d'itérations de l'algorithme de Douglas-Rachford(il converge plus vite) et ainsi améliorer le temps de calcul de celui-ci. (jusqu'à t/2, sur de grandes images).
 Les résultats que nous obtenons avec les différentes images sont à peu près similaires. Nous pouvons bien sûr raccourcir le temps de calcul de l'algorithme de Douglas-Rachford, en diminuant la précision. Mais dans ce cas, les résultats obtenus avec celui-ci sont moins bons, et non comparables avec ceux des deux autres méthodes. 
 \section{Amélioration du collage}
 Après avoir implémenté des "sliders", permettant de bouger la sélection sur l'image de fond, nous nous sommes compte que la sélection est parfois trop grande, et peut cacher des objets, ou choses importantes sur l'image de fond : 
