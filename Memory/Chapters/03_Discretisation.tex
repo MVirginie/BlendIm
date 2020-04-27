@@ -1,7 +1,6 @@
-Commençons par résoudre le problème à l'aide de la méthode des différences finies. Afin de résoudre le problème (2), il faut commencer par discrétiser le laplacien de notre image. 
- \subsection{Notations}
-Nous utiliserons certains opérateurs que nous définissons ici afin de ne pas alourdir les différentes sections. 
-\subparagraph{Le gradient}
+Cette partie sera consacrée à la résolution du problème à l'aide des différences finies. Pour trouver la solution il faut donc discrétiser les laplaciens des images, puis résoudre un système.
+ \subsubsection{Notations}
+\textbf{Le gradient: }\\
 Le gradient est un vecteur composé des dérivées partielles d'une fonction. Soit la fonction, f(x,y), on note le gradient de f : 
 \begin{equation*}
 \begin{aligned}
@@ -11,7 +10,7 @@ Le gradient est un vecteur composé des dérivées partielles d'une fonction. So
 \end{pmatrix}
 \end{aligned}
 \end{equation*}
-\subparagraph{Le Laplacien}
+\textbf{Le Laplacien}\\
 On note le Laplacien : $\Delta$, et :$\Delta = div(\nabla f)$.
 \begin{center}
 \begin{equation*}
@@ -20,7 +19,7 @@ On note le Laplacien : $\Delta$, et :$\Delta = div(\nabla f)$.
 \end{center}
 
 \subsection{Méthode des différences finies}
-Nous cherchons à résoudre  : 
+Le problème à résoudre est le suivant : 
 \begin{center}
 
 \begin{equation*}
@@ -32,28 +31,18 @@ Nous cherchons à résoudre  :
     \right.
 \end{equation*}
 \end{center}
-
-En utilisant la méthode des différences finies, commençons par discrétiser le Laplacien.
-Pour discrétiser celui-ci, il faut donc commencer par discrétiser $\frac{\partial^2 I}{\partial x^2}$ et  $\frac{\partial^2 I}{\partial y^2}$. 
-
-\subparagraph{Discrétisation des dérivées secondes :}
-
-A l'aide des formules de Taylor à l'ordre 2 ci-dessous : 
+Dans un premier temps, discrétisons le Laplacien de I. Le laplacien étant la somme des dérivées partielles secondes : $\frac{\partial^2 I}{\partial x^2}$ et  $\frac{\partial^2 I}{\partial y^2}$, sa discrétisation commence par une discrétisation de celles-ci. En utilisant les formules de Taylor-Young à l'ordre 2 suivantes :
 \begin{equation*}
 \begin{aligned}
     I(x+h,y) = I(x,y)+h\times \frac{\partial I(x,y)}{\partial x}+ \frac{h^2}{2} \times \frac{\partial ^2 I(x,y)}{\partial x^2} + o(h^3) \\
     I(x-h,y) =I(x,y)- h\times  \frac{\partial I(x,y)}{\partial x}+ \frac{h^2}{2} \times \frac{\partial^2 I(x,y)}{\partial x^2} + o(h^3)
 \end{aligned}
 \end{equation*}
-
-
-Et en effectuant la somme de ces deux équations, nous obtenons une discrétisation possible de $\frac{\partial ^2 I(x,y)}{\partial x^2}$:  
+Il est donc facile de voir que la somme de ces deux équations permet d'obtenir une discrétisation des la dérivée seconde : $\frac{\partial ^2 I(x,y)}{\partial x^2}$:  
 \begin{equation*}
     \frac{\partial ^2 I(x,y)}{\partial x^2} =\frac{1}{h^2}\left( I(x+h,y) + I(x-h,y) - 2\times I(x,y)\right)
 \end{equation*}
-
-\subsubsection{Discrétisation du Laplacien}
-Comme le Laplacien n'est autre que la somme de $\frac{\partial ^2 I(x,y)}{\partial x^2}$ et$\frac{\partial ^2 I(x,y)}{\partial y^2}$, une discrétisation possible de celui-ci s'écrit de la forme  : 
+La somme des discrétisations des dérivées secondes : $\frac{\partial ^2 I(x,y)}{\partial x^2}$ et $\frac{\partial ^2 I(x,y)}{\partial y^2}$, permet d'obtenir une discrétisation possible du Laplacien de I : $\Delta I$.
 \begin{equation*}
     \Delta I(x,y) =  \frac{I(x+h,y) + I(x-h,y) - 2\times I(x,y)}{h^2}  + \frac{I(x,y+k) + I(x,y-k) - 2\times I(x,y)}{k^2} \\
 \end{equation*}
@@ -63,15 +52,19 @@ Les pas d'espaces h et k étant égaux à 1, nous pouvons écrire une discrétis
      \Delta I(x,y) =  I(x+1,y) + I(x-1,y)+ I(x,y+1) + I(x,y-1) - 4\times I(x,y)  \\
 \end{equation*}
 
-\subparagraph{Application à une image }
-Afin de calculer le Laplacien du pixel I(i,j),il est donc nécessaire d'avoir la connaissance de ses pixels voisins que nous nommerons par la suite U(p), D(own), L(eft), R(ight) pour les pixels I(i-1,j), I(i+1,j), I(i,j-1), I(i,j+1). 
+\paragraph{Application à une image }
+Afin d'obtenir le Laplacien du pixel I(i,j), il est donc nécessaire d'avoir la connaissance de ses pixels voisins que nous nommerons par la suite U(p), D(own), L(eft), R(ight) pour les pixels I(i-1,j), I(i+1,j), I(i,j-1), I(i,j+1). 
 
-\begin{center}
+\begin{figure}
+\centering
     \includegraphics[scale = 0.8]{Images/Laplacian.png}
-\end{center}
-
-\subsubsection{Résolution de l'équation de Poisson} 
-Soit $g(x,y) = S(x+1,y) + S(x-1,y)+ S(x,y+1) + S(x,y-1) - 			4\times S(x,y)$\\
+    \caption{Laplacien du pixel}
+\end{figure}
+Afin de trouver la solution au problème, il faut donc appliquer cette discrétisation à chaque pixel de l'image. Chaque pixel faisant intervenir ses voisins, la résolution du problème passe donc par la résolution d'une système.
+En notant
+\begin{center}
+ $g(x,y) = S(x+1,y) + S(x-1,y)+ S(x,y+1) + S(x,y-1) - 4\times S(x,y)$\\
+ \end{center}
 Résoudre $\Delta I(x,y) = \Delta S(x,y)$ sur $\Omega$ est équivalent à résoudre :\\
 \begin{center}
 \begin{equation*}
@@ -83,7 +76,7 @@ Résoudre $\Delta I(x,y) = \Delta S(x,y)$ sur $\Omega$ est équivalent à résou
     \right.
 \end{equation*}
 \end{center}
-Nous devons donc résoudre un système à $M\times N $ inconnues.
+La résolution de système de taille $M\times N $, permettra de trouver la nouvelle image I, et donc de résoudre numériquement l'équation de Poisson avec conditions aux bords de Dirichlet. Voici, le système obtenu : 
 \begin{equation}
 \left\{
 \begin{aligned}
@@ -96,17 +89,24 @@ I(M, N) = T(M, N)
 \end{aligned}
 \right.
 \end{equation}
-
-Afin de résoudre ce système, il est plus facile de l'écrire sous forme matricielle. Nous devons donc résoudre un système de la forme AI = b et sa solution est :  $I = A^{-1}\times b$.
+\subsubsection{Résolution du système}
+Afin de résoudre ce système, il est plus facile de l'écrire sous forme matricielle. Il faut maintenant trouver la solution du problème suivant : 
+\begin{center}
+ AI = b 
+\end{center}
+Si la matrice est inversible, alors la solution est évidente, et elle vaut : 
+\begin{center}
+$I = A^{-1}\times b$
+\end{center} 
 Avec : 
 \begin{itemize}
-\item A une matrice carrée de taille ($M\times N$, $M\times N$)
-\item I un vecteur colonne de taille ($M\times N$,1)
-\item b un vecteur colonne de taille ($M\times N$,1)
+\item A, une matrice carrée de taille ($M\times N$, $M\times N$)
+\item I, un vecteur colonne de taille ($M\times N$,1)
+\item b, un vecteur colonne de taille ($M\times N$,1)
 \end{itemize}
 Voici donc à quoi ressemble le système que nous souhaitons résoudre :
+La matrice A, est une matrice par bloc, ainsi le blocs de la matrice correspondant aux pixels à l'intérieur du domaine sera rempli de la manière  suivante : 
 \begin{center}
-
 \begin{equation}
 \left.
 \begin{aligned}
@@ -117,16 +117,32 @@ Voici donc à quoi ressemble le système que nous souhaitons résoudre :
 	&...\\
 	1 & 0 &... &1 &-4 &1 &0...& 0& 1 & 0\\
 \end{pmatrix}
+\end{aligned}
+\right.
+\end{equation}
+\end{center}
+Tandis que les blocs de la matrice, correspondant aux pixels situés sur le bords du domaine seront remplis de la façon suivante : 
+\begin{center}
+\begin{equation}
+\left.
+\begin{aligned}
 \begin{pmatrix}
-I(1,1)\\
-I(2,1)\\
-...\\
-I(1,2)\\
-I(2,2)\\
-....\\
-I(M, N)
+	1 & 0& 0 & ...& 0 & 0 & 0...&0& ... & 0\\
+	0 & 1 & 0 & 0 & ... & 0 &0 &0&....&0\\
+	0 & 0 & 1 & 0 & 0&... &0 &0 &0&...\\
+	&...\\
+	0 & 0 &... &0 &0 &0 &0...& 0& 0 & 1\\
 \end{pmatrix}
-= 
+\end{aligned}
+\right.
+\end{equation}
+\end{center}
+Le vecteur b, contient les laplaciens des pixels de l'image S.
+Les valeurs des pixels de l'image S étant connus,il est facile de calculer le Laplacien de celle-ci en utilisant les discrétisations vues ci-dessus. Le vecteur b, n'est autre que la concaténation des colonnes du Laplacien de S.
+\begin{center}
+\begin{equation}
+\left.
+\begin{aligned}
 \begin{pmatrix}
 g(1,1)\\
 g(2,1)\\
@@ -140,38 +156,57 @@ g(M, N)
 \right.
 \end{equation}
 \end{center}
-
-\subparagraph{Transformation de l'image}
-Afin de pouvoir résoudre ce système, I doit être un vecteur colonne. Or dans notre cas, I est une matrice de taille (M,N). Le nouveau vecteur I, est la concaténation des colonnes de l'image I, comme ci dessous.
-
-\subparagraph{Ecriture de la matrice du système}
-La matrice A du système AI = b, est une matrice creuse, inversible. Nous verrons comment la remplir dans l'exemple ci-dessous.
-
-\subparagraph{Ecriture de vecteur}
-Après avoir calculé le Laplacien de l'image S, le vecteur b est obtenu en concaténant les colonnes de l'image $\Delta S$. 
+En inversant la matrice, la solution I obtenue est un vecteur : 
+\begin{center}
+\begin{equation}
+\left.
+\begin{aligned}
+\begin{pmatrix}
+I(1,1)\\
+I(2,1)\\
+...\\
+I(1,2)\\
+I(2,2)\\
+....\\
+I(M, N)
+\end{pmatrix}
+\end{aligned}
+\right.
+\end{equation}
+\end{center}
+Afin de trouver l'image finale, il est donc important de reconstruire une matrice de taille $M\times N$, à partir de ce vecteur. 
 
 \subsection{Exemple}
 Considérons l'image S ci-contre que nous souhaitons coller. 
-\begin{figure}[!h]
-\centering
-\includegraphics[scale=0.1]{Images/square.png}
-\caption{Image à coller}
-\includegraphics[scale=0.1]{Images/pix.png}
+\begin{figure}[!htb]
+   \begin{minipage}{0.5\textwidth}
+     \centering
+     \includegraphics[width = 120pt]{Images/square.png}
+     \caption{Images à coller}
+      \end{minipage}\hfill
+   \begin{minipage}{0.5\textwidth}
+     \centering
+\includegraphics[width = 120pt]{Images/pix.png}
 \caption{Vue grille pixel}
+      \end{minipage}\hfill
 \end{figure}
-Nous souhaitons ici coller les deux carrés rouge sur une image que nous nommerons T.   
-\begin{figure}[!h]
-\centering
-\includegraphics[scale=0.3]{Images/carre_selection.png}
-\caption{Sélection à coller}
-\end{figure}
-Ici, notons $\Omega$, l'intérieur de la zone encadrée par la ligne verte, et des $\partial \Omega$, les pixels appartenant à $J /\ \Omega$
+Nous souhaitons ici coller les deux carrés rouge sur une image que nous nommerons T.  
 
-\begin{figure}[!h]
-\centering
-\includegraphics[scale=0.3]{Images/numerote.png}
+\begin{figure}[!htb]
+   \begin{minipage}{0.5\textwidth}
+     \centering
+     \includegraphics[width = 120pt]{Images/carre_selection.png}
+\caption{Sélection à coller}
+      \end{minipage}\hfill
+   \begin{minipage}{0.5\textwidth}
+     \centering
+\includegraphics[width = 120pt]{Images/numerote.png}
 \caption{Numérotation des pixels}
-\end{figure}
+      \end{minipage}\hfill
+\end{figure} 
+\newpage
+
+Ici, notons $\Omega$, l'intérieur de la zone encadrée par la ligne verte, et des $\partial \Omega$, les pixels appartenant à $J \backslash \Omega$
 
 
 \paragraph{Construction du système}
@@ -191,16 +226,16 @@ I_{1,2} = T_{1,2}\\
 \right.
 \end{equation}
 \end{center}
+\newpage
 Avec $\Delta I(i,j) = U+D+L+R-4I(i,j)$.\\
 En écrivant ce système sous forme matricielle la matrice A est la matrice $25\times 25$ ci-dessous :  
 
-\begin{figure}[!h]
+\begin{figure}[!htb]
 \includegraphics[scale=0.5]{Images/matrice.png}
 \caption{Matrice du système}
 \end{figure}
-
-Le vecteur I est obtenu en concaténant les colonnes de la sélection, il est de taille($25\times 1$) : 
 \begin{equation}
+I = 
 \begin{pmatrix}
 I(1,1)\\
 I(2,1)\\
@@ -213,10 +248,7 @@ I(5,3)\\
 ...\\
 I(5,5)\\
 \end{pmatrix}
-\end{equation}
-Enfin le vecteur b 
-
-\begin{equation}
+b = 
 \begin{pmatrix}
 T(1,1)\\
 ...\\
@@ -234,6 +266,10 @@ T(5,4)\\
 T(5,5)\\
 \end{pmatrix}
 \end{equation}
-La solution I, s'écrit sous la forme $I = A^{-1}b$.
-Cette solution existe, puisque A est remplie de la même manière, 'par blocs', ses colonnes étant linéairement indépendantes, elle est donc inversible.
+La solution de ce système existe bien. En effet,A est carrée, elle est de taille $\left(M\times N, M \times N\right)$. Elle est aussi, toujours remplie de la manière, 'par blocs'. Ses colonnes étant linéairement indépendantes, elle est donc inversible.\\
+La solution I, s'écrit sous la forme
+\begin{center}
+$I = A^{-1}b$.
+\end{center} 
+Nous ajouterons dans la section suivante les résultats obtenus à l'aide de cette méthode. \\ Celle-ci fonctionne très bien mais le temps de calcul peut devenir très long. En effet, cette méthode demande une inversion matricielle, et donc un temps de calcul relativement long sur de "très" grands systèmes. Nous allons maintenant voir une seconde méthode, plus rapide, en nous plaçant dans le domaine de Fourier.
 

@@ -1,62 +1,63 @@
 Avec cette seconde méthode nous allons résoudre l'équation de Poisson à l'aide de la transformée de Fourier. Avant de formuler la résolution de ce problème. Rappelons la définition des opérateurs dont nous aurons besoin dans la suite
 \subsubsection{Rappel et définitions des opérateurs}
 \paragraph{Transformée de Fourier (discrète)}
-Soit S une fonction, sa transformée de Fourier peut s'écrire de la façon suivante : 
+Soit F une fonction, sa transformée de Fourier peut s'écrire de la façon suivante : 
 \begin{equation}
 \begin{aligned}
-\widehat{S}(x,y) = \sum_{k = 0}^{M-1} \sum_{l = 0}^{N-1} S(k,l) e^{-2\pi i\left(\frac{k\times x}{M}+\frac{l\times y}{N}\right)}
+\widehat{F}(x,y) = \sum_{k = 0}^{M-1} \sum_{l = 0}^{N-1} F(k,l) e^{-2\pi i\left(\frac{k\times x}{M}+\frac{l\times y}{N}\right)}
 \end{aligned}
 \end{equation}
 Enfin afin de retrouver la fonction initiale nous aurons besoin de la transformée de Fourier inverse : 
 \begin{equation}
 \begin{aligned}
-S(k,l) = \frac{1}{MN} \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} \hat{S}(x,y) e^{2\pi i \left(\frac{xk}{M}+\frac{yl}{N}\right)}
+F(k,l) = \frac{1}{MN} \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} \hat{F}(x,y) e^{2\pi i \left(\frac{xk}{M}+\frac{yl}{N}\right)}
 \end{aligned}
 \end{equation}
 \paragraph{Gradient}
-Nous pouvons calculer le gradient d'une fonction dans le domaine de Fourier. Nous considérons toujours S la fonction que nous souhaitons étudier. 
+Pour résoudre le problème nous avons besoin de calculer les Laplaciens des images. Mais avec cette méthode nous nous placerons dans le domaine de Fourier, il est donc nécessaire de calculer le Laplacien de la transformée de Fourier d'une fonction , et donc le gradient de celle-ci. 
+F est toujours la fonction que nous souhaitons étudier. 
 \begin{equation}
 \begin{aligned}
-\widehat{\nabla (S)}=
+\widehat{\nabla (F)}=
 \begin{pmatrix}
-\widehat{\frac{\partial S}{\partial k}}\\
-\widehat{\frac{\partial S}{\partial l}}
+\widehat{\frac{\partial F}{\partial k}}\\
+\widehat{\frac{\partial F}{\partial l}}
 \end{pmatrix}
 \end{aligned}
 \end{equation}
 En dérivant l'expression ci-dessus par rapport à la première variable : 
 \begin{equation}
 \begin{aligned}
-\widehat{\frac{\partial S}{\partial k}} &= \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} S(x,y) e^{2\pi i\left(\frac{k\times x}{M}+\frac{l\times y}{N}\right)}\left(\frac{-\pi i x}{M}\right)\\
-& = \left(\frac{2\pi i x}{M}\right)\widehat{S(k,l)}\\
-\widehat{\frac{\partial S}{\partial k}} &= \left(\frac{2\pi i x}{M}\right)\widehat{S(k,l)}
+\widehat{\frac{\partial F}{\partial k}} &= \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} F(x,y) e^{2\pi i\left(\frac{k\times x}{M}+\frac{l\times y}{N}\right)}\left(\frac{-\pi i x}{M}\right)\\
+& = \left(\frac{2\pi i x}{M}\right)\widehat{F(k,l)}\\
+\widehat{\frac{\partial F}{\partial k}} &= \left(\frac{2\pi i x}{M}\right)\widehat{F(k,l)}
 \end{aligned}
 \end{equation}
-Le calcul est similaire pour $\widehat{\frac{\partial S}{\partial l}}$.\\
+Le calcul est similaire pour $\widehat{\frac{\partial F}{\partial l}}$.\\
 On a donc : 
 \begin{equation}
 \begin{aligned}
-\widehat{\frac{\partial S}{\partial k}} = \left(\frac{2\pi i}{M}x\right) \widehat{S}\\
-\widehat{\frac{\partial S}{\partial l}} = \left(\frac{2\pi i}{N}y\right) \widehat{S}\\
+\widehat{\frac{\partial F}{\partial k}} = \left(\frac{2\pi i}{M}x\right) \widehat{F}\\
+\widehat{\frac{\partial S}{\partial l}} = \left(\frac{2\pi i}{N}y\right) \widehat{F}\\
 \end{aligned}
 \end{equation}
 
 \paragraph{Laplacien}
 \begin{equation}
 \begin{aligned}
-\widehat{\frac{\partial^2 S}{\partial k ^2}} & = \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} S(x,y) e^{2\pi i\left(\frac{k\times x}{M}+\frac{l\times y}{N}\right)}\left(\frac{2\pi i x}{M}\right)^2\\
-& = \left(\frac{2\pi i x}{M}\right)^2 \widehat{S(k,l)}\\
-\widehat{\frac{\partial^2 S}{\partial k^2}} &= \left(\frac{2\pi i x}{M}\right)^2\widehat{S(k,l)}
+\widehat{\frac{\partial^2 F}{\partial k ^2}} & = \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} F(x,y) e^{2\pi i\left(\frac{k\times x}{M}+\frac{l\times y}{N}\right)}\left(\frac{2\pi i x}{M}\right)^2\\
+& = \left(\frac{2\pi i x}{M}\right)^2 \widehat{F(k,l)}\\
+\widehat{\frac{\partial^2 F}{\partial k^2}} &= \left(\frac{2\pi i x}{M}\right)^2\widehat{F(k,l)}
 \end{aligned}
 \end{equation}
 On a donc : 
-$\widehat{\Delta S} = \widehat{\frac{\partial^2 S}{\partial k^2}}+ \widehat{\frac{\partial^2 S}{\partial l^2}}$.
+$\widehat{\Delta F} = \widehat{\frac{\partial^2 F}{\partial k^2}}+ \widehat{\frac{\partial^2 F}{\partial l^2}}$.
 \begin{equation}
-\widehat{\Delta S} = \left(\frac{2\pi i x}{M}\right)^2 \widehat{S}+\left(\frac{2\pi i y}{N}\right)^2 \widehat{S}
+\widehat{\Delta F} = \left(\frac{2\pi i x}{M}\right)^2 \widehat{F}+\left(\frac{2\pi i y}{N}\right)^2 \widehat{F}
 \end{equation}
 
-\subsubsection{Résolution de la méthode Fourier}
-La résolution dans le domaine de Fourier, nécessite quelques changements.Cette méthode fonctionnant mieux sur un domaine rectangulaire, nous devons donc modifier le domaine $\Omega$.\\
+\subsubsection{Résolution avec la méthode Fourier}
+La résolution dans le domaine de Fourier, nécessite quelques changements.Cette méthode ne fonctionnant que sur un domaine rectangulaire, nous devons donc modifier le domaine $\Omega$.\\
 Rappelons que nous voulons résoudre le problème suivant :
 \begin{equation}
 \left\{
@@ -67,7 +68,7 @@ I(x,y) = T(x,y) \ si \ (x,y) \notin \Omega
 \right.
 \end{equation}
 
-Afin d'obtenir un domaine régulier considérons R, le domaine de l'image entière. Afin de pouvoir utiliser Fourier, il faut que nous puissions travailler symétriquement en même temps sur les deux images.\\
+Afin d'obtenir un domaine régulier considérons R, le domaine de l'image entière.Pour pouvoir utiliser Fourier, il faut que nous puissions travailler symétriquement en même temps sur les deux images.\\
 Nous voulons donc que $\nabla I$ soit très proche de $\nabla S$ dans $\Omega$ mais aussi que $\nabla I$ soit très proche de $\nabla T$ en dehors de $\Omega$. En notant V : 
 \begin{equation}
 V = 
@@ -77,6 +78,10 @@ V =
 \nabla T(x,y) \ si \ (x,y) \notin \Omega
 \end{aligned}
 \right.
+= \begin{pmatrix}
+V_1\\
+V_2
+\end{pmatrix}
 \end{equation}
 Nous devons donc résoudre l'équation suivante : 
 \begin{center}
@@ -88,9 +93,13 @@ Ainsi en calculant le laplacien dans le domaine de Fourier, on obtient  : $\wide
 
 \begin{equation}
 \begin{aligned}
-\left(\frac{2\pi i x}{M}\right)^2 \widehat{I}+\left(\frac{2\pi i y}{N}\right)^2 \widehat{I} & = \left(\frac{2\pi i x}{M}\right) \widehat{\partial _1 V}+\left(\frac{2\pi i y}{N}\right) \widehat{\partial _2 V}\\
-\left(\left(\frac{2\pi i x}{M}\right)^2+\left(\frac{2\pi i y}{N}\right)^2\right) \widehat{I} & = \left(\frac{2\pi i x}{M}\right) \widehat{\partial _1 V}+\left(\frac{2\pi i y}{N}\right) \widehat{V}\\
-\widehat{I} = \frac{\left(\frac{2\pi i x}{M}\right) \widehat{\partial _1 V}+\left(\frac{2\pi i y}{N}\right) \widehat{\partial _1 V}}{\left(\left(\frac{2\pi i x}{M}\right)^2+\left(\frac{2\pi i y}{N}\right)^2\right)}
+\left(\frac{2\pi i x}{M}\right)^2 \widehat{I}+\left(\frac{2\pi i y}{N}\right)^2 \widehat{I} & = \left(\frac{2\pi i x}{M}\right) \widehat{V_1}+\left(\frac{2\pi i y}{N}\right) \widehat{V_2}\\
+\left(\left(\frac{2\pi i x}{M}\right)^2+\left(\frac{2\pi i y}{N}\right)^2\right) \widehat{I} & = \left(\frac{2\pi i x}{M}\right) \widehat{ V_1}+\left(\frac{2\pi i y}{N}\right) \widehat{V_2}\\
+\end{aligned}
+\end{equation}
+\begin{equation}
+\begin{aligned}
+\widehat{I} = \frac{\left(\frac{2\pi i x}{M}\right) \widehat{ V_2}+\left(\frac{2\pi i y}{N}\right) \widehat{V_1}}{\left(\left(\frac{2\pi i x}{M}\right)^2+\left(\frac{2\pi i y}{N}\right)^2\right)}
 \end{aligned}
 \end{equation}
 Afin de retrouver I, il suffit d'appliquer la transformée inverse, à l'équation ci-dessus.

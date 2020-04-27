@@ -1,7 +1,7 @@
-\newpage 
+\newpage
 \subsection{Différences de résultat}
-En comparant les images ci-dessus, nous pouvons observer quelques différences entre la méthode de Fourier et celle des Différences finies. En effet, la méthode des différences finies ne travaille que sur une partie de l'image, celle qui va être collée, afin de l'adapter au mieux à l'image de fond. Le reste de l'image n'est pas modifier et on retrouve exactement l'image initiale T en dehors du domaine. \\
-La méthode de Fourier elle, modifie toute l'image, elle n'adapte pas seulement la partie à coller, mais c'est toute l'image qui est modifiée pour être la plus convenable possible.  \\
+En comparant les images ci-dessus, nous pouvons observer quelques différences entre la méthode de Fourier et celle des Différences finies. En effet, la méthode des différences finies ne travaille que sur une partie de l'image, celle qui va être collée, afin de l'adapter au mieux à l'image de fond. Le reste de l'image n'est pas modifié et on retrouve exactement l'image initiale T en dehors du domaine. \\
+La méthode de Fourier elle, modifie toute l'image, elle n'adapte pas seulement la partie à coller, mais c'est toute l'image qui est modifiée. Fourier effectue un "mélange" des deux images. \\
 \subsection{Différence de temps}
-La méthode des différences finies fait intervenir une inversion matricielle, qui si elle est grande peut prendre pas mal de temps. Cette méthode consiste en la résolution d'un système plus ou moins grand, qui peut parfois prendre du temps. \\
-La méthode de Fourier, elle semble plus rapide, il est facile de calculer le gradient de l'image, et la fft est plus rapide. Sur de grandes sélections c'est donc cette méthode qui serait à privilégier. 
+La méthode des différences finies fait intervenir une inversion matricielle, qui si elle est grande, augmentera significativement le temps de calcul de l'algorithme. Cette méthode consiste en la résolution d'un système plus ou moins grand, qui peut parfois prendre du temps. \\
+La méthode de Fourier, elle semble plus rapide, il est facile de calculer le gradient de l'image, et la fft ("fast fourier transform") est plus rapide. Sur de grandes sélections c'est donc cette méthode qui serait à privilégier. 
