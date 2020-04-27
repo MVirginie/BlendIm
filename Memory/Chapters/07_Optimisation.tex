@@ -33,7 +33,7 @@ Nous avons bien équivalence entre notre problème sans contraintes et le probl�
  Par commodité, nous noterons dans la suite : 
  \begin{equation*}
  \begin{aligned}
- F(I) &=   \int_\Omega ||\nabla I - \nabla S||^2 + \mathbb{1} _{D \backslash \Omega } (I) \\
+ F(I) &=   \int_\Omega ||\nabla I - \nabla S||^2 + \mathbb{1} _{T\backslash \Omega } (I) \\
  & = f(I)+ g(I)
  \end{aligned}
  \end{equation*}
@@ -44,20 +44,20 @@ Considérons maintenant une nouvelle image :
 \begin{center}
 $M = \lambda u+(1-\lambda)v$
 \end{center}
-Les pixels de u et v coïncidant avec ceux de T à l'extérieur, nous pouvons écrire les pixels de $M$, n'appartenant pas à $\Omega$ de la manière suivante. \\
+Les pixels de u et v coïncidant avec ceux de T à l'extérieur, nous pouvons réécrire les pixels de $M$ de la manière suivante. \\
 
 \begin{equation*} 
 M (i,j) = 
 \left\{
 \begin{aligned}
 \lambda u(i,j) +(1-\lambda) v(i,j), \ \ (i,j) \in \Omega\\
-\lambda T(i,j) +(1-\lambda T(i,j))  \ \ (i,j)\notin \Omega
+\lambda T(i,j) +(1-\lambda )T(i,j))  \ \ (i,j)\notin \Omega
 \end{aligned}
 \right.
 \end{equation*}
 Ainsi, pour $(i,j) \notin \Omega$ : \\
 \begin{center}
-$M_{i,j} = \lambda t_{i,j}+(1-\lambda) t_{i,j} = t_{i,j}$
+$M_{i,j} = \lambda T_{i,j}+(1-\lambda) T_{i,j} = T_{i,j}$
 \end{center}
 Ainsi, les pixels de M n'appartenant pas à $\Omega$, coïncident avec T.M appartient bien à K. Et K est donc convexe.\\
 K étant convexe, et non vide, (T en particulier appartient à K), alors la fonction $\mathbb{1}_K(I)$ est convexe. \\
@@ -105,7 +105,7 @@ h(u+k) -h(u) &= \frac{||u+k-x||^2}{2}+||\nabla  (u+k) -\nabla S ||^2- \frac{||u-
 & = \left<u-x-2div(\nabla u-\nabla S), k\right>\\
 \end{aligned}
 \end{equation*}
-Par identification 
+Nous obtenons le gradient de h.
 \begin{equation*}
 \begin{aligned}
 \nabla h(u) &= u-x-2div(\nabla u - \nabla S)\\
