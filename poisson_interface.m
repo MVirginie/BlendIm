@@ -22,7 +22,7 @@ function varargout = poisson_interface(varargin)
 
 % Edit the above text to modify the response to help poisson_interface
 
-% Last Modified by GUIDE v2.5 24-Apr-2020 17:15:22
+% Last Modified by GUIDE v2.5 30-Apr-2020 05:18:49
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -84,11 +84,7 @@ function openImSButton_Callback(~, ~, handles)
 
     [file1,path1] = uigetfile('*.jpg;*.png;*.jpeg', 'select an image');
     imageS = imread(fullfile(path1,file1));
-    if( handles.Color_box.Value == 0)
-        imageS = im2double(imageS(:,:,1));
-    else 
-        imageS = im2double(imageS(:,:,:));
-    end
+    imageS = im2double(imageS(:,:,:));
     handles.imageS = imageS;
     guidata(gca, handles);
 
@@ -107,11 +103,7 @@ function openImTButton_Callback(~, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 [file2,path2] = uigetfile('*.jpg; *.png; *.jpeg', 'select T image');
 imageT = imread(fullfile(path2,file2));
-    if( handles.Color_box.Value == 0)
-        imageT = im2double(imageT(:,:,1));
-    else 
-        imageT = im2double(imageT(:,:,:));
-    end
+imageT = im2double(imageT(:,:,:));
 handles.imageT = imageT;
 guidata(gca, handles);
 
@@ -353,7 +345,8 @@ function Color_box_Callback(hObject, eventdata, handles)
 % hObject    handle to Color_box (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+ 
+ 
 
 % --- Executes on button press in pasteButton.
 % First : simple cut/paste with copyPaste.
@@ -377,45 +370,57 @@ if (handles.slider3.Value == 0 && handles.slider4.Value == 1)
     guidata(gca, handles);
 end
 if(handles.DFButton.Value == 1)
-    if (handles.Color_box.Value == 1)
         tic
-        [sol, image, new_cut] = solve.color_mode_DF(handles);
+        [image, sol, new_cut] = solve.color_mode_DF(handles);
         toc
-    else
-    rect = handles.maskS.transform_to_rect(handles.maskS.associate_im, handles.maskS.shift_done);% resize S into a rect 
-    [im] = copyPaste(handles.maskS, handles.maskT, handles.maskS.associate_im, handles.maskT.associate_im);
-    [sol, image, new_cut] = solve.finiteDiff(handles, handles.maskS, im, rect, handles.maskT);
-    end
-    %imshow(new_cut, 'Parent', handles.axes);
-    imshow(new_cut, 'Parent', handles.axes3);
-    imshow(image, 'Parent', handles.axes5);
-    imshow(sol, 'Parent', handles.axes4);
-    
+  
+        if (handles.Color_box.Value == 0)
+        imshow(new_cut(:,:,1), 'Parent', handles.axes3);
+        imshow(sol(:,:,1), 'Parent', handles.axes5);
+        imshow(image(:,:,1), 'Parent', handles.axes4);
+        else
+        imshow(new_cut, 'Parent', handles.axes3);
+        imshow(sol, 'Parent', handles.axes5);
+        imshow(image, 'Parent', handles.axes4);
+        end
+        
 elseif (handles.FourierButton.Value == 1)
-    if (handles.Color_box.Value == 1)
         tic
-        [sol, img]=solve.color_mode_Fourier(handles);
+        [sol, image]=solve.color_mode_Fourier(handles);
         toc
+
+    if (handles.Color_box.Value == 0)
+        imshow(handles.maskT.cut_im(:,:,1), 'Parent', handles.axes3);
+        imshow(image(:,:,1), 'Parent', handles.axes5);
+        imshow(sol(:,:,1), 'Parent', handles.axes4);
     else
-        [im] = copyPaste(handles.maskS, handles.maskT, handles.maskS.associate_im, handles.maskT.associate_im);
-        handles.maskS.reload_pdt_mask(handles.s_init)
-        [sol, img] = solve.fourier(handles, handles.maskS, handles.maskT, im);
+        imshow(handles.maskT.cut_im, 'Parent', handles.axes3);
+        imshow(image, 'Parent', handles.axes5);
+        imshow(sol, 'Parent', handles.axes4);
     end
-    imshow(handles.maskT.cut_im, 'Parent', handles.axes3);
-    imshow(img, 'Parent', handles.axes5);
-    imshow(sol, 'Parent', handles.axes4);
-else 
-    if(handles.Color_box.Value==1)
-        tic
-        [cut_im,sol] = solve.color_mode_Douglas(handles);
+else
+    tic
+        [cut_im,image] = solve.color_mode_Douglas(handles);
         toc
-    else  
-        tic
-    [cut_im,sol] = solve.douglas(handles.maskS, handles.maskT, handles);
-        toc
-    end
-    imshow(sol, 'Parent', handles.axes5);
-    imshow(handles.maskS.cut_im, 'Parent', handles.axes4);
-    imshow(cut_im , 'Parent', handles.axes3); 
+        if (handles.Color_box.Value == 0)
+        imshow(handles.maskT.cut_im(:,:,1), 'Parent', handles.axes3);
+        imshow(image(:,:,1), 'Parent', handles.axes5);
+        imshow(cut_im(:,:,1), 'Parent', handles.axes4);
+    else
+        imshow(handles.maskS.cut_im, 'Parent', handles.axes3);
+        imshow(image, 'Parent', handles.axes5);
+        imshow(cut_im, 'Parent', handles.axes4);
+        end
+  handles.result = image;
+  guidata(gca, handles)
 end
 hideAxes(handles);
+
+
+% --- Executes on button press in pushbutton4. SAVED
+function pushbutton4_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton4 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+guidata(gca, handles)
+imsave(handles.axes5)
