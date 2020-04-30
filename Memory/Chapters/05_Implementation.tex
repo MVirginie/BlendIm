@@ -7,7 +7,8 @@ Voici comment se présente notre interface :
     \includegraphics[scale = 0.3]{Images/interface.png}
     \caption{Interface 1.0}
 \end{figure}{}
-Elle est découpée en "blocs". Le premier bloc appelé "Open Button", se situe en haut à gauche, il permet l'ouverture d'images.En cliquant sur "Open Image S", une boite de dialogue s'ouvre et permet de charger une image, présente dans l'ordinateur. De même en cliquant sur le bouton T. Une fois ces images chargées elle s'affiche dans le bloc numéro 2 appelé "Images displayed". L'image la plus haute dans ce bloc correspond à l'image S, tandis que l'image si situant en bas affiche l'image T. Une fois affichées, il faut sélectionner la région dite "à coller" dans l'image S,  et la région où va se faire le collage dans l'image T.\\
+Elle est découpée en "blocs". Le premier bloc appelé "Open Button", se situe en haut à gauche, il permet l'ouverture d'images.En cliquant sur "Open Image S", une boite de dialogue s'ouvre et permet de charger une image, présente dans l'ordinateur. De même en cliquant sur le bouton T. Une fois ces images chargées elle s'affiche dans le bloc numéro 2 appelé "Images displayed". L'image la plus haute dans ce bloc correspond à l'image S, tandis que l'image si situant en bas affiche l'image T.
+Il y a aussi un bouton "Save" permettant d'enregistrer l'image obtenue.\\ Une fois les images affichées, il faut sélectionner la région dite "à coller" dans l'image S,  et la région où va se faire le collage dans l'image T.\\
 
 \paragraph{Choix des méthodes}
 Dans cette interface il est possible de sélectionner la méthode à utiliser. Le choix se porte sur 3 algorithmes : 
@@ -17,13 +18,13 @@ Dans cette interface il est possible de sélectionner la méthode à utiliser. L
     \item Douglas-Rachford
 \end{itemize}{}
 IL suffit de sélectionner la méthode pour l'appliquer.
-En cliquant sur le bouton "Paste !", présent dans le bloc numéro 1, la nouvelle image est calculée et s'affiche dans le bloc situé en haut à droite. 
+En cliquant sur le bouton "Paste !", présent dans le bloc numéro 1, la nouvelle image est calculée et s'affiche dans le bloc "Main Result" situé en haut à droite. 
 \paragraph{Les options}
 D'autres options s'offrent à vous dans cette interface. Il est possible d'effectuer l'amélioration vue plus haut, en la sélectionnant, case : "Change selection". Il est aussi possible de zoomer sur les différentes images, à l'aide de la case zoom. Enfin il est possible de travailler sur des images en couleur, en cochant la case adéquate. Toutes ces options se trouvent dans e bloc :Customizer.
 \paragraph{Sliders}
-Des sliders sont situés de part et d'autres de l'image finale, dans le bloc en haut à droite. En activant ces sliders, il est donc possible de bouger la sélection à l'intérieur de l'image. Ainsi, l'image finale est recalculée, et l'image à coller, sera collée à la position indiquée par les sliders.
-\paragraph{Dernier bloc}
-Le dernier bloc est un bloc d'affichage, il affiche la sélection non modifiée et la sélection après passage de l'algorithme  sélectionné.
+Des sliders sont situés de part et d'autres de l'image finale, dans le bloc "main result". En activant ces sliders, il est donc possible de bouger la sélection à l'intérieur de l'image. Ainsi, l'image finale est recalculée, et l'image à coller, sera collée à la position indiquée par les sliders.
+\paragraph{bloc Results}
+Le dernier bloc est un bloc d'affichage, il affiche une fois créée l'image obtenue par l'algorithme sélectionné, dans le bloc correspondant, cela permet une comparaison rapide.
 \subsection{Organisation du code}
 Nous avons organisé le code sous forme de classes. Le projet contient 4 classes principales, la classe, Fourier, la classe DFinies, la classe Douglas et enfin la classe  Mask. Notre projet contient aussi deux fonctions, la fonctions copier/coller et la fonction du gradient conjugué.
 
