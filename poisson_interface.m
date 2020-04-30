@@ -22,7 +22,7 @@ function varargout = poisson_interface(varargin)
 
 % Edit the above text to modify the response to help poisson_interface
 
-% Last Modified by GUIDE v2.5 30-Apr-2020 16:49:48
+% Last Modified by GUIDE v2.5 30-Apr-2020 17:44:51
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -82,7 +82,7 @@ varargout{1} = handles.output;
 function openImSButton_Callback(~, ~, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
-    [file1,path1] = uigetfile('*.jpg;*.png;*.jpeg', 'select an image');
+    [file1,path1] = uigetfile('*.jpg;*.png;*.jpeg; *.bmp', 'select an image');
     imageS = imread(fullfile(path1,file1));
     imageS = im2double(imageS(:,:,:));
     handles.imageS = imageS;
@@ -101,7 +101,7 @@ function openImTButton_Callback(~, eventdata, handles)
 % hObject    handle to openImTButton (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-[file2,path2] = uigetfile('*.jpg; *.png; *.jpeg', 'select T image');
+[file2,path2] = uigetfile('*.jpg; *.png; *.jpeg; *.bmp', 'select T image');
 imageT = imread(fullfile(path2,file2));
 imageT = im2double(imageT(:,:,:));
 handles.imageT = imageT;
