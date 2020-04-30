@@ -22,7 +22,7 @@ function varargout = poisson_interface(varargin)
 
 % Edit the above text to modify the response to help poisson_interface
 
-% Last Modified by GUIDE v2.5 30-Apr-2020 05:18:49
+% Last Modified by GUIDE v2.5 30-Apr-2020 16:49:48
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -348,13 +348,11 @@ function Color_box_Callback(hObject, eventdata, handles)
  
 
 % --- Executes on button press in pasteButton.
-% First : simple cut/paste with copyPaste.
-% Then : blend with clonage_v2 function
 % Display : 
-%---------- on axes3 :the cut image without any modification (cut/paste only)
-%---------- on axes4 : applied modifications on the cut image 
-%---------- on axes 5: The final result the cut image is paste on the bg
-%one
+%---------- on axes3 :DF method result
+%---------- on axes4 : Fourier method
+%---------- on axes 5: ACtual methodresult
+%---------- on axes 6 : Douglas method
 function pasteButton_Callback(~, ~, handles)
 % hObject    handle to pasteButton (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -371,28 +369,34 @@ end
 tic
 if(handles.DFButton.Value == 1)
     [sol] = solve.color_mode_DF(handles);
-    display(sol, handles, handles.axes3)
+    display(sol, handles, handles.axes3, @axes3_ButtonDownFcn)
 
 elseif (handles.FourierButton.Value == 1)
     [sol]=solve.color_mode_Fourier(handles);
-    display(sol, handles, handles.axes4)
+    display(sol, handles, handles.axes4, @axes4_ButtonDownFcn)
 else
     [sol] = solve.color_mode_Douglas(handles);
-    display(sol, handles, handles.axes6)
+    display(sol, handles, handles.axes6, @axes6_ButtonDownFcn)
        
 end
-Val = toc;
-display(sol, handles, handles.axes5)
 toc
+if (handles.Color_box.Value == 0)
+    imshow(sol(:,:,1), 'Parent', handles.axes5);
+else
+    imshow(sol, 'Parent', handles.axes5);
+end
   handles.result = sol;
   guidata(gca, handles)
  
 hideAxes(handles);
-function display(sol, handles, axes)
+
+function display(sol, handles, axes, buttondown)
 if (handles.Color_box.Value == 0)
-    imshow(sol(:,:,1), 'Parent', axes);
+    axesIm = imshow(sol(:,:,1), 'Parent', axes);
+    set(axesIm, 'ButtonDownFcn', buttondown);
 else
-    imshow(sol, 'Parent', axes);
+    axesIm = imshow(sol, 'Parent', axes);
+    set(axesIm, 'ButtonDownFcn', buttondown);
 end
 % --- Executes on button press in pushbutton4. SAVED
 function pushbutton4_Callback(hObject, eventdata, handles)
@@ -401,3 +405,32 @@ function pushbutton4_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 guidata(gca, handles)
 imsave(handles.axes5)
+
+
+% --- Executes on mouse press over axes background.
+function axes3_ButtonDownFcn(hObject, eventdata, handles)
+% hObject    handle to axes3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+handles = guidata(gca);
+I = getimage(hObject);
+imshow(I, 'Parent', handles.axes5)
+
+
+% --- Executes on mouse press over axes background.
+function axes4_ButtonDownFcn(hObject, eventdata, handles)
+% hObject    handle to axes4 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+handles = guidata(gca);
+I = getimage(hObject);
+imshow(I, 'Parent', handles.axes5)
+
+% --- Executes on mouse press over axes background.
+function axes6_ButtonDownFcn(hObject, eventdata, handles)
+% hObject    handle to axes6 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+handles = guidata(gca);
+I = getimage(hObject);
+imshow(I, 'Parent', handles.axes5)
