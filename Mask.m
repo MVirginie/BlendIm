@@ -176,6 +176,7 @@ classdef Mask <handle
         self.matrix(sol) = 0;
         self.cut_im(sol) = maskT.cut_im(sol);
      end
+     
     end
     
 end
