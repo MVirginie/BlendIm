@@ -73,9 +73,9 @@ classdef Mask <handle
        %Find the distance between the mask's pos and the position he has to
        %go 
        % Then cirschift the mask until pixels reach their correct pos
-        x_1 = self.pos(1,1);
+        x_1 = self.pos(1,1)
         y_1 = self.pos(1,2);
-        x_2 =self.pos_to_move(1,1);
+        x_2 = self.pos_to_move(1,1)
         y_2 = self.pos_to_move(1,2);
         d_x = int32(x_2-x_1);
         d_y = int32(y_2-y_1);
@@ -96,14 +96,14 @@ classdef Mask <handle
         i_mask(self.matrix(:,:)==0)=1;
     end
     
-    function im = transform_to_rect(self,I)
+    function im = transform_to_rect(self,I, shift)
     %Creates the smallest rectangle around the ROI thanks to pos
     %Resize the final image ->rect dimensions
         h = self.pos;
-        ymin = min(h(:,1))+self.shift_done(1,1);
-        xmin = min(h(:,2))+self.shift_done(1,2);
-        ymax = max(h(:,1)) +self.shift_done(1,1);
-        xmax = max(h(:,2))+self.shift_done(1,2);
+        ymin = min(h(:,1))+shift(1,1);
+        xmin = min(h(:,2))+shift(1,2);
+        ymax = max(h(:,1)) +shift(1,1);
+        xmax = max(h(:,2))+shift(1,2);
         
         rect = zeros(size(I));
         rect(int32(xmin-1):int32(xmax+1), int32(ymin-1):int32(ymax+1)) =...
@@ -112,20 +112,19 @@ classdef Mask <handle
         im = rect(int32(xmin-1):int32(xmax+1),...
             int32(ymin-1):int32(ymax+1));
     end
-     function im = accord_rec(self, im, I)
+     function im = accord_rec(self, I)
     %Creates the smallest rectangle around the ROI thanks to pos
     %Resize the final image ->rect dimensions
-     [M,N] = size(im);
-                h = self.pos;
-        ymin = min(h(:,1));
-        xmin = min(h(:,2));   
-        rect = zeros(size(I));
-        rect(int32(xmin):int32(xmin+M-1), int32(ymin):int32(ymin+N-1)) =...
-            I(int32(xmin):int32(xmin+M-1),int32(ymin):int32(ymin+N-1));
-        
-        im = rect(int32(xmin):int32(xmin+M-1),...
-            int32(ymin):int32(ymin+N-1));
-    end
+        x_1 = self.pos(1,1);
+        y_1 = self.pos(1,2);
+        x_2 =self.pos_to_move(1,1);
+        y_2 = self.pos_to_move(1,2);
+        d_x = int32(x_2-x_1);
+        d_y = int32(y_2-y_1);
+        shift = [d_x, d_y];
+        im = self.transform_to_rect(I, shift);
+       
+     end
     
     function adjust_size(self, maskT)
         [w1, h1]  = size(self.matrix);

@@ -82,7 +82,7 @@ varargout{1} = handles.output;
 function openImSButton_Callback(~, ~, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
-    [file1,path1] = uigetfile('*.jpg;*.png', 'select an image');
+    [file1,path1] = uigetfile('*.jpg;*.png;*.jpeg', 'select an image');
     imageS = imread(fullfile(path1,file1));
     if( handles.Color_box.Value == 0)
         imageS = im2double(imageS(:,:,1));
@@ -105,7 +105,7 @@ function openImTButton_Callback(~, eventdata, handles)
 % hObject    handle to openImTButton (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-[file2,path2] = uigetfile('*.jpg; *.png', 'select T image');
+[file2,path2] = uigetfile('*.jpg; *.png; *.jpeg', 'select T image');
 imageT = imread(fullfile(path2,file2));
     if( handles.Color_box.Value == 0)
         imageT = im2double(imageT(:,:,1));
@@ -213,9 +213,8 @@ function radiobutton4_Callback(hObject, eventdata, handles)
      handles.maskS.reinitialize_mask(handles.maskT);
      handles.maskT.associate_im = handles.imageT;
      handles.maskS.associate_im = handles.imageS;
-     fprintf('done\n');
  end
- set(handles.error_text, 'String', 'Fourier method selected');
+ set(handles.error_text, 'String', 'Douglas method selected');
 
 % --- Executes on button press in FourierButton.
 function FourierButton_Callback(~, ~, handles)
@@ -372,7 +371,7 @@ handles = guidata(handles.axes5);
 solve = method();
 if (handles.slider3.Value == 0 && handles.slider4.Value == 1)
     set(handles.slider3, 'Value', -handles.maskT.pos(1,1));
-    set(handles.slider4, 'Value', handles.maskS.pos(1,2));
+    set(handles.slider4, 'Value', handles.maskT.pos(1,2));
     handles.shift3 = 0;
     handles.shift4 = 0;
     guidata(gca, handles);
@@ -383,11 +382,11 @@ if(handles.DFButton.Value == 1)
         [sol, image, new_cut] = solve.color_mode_DF(handles);
         toc
     else
-    rect = handles.maskS.transform_to_rect(handles.maskS.associate_im);% resize S into a rect 
+    rect = handles.maskS.transform_to_rect(handles.maskS.associate_im, handles.maskS.shift_done);% resize S into a rect 
     [im] = copyPaste(handles.maskS, handles.maskT, handles.maskS.associate_im, handles.maskT.associate_im);
     [sol, image, new_cut] = solve.finiteDiff(handles, handles.maskS, im, rect, handles.maskT);
     end
-    %imshow(new_cut, 'Parent', handles.axes3);
+    %imshow(new_cut, 'Parent', handles.axes);
     imshow(new_cut, 'Parent', handles.axes3);
     imshow(image, 'Parent', handles.axes5);
     imshow(sol, 'Parent', handles.axes4);
@@ -408,13 +407,15 @@ elseif (handles.FourierButton.Value == 1)
 else 
     if(handles.Color_box.Value==1)
         tic
-        sol = solve.color_mode_Douglas(handles);
+        [cut_im,sol] = solve.color_mode_Douglas(handles);
         toc
-    else   
-    [sol] = solve.douglas(handles.maskS, handles.maskT, handles);
+    else  
+        tic
+    [cut_im,sol] = solve.douglas(handles.maskS, handles.maskT, handles);
+        toc
     end
     imshow(sol, 'Parent', handles.axes5);
     imshow(handles.maskS.cut_im, 'Parent', handles.axes4);
-    imshow(handles.maskT.cut_im , 'Parent', handles.axes3); 
+    imshow(cut_im , 'Parent', handles.axes3); 
 end
 hideAxes(handles);
