@@ -81,9 +81,9 @@ function [cut_im, sol] = color_mode_Douglas(handles)
 end
 
 function [cut_im, sol] = douglas(maskS, maskT, handles)
-imshow(maskS.matrix, 'Parent', handles.axes3);
+maskS.cut_im = maskS.matrix.*maskS.associate_im;
+maskS.adjust_size(maskT)
 maskS.move_roi();
-
 [k,l] = find(maskS.matrix);
 maskS.reinitialize_mask(maskT);
 maskS.cut_im = maskS.transform_to_rect(maskS.associate_im, maskS.shift_done);
