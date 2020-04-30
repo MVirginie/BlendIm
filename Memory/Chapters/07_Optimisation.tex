@@ -149,7 +149,7 @@ Dans notre cas, u $prox_g(x) = L$.
 L étant une image appartenant à K, et dont les pixels à l'intérieur de $\Omega$ coïncident avec x.\\
 \subsubsection{Convergence de l'algorithme vers la solution}
 \begin{figure}[!htb]
-\includegraphics[scale=0.5]{Images/Resultats/conv1.png}
+\includegraphics[scale=0.6]{Images/Resultats/conv1.png}
 \caption{Convergence de l'algorithme vers la solution}
 \end{figure}
 \begin{figure}[!htb]
@@ -249,13 +249,13 @@ Les résultats que nous obtenons avec les différentes images sont à peu près 
 Après avoir implémenté des "sliders", permettant de bouger la sélection sur l'image de fond, nous nous sommes compte que la sélection est parfois trop grande, et peut cacher des objets, ou choses importantes sur l'image de fond : 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=0.4]{Images/pb.png}
+\includegraphics[scale=0.25]{Images/pb.png}
 \caption{Problème rencontré}
 \end{figure}
 Nous voyons bien, ci-dessus, qu'en sélectionnant une grande zone autour de la lune dans l'image S,le collage cache effectivement l'oiseau, objet pourtant important de l'image T. Afin de résoudre ce problème, nous avons opté pour la comparaison des gradients dans chaque image. En effet, si le gradient de T est supérieur à celui de S, alors cela signifie que l'image T, possède un objet, ou un contour à cette position tandis que S ne possède rien d'important à la même position. Nous pouvons donc "réduire" la sélection et la modifier en ce pixel. Nous obtenons donc la figure suivante en utilisant cette propriété :
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=0.5]{Images/sol.png}
+\includegraphics[scale=0.25]{Images/sol.png}
 \caption{Pb résolu, algorithme utilisé : Différence Finie}
 \end{figure}\newpage
 Cependant cette "amélioration" à ses limites, en effet, l'intérieur de la lune ne possède que très peu de variations et presque aucun contours, ainsi, si la lune se situait exactement sur la tête de l'oiseau, certains pixels à l'intérieur de celle-ci serait "supprimé" de la sélection, et ainsi, le résultat ne serait pas satisfaisant.
