@@ -35,7 +35,6 @@ function [img] = clonage_v2(handles, maskS, im, rect, maskT)
     maskS.matrix = maskS.transform_to_rect(maskS.matrix, maskS.shift_done);   % resize b&w mask
     if(handles.change_sel.Value == 1)
       maskS.change_selection(maskT);
-      imshow(maskS.matrix)
     end
     new_system = FDSystem(maskS.matrix);
     new_system.create_matrix(maskS, rect, maskT);
