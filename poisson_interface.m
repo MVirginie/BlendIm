@@ -132,8 +132,6 @@ s_init = maskS.save_mask_settings();
 handles.maskS = maskS;
 handles.s_init = s_init;
 guidata(gca,handles);
-
-imshow(handles.maskS.matrix ,'Parent', handles.axes3);
 set(handles.error_text, 'String', 'Region to cut selected, please click on the second image to select the paste region');
 hideAxes(handles);
 
@@ -161,7 +159,6 @@ handles.maskS.pos_to_move = maskT.pos;
 handles.s_init.pos_to_move = maskT.pos;
 guidata(gca,handles);
 
-imshow(handles.maskT.cut_im, 'Parent', handles.axes4);
 set(handles.error_text, 'String', 'Paste region selected, you can choose the method & then click on the paste button');
 hideAxes(handles);
 
@@ -172,11 +169,13 @@ function hideAxes(handles)
     handles.axes3.XAxis.Visible = 'off';
     handles.axes4.XAxis.Visible = 'off';
     handles.axes5.XAxis.Visible = 'off';
+    handles.axes6.XAxis.Visible = 'off';
     handles.axes1.YAxis.Visible = 'off';
     handles.axes2.YAxis.Visible = 'off';
     handles.axes3.YAxis.Visible = 'off';
     handles.axes4.YAxis.Visible = 'off';
     handles.axes5.YAxis.Visible = 'off';
+    handles.axes6.YAxis.Visible = 'off';
 
 % --- Executes on button press in DFButton.
 function DFButton_Callback(~, ~, handles)
@@ -369,54 +368,32 @@ if (handles.slider3.Value == 0 && handles.slider4.Value == 1)
     handles.shift4 = 0;
     guidata(gca, handles);
 end
+tic
 if(handles.DFButton.Value == 1)
-        tic
-        [image, sol, new_cut] = solve.color_mode_DF(handles);
-        toc
-  
-        if (handles.Color_box.Value == 0)
-        imshow(new_cut(:,:,1), 'Parent', handles.axes3);
-        imshow(sol(:,:,1), 'Parent', handles.axes5);
-        imshow(image(:,:,1), 'Parent', handles.axes4);
-        else
-        imshow(new_cut, 'Parent', handles.axes3);
-        imshow(sol, 'Parent', handles.axes5);
-        imshow(image, 'Parent', handles.axes4);
-        end
-        
+    [sol] = solve.color_mode_DF(handles);
+    display(sol, handles, handles.axes3)
+
 elseif (handles.FourierButton.Value == 1)
-        tic
-        [sol, image]=solve.color_mode_Fourier(handles);
-        toc
-
-    if (handles.Color_box.Value == 0)
-        imshow(handles.maskT.cut_im(:,:,1), 'Parent', handles.axes3);
-        imshow(image(:,:,1), 'Parent', handles.axes5);
-        imshow(sol(:,:,1), 'Parent', handles.axes4);
-    else
-        imshow(handles.maskT.cut_im, 'Parent', handles.axes3);
-        imshow(image, 'Parent', handles.axes5);
-        imshow(sol, 'Parent', handles.axes4);
-    end
+    [sol]=solve.color_mode_Fourier(handles);
+    display(sol, handles, handles.axes4)
 else
-    tic
-        [cut_im,image] = solve.color_mode_Douglas(handles);
-        toc
-        if (handles.Color_box.Value == 0)
-        imshow(handles.maskT.cut_im(:,:,1), 'Parent', handles.axes3);
-        imshow(image(:,:,1), 'Parent', handles.axes5);
-        imshow(cut_im(:,:,1), 'Parent', handles.axes4);
-    else
-        imshow(handles.maskS.cut_im, 'Parent', handles.axes3);
-        imshow(image, 'Parent', handles.axes5);
-        imshow(cut_im, 'Parent', handles.axes4);
-        end
-  handles.result = image;
-  guidata(gca, handles)
+    [sol] = solve.color_mode_Douglas(handles);
+    display(sol, handles, handles.axes6)
+       
 end
+Val = toc;
+display(sol, handles, handles.axes5)
+toc
+  handles.result = sol;
+  guidata(gca, handles)
+ 
 hideAxes(handles);
-
-
+function display(sol, handles, axes)
+if (handles.Color_box.Value == 0)
+    imshow(sol(:,:,1), 'Parent', axes);
+else
+    imshow(sol, 'Parent', axes);
+end
 % --- Executes on button press in pushbutton4. SAVED
 function pushbutton4_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton4 (see GCBO)
