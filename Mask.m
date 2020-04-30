@@ -73,9 +73,9 @@ classdef Mask <handle
        %Find the distance between the mask's pos and the position he has to
        %go 
        % Then cirschift the mask until pixels reach their correct pos
-        x_1 = self.pos(1,1)
+        x_1 = self.pos(1,1);
         y_1 = self.pos(1,2);
-        x_2 = self.pos_to_move(1,1)
+        x_2 = self.pos_to_move(1,1);
         y_2 = self.pos_to_move(1,2);
         d_x = int32(x_2-x_1);
         d_y = int32(y_2-y_1);
