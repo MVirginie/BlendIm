@@ -12,12 +12,12 @@ A l'aide des deux images présentées ci-dessous, l'image T(arget) et l'image S(
 \begin{figure}[!htb]
    \begin{minipage}{0.48\textwidth}
      \centering
-     \includegraphics[width = 150pt]{Images/Montagne.jpg}
+     \includegraphics[width = 150pt]{Annexe/OursT.png}
      \caption{Image T}
       \end{minipage}\hfill
    \begin{minipage}{0.48\textwidth}
      \centering
-     \includegraphics[width= 150pt]{Images/Oiseau.jpg}
+     \includegraphics[width= 150pt]{Annexe/OursS.png}
      \caption{Image S}\label{Fig:Data2}
    \end{minipage}
 \end{figure}
@@ -28,20 +28,20 @@ Le résultat attendu pour une incrustation "réussie" est un résultat comme cel
 \begin{center}
 \begin{figure}[!htb]
    \centering
-     \includegraphics[width = 150pt]{Images/clonage_done.png}
+     \includegraphics[width = 150pt]{Annexe/OursD.png}
      \caption{Image  finale attendue}
 \end{figure}
 \end{center}
-Cette image est extraite d'une simulation effectuée sur \url{'demo.ipol.im/demo/163/'}. Nous comparerons les images obtenues à l'aide nos algorithmes avec celle-ci à la fin de ce rapport.\newline
+Cette image a été obtenue à l'aide d'un de nos algorithme, nous joindrons un fichier annexe, avec différents collages, dont celui-ci avec le rapport.\newline
 \paragraph{Remarques}
-Ce résultat semble naturel, les frontières entre l'image collée et l'arrière plan sont très peu visibles et ont été estompées, les oiseaux présents dans la première image n'ont pas été déformés et semblent faire parti de la photo initiale. 
+Ce résultat semble naturel, les frontières entre l'image collée et l'arrière plan sont très peu visibles et ont été estompées, l'ours présent dans la première image n'a pas été déformé et semble faire parti de la photo initiale. 
 Mais comment obtenir un tel résultat ?
 \newline
 En reprenant les deux images initiales, séparées, T et S et en effectuant un simple copier/coller, voici l'image que nous devrions obtenir : 
 \begin{center}
 \begin{figure}[H]
      \centering
-     \includegraphics[width = 200pt]{Images/collage1.jpg}
+     \includegraphics[width = 200pt]{beamIm/cccv.png}
      \caption{Simple copier/coller}
 \end{figure}
 \end{center}
@@ -57,7 +57,7 @@ Nous verrons tout au long de ce rapport, quels sont les changements à effectuer
 
 Comme écrit plus haut il faut apporter des modifications au précédent collage afin qu'il corresponde au mieux à nos attentes. En réalité nous ne souhaitons pas modifier l'entièreté de l'image mais seulement une "sous-image" correspondant à l'endroit du collage. Pour ce faire, considérons I, la partie de l'image finale à modifier. Il est ainsi possible de représenter le problème sous forme schématique. 
 \begin{center}
-    \includegraphics[width = 200pt]{Images/Schee.jpg}
+    \includegraphics[width = 200pt]{beamIm/selectedscheme.png}
 \end{center}
 
 Avec : 
@@ -66,7 +66,7 @@ Avec :
     \item S, l'image "Source", l'image qui sera collée.
     \item $\Omega$, le domaine dans lequel se trouve l'inconnue.
     \item $\partial \Omega$, la frontière de $\Omega$.
-    \item I, l'inconnue, la partie de l'image que nous ne connaissons pas et que nous voulons trouver.
+    \item I, l'inconnue, la partie de l'image que nous ne connaissons pas et que nous voulons trouver, elle se situe dans $\Omega$
 \end{itemize}
 
 Nous souhaitons donc trouver une fonction I qui satisfasse un certain nombre de critères, afin de correspondre au résultat attendu.  
