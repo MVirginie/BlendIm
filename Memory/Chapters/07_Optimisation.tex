@@ -157,10 +157,6 @@ L étant une image appartenant à K, et dont les pixels à l'intérieur de $\Ome
 \caption{Convergence de l'algorithme vers la solution}
 \end{figure}
 L'algorithme de Douglas converge bien vers une solution I qui résout le problème initial.
-\newpage
-\subsubsection{Résultats obtenus}
-Avec une précision de $10^{-5}$
-
 \subsubsection{Temps et coût de l'algorithme}
 L'algorithme semble être très efficace, malheureusement en termes de temps de calcul, il est très long. Nous ferons dans la prochaine partie un tableau comparatif des temps de calculs effectués sur des images de tailles différentes.\\
 Nous avons considérablement amélioré  le temps de calcul de l'algorithme de Douglas-Rachford, en utilisant l'algorithme du gradient conjugué, afin d'inverser la matrice de l'opérateur proximal de f. Malgré tout, l'algorithme est encore lent sur de grandes images. Nous choisissons une précision de $10^{-5}$, afin d'avoir des résultats convenables et comparables à ceux obtenus avec les méthodes précédentes. Le nombre d'itérations de l'algorithme devient alors très important, car il semble converger plus lentement à partir de $10^-3$, ce qui augmente considérablement le temps de calcul.\\
@@ -203,9 +199,10 @@ Après avoir implémenté des "sliders", permettant de bouger la sélection sur 
 \caption{Problème rencontré}
 \end{figure}
 Nous voyons bien, ci-dessus, qu'en sélectionnant une grande zone autour de la lune dans l'image S,le collage cache effectivement l'oiseau, objet pourtant important de l'image T. Afin de résoudre ce problème, nous avons opté pour la comparaison des gradients dans chaque image. En effet, si le gradient de T est supérieur à celui de S, alors cela signifie que l'image T, possède un objet, ou un contour à cette position tandis que S ne possède rien d'important à la même position. Nous pouvons donc "réduire" la sélection et la modifier en ce pixel. Nous obtenons donc la figure suivante en utilisant cette propriété :
-\begin{figure}[!htb]
+\begin{figure}[!h]
 \centering
 \includegraphics[scale=0.25]{Images/sol.png}
-\caption{Pb résolu, algorithme utilisé : Différence Finie}
-\end{figure}\newpage
+\caption{Problème résolu, algorithme utilisé : Différence Finie}
+\end{figure}
+\newpage
 Cependant cette "amélioration" à ses limites, en effet, l'intérieur de la lune ne possède que très peu de variations et presque aucun contours, ainsi, si la lune se situait exactement sur la tête de l'oiseau, certains pixels à l'intérieur de celle-ci serait "supprimé" de la sélection, et ainsi, le résultat ne serait pas satisfaisant.

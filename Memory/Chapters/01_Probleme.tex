@@ -23,7 +23,7 @@ A l'aide des deux images présentées ci-dessous, l'image T(arget) et l'image S(
 \end{figure}
 
 L'objectif est d'incruster toute ou partie de l'image S dans l'image T. En terme de manipulations, cela consiste à faire un mélange ou mixage des deux images, ou encore à effectuer un clonage lisse de la seconde image dans la première.
-Le résultat attendu pour une incrustation "réussie" est un résultat comme celui présenté ci-dessous : 
+Le résultat attendu pour une insertion "réussie" est un résultat comme celui présenté ci-dessous : 
     
 \begin{center}
 \begin{figure}[!htb]
@@ -32,7 +32,7 @@ Le résultat attendu pour une incrustation "réussie" est un résultat comme cel
      \caption{Image  finale attendue}
 \end{figure}
 \end{center}
-Cette image a été obtenue à l'aide d'un de nos algorithme, nous joindrons un fichier annexe, avec différents collages, dont celui-ci avec le rapport.\newline
+Cette image a été obtenue à l'aide d'un de nos algorithmes, vous retrouvez les différents collage à la fin de ce rapport.\newline
 \paragraph{Remarques}
 Ce résultat semble naturel, les frontières entre l'image collée et l'arrière plan sont très peu visibles et ont été estompées, l'ours présent dans la première image n'a pas été déformé et semble faire parti de la photo initiale. 
 Mais comment obtenir un tel résultat ?
@@ -66,13 +66,13 @@ Avec :
     \item S, l'image "Source", l'image qui sera collée.
     \item $\Omega$, le domaine dans lequel se trouve l'inconnue.
     \item $\partial \Omega$, la frontière de $\Omega$.
-    \item I, l'inconnue, la partie de l'image que nous ne connaissons pas et que nous voulons trouver, elle se situe dans $\Omega$
+    \item I, l'inconnue, la partie de l'image que nous ne connaissons pas et que nous voulons trouver, elle se situe dans $\Omega \cap \partial \Omega$
 \end{itemize}
 
 Nous souhaitons donc trouver une fonction I qui satisfasse un certain nombre de critères, afin de correspondre au résultat attendu.  
 Cette fonction représente la partie modifiée de l'image. Mais quelles sont les conditions qu'elle doit remplir pour que le rendu soit le meilleur possible? Cette nouvelle image I doit-elle être plus proche de l'image collée S, ou de l'image d'arrière-plan T ? \newline
 
-Pour que l'image obtenue s'incruste parfaitement,il faut que celle-ci dénature le moins possible les deux images sélectionnées au départ. En effet, les détails de l'image que nous voulons coller, S, doivent être retrouvés dans l'image finale, il ne faut donc pas modifier les variations qu'elle (S) pourrait posséder comme par exemple, les contours ou les objets lui appartenant. Les oiseaux, l'avion ou la chaise à coller, doivent être présents dans l'image finale. Il faut donc être capable de retrouver dans l'image finale, les informations présentes dans l'image initiale S. Par conséquent, il faut que les variations présentes dans $I$ soient presque identiques à celles de S.\\
+Pour que l'image obtenue s'incruste parfaitement,il faut que celle-ci dénature le moins possible les deux images sélectionnées au départ. En effet, les détails de l'image que nous voulons coller, S, doivent être retrouvés dans l'image finale, il ne faut donc pas modifier les variations qu'elle (S) pourrait posséder comme par exemple, les contours ou les objets lui appartenant. L'ours  à coller, doit être présent dans le collage final. Il faut donc être capable de retrouver dans l'image finale, les informations présentes dans l'image initiale S. Par conséquent, il faut que les variations présentes dans $I$ soient presque identiques à celles de S.\\
 Rappelons qu'en traitement d'image, les variations d'une image peuvent être obtenues en calculant son gradient. En effet, une variation peut être représentée comme un changement "brutal" d'intensité entre deux pixels. Le gradient d'une image étant numériquement obtenu en effectuant la différence entre des pixels voisins : si celle-ci est élevée alors il y a un fort changement d'intensité entre eux, (par exemple un pixel noir et un autre blanc), et donc possiblement la présence d'un contour. Par conséquent un gradient élevé détecte la présence de fortes variations. Au contraire,en l'absence de variations, le gradient est presque nul. Son calcul permet entre autre de détecter les contours d'une image.\\
 Ici, il est nécessaire que les contours et objets de l'image finale soient très proches de ceux de l'image à coller. Mathématiquement, la fonction I possède donc un gradient, très proche(voir identique) à celui de l'image initiale S. Nous cherchons donc :
 \begin{center}
@@ -164,5 +164,5 @@ Le nouveau problème est donc le suivant :
         \right.
     \end{equation}
 \end{center}
-Il n'est autre que l'équation de Poisson. Ainsi résoudre (1), est équivalent à résoudre l'équation de poisson avec conditions aux bords de Dirichlet. Nous décrirons dans ce rapport 3 manières de résoudre cette équation. 
+Il n'est autre que l'équation de Poisson. Ainsi résoudre (1), est équivalent à résoudre l'équation de poisson avec conditions aux bords de Dirichlet. Nous décrirons dans ce rapport 3 manières de résoudre numériquement cette équation. 
 

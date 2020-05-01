@@ -69,8 +69,7 @@ I(x,y) = T(x,y) \ si \ (x,y) \notin \Omega
 \end{equation}
 
 Afin d'obtenir un domaine régulier considérons R, le domaine de l'image entière.Pour pouvoir utiliser Fourier, il faut que nous puissions travailler symétriquement sur les deux images.\\
-Le nouveau domaine étant l'image entière, nous devons reconsidérer le problème précédent :\\
-Si nous gardons la condition initiale, nous voulions que le laplacien de I à l'intérieur de celui de S à l'intérieur de $\Omega$. En considérant le nouveau domaine $\Omega_2$, comme étant l'image entière, il faudrait donc que le laplacien de I, soit très proche du laplacien des pixels à l'intérieur du domaine. Mais dans ce cas, nous aurions un fort gradient à sur $\partial \Omega$, l'intensité n'étant pas la même. Nous aurions donc un collage visible. Il faut donc reconsidérer le problème précédent. \\
+Nous voulions que le laplacien de I à l'intérieur de $\Omega$ corresponde à celui de S. En considérant le nouveau domaine $\Omega_2$ comme étant l'image entière, il faudrait donc que le laplacien de I, soit très proche du laplacien de $T \cap S$. Mais dans ce cas, nous aurions un fort gradient sur $\partial \Omega$, (le  changement d'intensité entre T et S étant fort).  Il faut donc reconsidérer le problème précédent. \\
 La nouvelle hypothèse que nous pouvons faire  est donc la suivante : $\nabla I$ doit être très proche de $\nabla S$ dans $\Omega$ mais aussi très proche de $\nabla T$ dans $\Omega_2 \backslash \Omega$. En notant V : 
 \begin{equation}
 V = 
