@@ -161,56 +161,6 @@ L'algorithme de Douglas converge bien vers une solution I qui résout le problè
 \subsubsection{Résultats obtenus}
 Avec une précision de $10^{-5}$
 
-\begin{figure}[!htb]
-   \begin{minipage}{0.5\textwidth}
-     \centering
-     \includegraphics[width = 120pt]{Images/Resultats/LuneOiseau.png}
-     \caption{Images sélectionnées}
-      \end{minipage}\hfill
-   \begin{minipage}{0.5\textwidth}
-     \centering
-     \includegraphics[width = 120pt]{Images/Resultats/Douglas1.png}
-     \caption{Douglas, avec une précision de $10^{-5}$}
-      \end{minipage}\hfill
-\end{figure}
-\begin{figure}[!htb]
-   \begin{minipage}{0.5\textwidth}
-     \centering
-     \includegraphics[width = 120pt]{Images/Resultats/OiseauMont.png}
-     \caption{Douglas}
-      \end{minipage}\hfill
-   \begin{minipage}{0.5\textwidth}
-     \centering
-     \includegraphics[width = 120pt]{Images/Resultats/Douglas2.png}
-     \caption{Douglas, avec une précision de $10^{-5}$}
-      \end{minipage}\hfill
-\end{figure}
-
-\begin{figure}[!h]
-   \begin{minipage}{0.5\textwidth}
-     \centering
-     \includegraphics[width = 120pt]{Images/Resultats/douglas3b.png}
-     \caption{Images sélectionnées}
-      \end{minipage}\hfill
-   \begin{minipage}{0.5\textwidth}
-     \centering
-     \includegraphics[width = 120pt]{Images/Resultats/douglas3.png}
-     \caption{Douglas, avec une précision de $10^{-5}$}
-      \end{minipage}\hfill
-\end{figure}
-\begin{figure}[!htb]
-   \begin{minipage}{0.5\textwidth}
-     \centering
-     \includegraphics[width = 120pt]{Images/Resultats/douglas4b.png}
-     \caption{Images sélectionnées}
-      \end{minipage}\hfill
-   \begin{minipage}{0.5\textwidth}
-     \centering
-     \includegraphics[width = 120pt]{Images/Resultats/douglas4.png}
-     \caption{Douglas, avec une précision de $10^{-5}$}
-      \end{minipage}\hfill
-\end{figure}
-\newpage
 \subsubsection{Temps et coût de l'algorithme}
 L'algorithme semble être très efficace, malheureusement en termes de temps de calcul, il est très long. Nous ferons dans la prochaine partie un tableau comparatif des temps de calculs effectués sur des images de tailles différentes.\\
 Nous avons considérablement amélioré  le temps de calcul de l'algorithme de Douglas-Rachford, en utilisant l'algorithme du gradient conjugué, afin d'inverser la matrice de l'opérateur proximal de f. Malgré tout, l'algorithme est encore lent sur de grandes images. Nous choisissons une précision de $10^{-5}$, afin d'avoir des résultats convenables et comparables à ceux obtenus avec les méthodes précédentes. Le nombre d'itérations de l'algorithme devient alors très important, car il semble converger plus lentement à partir de $10^-3$, ce qui augmente considérablement le temps de calcul.\\

@@ -68,8 +68,10 @@ I(x,y) = T(x,y) \ si \ (x,y) \notin \Omega
 \right.
 \end{equation}
 
-Afin d'obtenir un domaine régulier considérons R, le domaine de l'image entière.Pour pouvoir utiliser Fourier, il faut que nous puissions travailler symétriquement en même temps sur les deux images.\\
-Nous voulons donc que $\nabla I$ soit très proche de $\nabla S$ dans $\Omega$ mais aussi que $\nabla I$ soit très proche de $\nabla T$ en dehors de $\Omega$. En notant V : 
+Afin d'obtenir un domaine régulier considérons R, le domaine de l'image entière.Pour pouvoir utiliser Fourier, il faut que nous puissions travailler symétriquement sur les deux images.\\
+Le nouveau domaine étant l'image entière, nous devons reconsidérer le problème précédent :\\
+Si nous gardons la condition initiale, nous voulions que le laplacien de I à l'intérieur de celui de S à l'intérieur de $\Omega$. En considérant le nouveau domaine $\Omega_2$, comme étant l'image entière, il faudrait donc que le laplacien de I, soit très proche du laplacien des pixels à l'intérieur du domaine. Mais dans ce cas, nous aurions un fort gradient à sur $\partial \Omega$, l'intensité n'étant pas la même. Nous aurions donc un collage visible. Il faut donc reconsidérer le problème précédent. \\
+La nouvelle hypothèse que nous pouvons faire  est donc la suivante : $\nabla I$ doit être très proche de $\nabla S$ dans $\Omega$ mais aussi très proche de $\nabla T$ dans $\Omega_2 \backslash \Omega$. En notant V : 
 \begin{equation}
 V = 
 \left\{
@@ -87,7 +89,7 @@ Nous devons donc résoudre l'équation suivante :
 \begin{center}
 $ \Delta I = div(V)$
 \end{center}
-Afin de pouvoir résoudre cette équation il faut imposer des conditions sur le bord. En appliquant l'effet miroir à l'image initiale alors, on obtient un signal symétrique  et on peut appliquer la transformée de Fourier, pour résoudre le problème. 
+Afin de pouvoir résoudre cette équation il faut imposer des conditions sur le bord. En appliquant l'effet miroir à l'image initiale alors, on obtient un signal symétrique  et on peut appliquer la transformée de Fourier, pour résoudre le problème.  Les conditions imposées sont donc des conditions de Neumann.
 
 Ainsi en calculant le laplacien dans le domaine de Fourier, on obtient  : $\widehat{\Delta I} = \widehat{div(V)}$
 
