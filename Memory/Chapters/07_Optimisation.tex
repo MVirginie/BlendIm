@@ -159,7 +159,7 @@ L étant une image appartenant à K, et dont les pixels à l'intérieur de $\Ome
 L'algorithme de Douglas converge bien vers une solution I qui résout le problème initial.
 \subsubsection{Temps et coût de l'algorithme}
 L'algorithme semble être très efficace, malheureusement en termes de temps de calcul, il est très long. Nous ferons dans la prochaine partie un tableau comparatif des temps de calculs effectués sur des images de tailles différentes.\\
-Nous avons considérablement amélioré  le temps de calcul de l'algorithme de Douglas-Rachford, en utilisant l'algorithme du gradient conjugué, afin d'inverser la matrice de l'opérateur proximal de f. Malgré tout, l'algorithme est encore lent sur de grandes images. Nous choisissons une précision de $10^{-5}$, afin d'avoir des résultats convenables et comparables à ceux obtenus avec les méthodes précédentes. Le nombre d'itérations de l'algorithme devient alors très important, car il semble converger plus lentement à partir de $10^-3$, ce qui augmente considérablement le temps de calcul.\\
+Nous avons considérablement amélioré  le temps de calcul de l'algorithme de Douglas-Rachford, en utilisant l'algorithme du gradient conjugué, afin d'inverser la matrice de l'opérateur proximal de f. Malgré tout, l'algorithme est encore lent sur de grandes images. Nous choisissons une précision de $10^{-5}$, afin d'avoir des résultats convenables et comparables à ceux obtenus avec les méthodes précédentes. Le nombre d'itérations de l'algorithme devient alors très important. Pour certaines images (voir ci-dessous) une précision de $10^{-3}$ de l'algorithme est suffisante pour obtenir des résultats convenables. Pour d'autres en revanche il faut augmenter cette précision(voir ci-dessus avec l'avion).\\
 Nous avons amélioré les temps de calculs en appliquant une méthode de sur-relaxation sur l'algorithme de Douglas-Rachford, avec un $\rho  =1.85$.A chaque itération nous calculons donc :
 \begin{center} 
 \begin{itemize}
@@ -189,8 +189,9 @@ précision : $5 \times 10^{-5}$\\ 46.1067 secondes} & 0.797 secondes & 1.640 sec
 220 $\times$ 154 $\times$3 px & 263$\times$192$\times $3 px & \shortstack{ 861 itérations\\ précision : 5$\times 10^{-5}$\\4.056 secondes} &\shortstack{510 itérations\\ précision : 5$\times 10^{-5}$\\2.3466 secondes}& 0.0892 secondes & 0.1754 secondes \\
 \hline
 \end{tabular}\\
+\newline 
 Temps Douglas (R) est la méthode de surrelaxation couplée à la méthode de Douglas, $\rho = 1.89$. Nous remarquons qu'à l'aide de cette méthode, nous pouvons considérablement diminuer le nombre d'itérations de l'algorithme de Douglas-Rachford(il converge plus vite) et ainsi améliorer le temps de calcul de celui-ci. (jusqu'à t/2, sur de grandes images).
-Les résultats que nous obtenons avec les différentes images sont à peu près similaires. Nous pouvons bien sûr raccourcir le temps de calcul de l'algorithme de Douglas-Rachford, en diminuant la précision. Mais dans ce cas, les résultats obtenus avec celui-ci sont moins bons, et non comparables avec ceux des deux autres méthodes. 
+Les résultats que nous obtenons avec les différentes images sont très similaires à ceux obtenus avec les différences finies. Nous pouvons bien sûr raccourcir le temps de calcul de l'algorithme de Douglas-Rachford, en diminuant la précision. Mais dans ce cas, certains résultats sont moins convenables.
 \section{Amélioration du collage}
 Après avoir implémenté des "sliders", permettant de bouger la sélection sur l'image de fond, nous nous sommes compte que la sélection est parfois trop grande, et peut cacher des objets, ou choses importantes sur l'image de fond : 
 \begin{figure}[!htb]
