@@ -28,8 +28,8 @@ F est toujours la fonction que nous souhaitons étudier.
 En dérivant l'expression ci-dessus par rapport à la première variable : 
 \begin{equation}
 \begin{aligned}
-\widehat{\frac{\partial F}{\partial k}} &= \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} F(x,y) e^{2\pi i\left(\frac{k\times x}{M}+\frac{l\times y}{N}\right)}\left(\frac{-\pi i x}{M}\right)\\
-& = \left(\frac{2\pi i x}{M}\right)\widehat{F(k,l)}\\
+\frac{\partial F}{\partial k} &= \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} F(x,y) e^{2\pi i\left(\frac{k\times x}{M}+\frac{l\times y}{N}\right)}\left(\frac{2\pi i x}{M}\right)\\
+& = \left(\frac{2\pi i x}{M}\right)F(k,l)\\
 \widehat{\frac{\partial F}{\partial k}} &= \left(\frac{2\pi i x}{M}\right)\widehat{F(k,l)}
 \end{aligned}
 \end{equation}
@@ -45,8 +45,8 @@ On a donc :
 \paragraph{Laplacien}
 \begin{equation}
 \begin{aligned}
-\widehat{\frac{\partial^2 F}{\partial k ^2}} & = \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} F(x,y) e^{2\pi i\left(\frac{k\times x}{M}+\frac{l\times y}{N}\right)}\left(\frac{2\pi i x}{M}\right)^2\\
-& = \left(\frac{2\pi i x}{M}\right)^2 \widehat{F(k,l)}\\
+\frac{\partial^2 F}{\partial k ^2} & = \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} F(x,y) e^{2\pi i\left(\frac{k\times x}{M}+\frac{l\times y}{N}\right)}\left(\frac{2\pi i x}{M}\right)^2\\
+& = \left(\frac{2\pi i x}{M}\right)^2 F(k,l)\\
 \widehat{\frac{\partial^2 F}{\partial k^2}} &= \left(\frac{2\pi i x}{M}\right)^2\widehat{F(k,l)}
 \end{aligned}
 \end{equation}
