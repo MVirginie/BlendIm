@@ -26,7 +26,12 @@ avec
     \right.
 \end{equation*}{}
 Dans la suite nous noterons $K = T\backslash \Omega$. K représente donc l'ensemble des images dont les pixels situés en dehors du domaine$\Omega$, coïncident avec T.\\
-
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.5]{Images/K.png}
+\caption{Exemple d'images appartenant à K}
+\end{figure}
+\\
 Nous avons bien équivalence entre notre problème sans contraintes et le problème (1). En effet, si I $\in K$, alors l'indicatrice vaut 0 et nous devons juste résoudre $min \int_\Omega ||\nabla I - \nabla S||^2 $. Si au contraire $I \notin K$, alors nous devons minimiser quelque chose qui vaut plus $+\infty$. Le minimum n'existe pas, il n'y a pas de solutions.\\
  En effet, l'image I ne coïncide pas avec T à l'extérieur de $\Omega$,  la condition I = T en dehors du domaine n'étant pas respectée, le problème n'a pas de solution. \\
  Ce problème sans contraintes, traduit bien celui avec contraintes. Nous pouvons donc essayer de résoudre celui-ci, numériquement. Afin d'être sûrs que le minimum existe, nous montrerons dans la suite que cette fonction est bien convexe. 

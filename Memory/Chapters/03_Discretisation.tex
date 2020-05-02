@@ -181,13 +181,13 @@ Considérons l'image S ci-contre que nous souhaitons coller.
 \begin{figure}[!htb]
    \begin{minipage}{0.5\textwidth}
      \centering
-     \includegraphics[width = 120pt]{Images/square.png}
+     \includegraphics[width = 100pt]{Images/square.png}
      \caption{Images à coller}
       \end{minipage}\hfill
    \begin{minipage}{0.5\textwidth}
      \centering
-\includegraphics[width = 120pt]{Images/pix.png}
-\caption{Vue grille pixel}
+\includegraphics[width = 100pt]{Images/targer.png}
+\caption{Image de fond}
       \end{minipage}\hfill
 \end{figure}
 Nous souhaitons ici coller les deux carrés rouge sur une image que nous nommerons T.  
@@ -195,15 +195,15 @@ Nous souhaitons ici coller les deux carrés rouge sur une image que nous nommero
 \begin{figure}[!htb]
    \begin{minipage}{0.5\textwidth}
      \centering
-     \includegraphics[width = 120pt]{Images/carre_selection.png}
+     \includegraphics[width = 100pt]{Images/carre_selection.png}
 \caption{Sélection à coller}
       \end{minipage}\hfill
-   \begin{minipage}{0.5\textwidth}
+         \begin{minipage}{0.5\textwidth}
      \centering
-\includegraphics[width = 120pt]{Images/numerote.png}
-\caption{Numérotation des pixels}
+     \includegraphics[width = 100pt]{Images/pix.png}
+\caption{Vue grille pixel}
       \end{minipage}\hfill
-\end{figure} 
+      \end{figure}
 \newpage
 
 Ici, notons $\Omega$, l'intérieur de la zone encadrée par la ligne verte, et des $\partial \Omega$, les pixels appartenant à $Jaune \backslash \Omega$
@@ -271,5 +271,10 @@ La solution I, s'écrit sous la forme
 \begin{center}
 $I = A^{-1}b$.
 \end{center} 
+\begin{figure}[!h]
+    \centering
+\includegraphics[width = 120pt]{Images/result.png}
+\caption{Résultat obtenu}\hfill
+\end{figure} 
 Nous ajouterons dans la section suivante les résultats obtenus à l'aide de cette méthode. \\ Celle-ci fonctionne très bien mais le temps de calcul peut devenir très long. En effet, cette méthode demande une inversion matricielle, et donc un temps de calcul relativement long sur de "très" grands systèmes, donc de très grandes sélections. Nous allons maintenant voir une seconde méthode, plus rapide, en nous plaçant dans le domaine de Fourier.
 
