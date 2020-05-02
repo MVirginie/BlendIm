@@ -1,4 +1,4 @@
-Cette partie sera consacrée à la résolution du problème à l'aide des différences finies. Pour trouver la solution il faut donc discrétiser les laplaciens des images, puis résoudre un système.
+Cette partie sera consacrée à la résolution du problème à l'aide des différences finies. Pour trouver la solution il faut donc discrétiser les Laplaciens des images, puis résoudre un système.
  \subsubsection{Notations}
 \textbf{Le gradient: }\\
 Le gradient est un vecteur composé des dérivées partielles d'une fonction. Soit la fonction, f(x,y), on note le gradient de f : 
@@ -31,7 +31,7 @@ Le problème à résoudre est le suivant :
     \right.
 \end{equation*}
 \end{center}
-Dans un premier temps, discrétisons le Laplacien de I. Le laplacien étant la somme des dérivées partielles secondes : $\frac{\partial^2 I}{\partial x^2}$ et  $\frac{\partial^2 I}{\partial y^2}$, sa discrétisation commence par une discrétisation de celles-ci. En utilisant les formules de Taylor-Young à l'ordre 2 suivantes :
+Dans un premier temps, discrétisons le Laplacien de I. Le Laplacien étant la somme des dérivées partielles secondes : $\frac{\partial^2 I}{\partial x^2}$ et  $\frac{\partial^2 I}{\partial y^2}$, sa discrétisation commence par une discrétisation de celles-ci. En utilisant les formules de Taylor-Young à l'ordre 2 suivantes :
 \begin{equation*}
 \begin{aligned}
     I(x+h,y) = I(x,y)+h\times \frac{\partial I(x,y)}{\partial x}+ \frac{h^2}{2} \times \frac{\partial ^2 I(x,y)}{\partial x^2} + o(h^3) \\
@@ -60,7 +60,7 @@ Afin d'obtenir le Laplacien du pixel I(i,j), il est donc nécessaire d'avoir la 
     \includegraphics[scale = 0.8]{Images/Laplacian.png}
     \caption{Laplacien du pixel}
 \end{figure}
-Afin de trouver la solution au problème, il faut donc appliquer cette discrétisation à chaque pixel de la partie de l'image à modifier($\Omega \cap \partial \Omega$). Chaque pixel faisant intervenir ses voisins, la résolution du problème passe donc par la résolution d'un système.
+Afin de trouver la solution au problème, il faut donc appliquer cette discrétisation à chaque pixel de la partie de l'image à modifier($\Omega \cup \partial \Omega$). Chaque pixel faisant intervenir ses voisins, la résolution du problème passe donc par la résolution d'un système.
 En notant
 \begin{center}
  $g(x,y) = S(x+1,y) + S(x-1,y)+ S(x,y+1) + S(x,y-1) - 4\times S(x,y)$\\
@@ -111,11 +111,8 @@ La matrice A, est une matrice par bloc. Ainsi les blocs de la matrice correspond
 \left.
 \begin{aligned}
 \begin{pmatrix}
-	-4 & 1 & 0 & ...& 0 & 1 & 0...&0& ... & 0\\
-	1 & -4 & 1 & 0 & ... & 0 &1 &0&....&0\\
-	0 & 1 & -4 & 1 & 0&... &0 &1 &0&...\\
-	&...\\
-	1 & 0 &... &1 &-4 &1 &0...& 0& 1 & 0\\
+	1 & 0 & ... &  1 &-4 & 1 & 0 & ... & 1 & 0... \\
+	0 & 1 & 0   &... & 1 & -4& 1 & 0  &... & 1 ... \\
 \end{pmatrix}
 \end{aligned}
 \right.
@@ -137,7 +134,7 @@ Tandis que les blocs de la matrice, correspondant aux pixels situés sur le bord
 \right.
 \end{equation}
 \end{center}
-Le vecteur b, contient les laplaciens des pixels de l'image S.
+Le vecteur b, contient les Laplaciens des pixels de l'image S.
 Les valeurs des pixels de celle-ci, étant connus,il est facile de calculer son Laplacien en utilisant les discrétisations vues ci-dessus. Le vecteur b, n'est autre que la concaténation des colonnes du Laplacien de S.
 \begin{center}
 \begin{equation}
