@@ -1,4 +1,4 @@
-Avec cette seconde méthode nous allons résoudre l'équation de Poisson à l'aide de la transformée de Fourier. Avant de formuler la résolution de ce problème. Rappelons la définition des opérateurs dont nous aurons besoin dans la suite
+Avec cette seconde méthode nous allons résoudre l'équation de Poisson à l'aide de la transformée de Fourier. Avant de formuler la résolution de ce problème. Rappelons la définition des opérateurs dont nous aurons besoin dans la suite. \cite{Fourier}
 \subsubsection{Rappel et définitions des opérateurs}
 \paragraph{Transformée de Fourier (discrète)}
 Soit F une fonction, sa transformée de Fourier peut s'écrire de la façon suivante : 
@@ -14,7 +14,7 @@ F(k,l) = \frac{1}{MN} \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} \hat{F}(x,y) e^{2\pi
 \end{aligned}
 \end{equation}
 \paragraph{Gradient}
-Pour résoudre le problème nous avons besoin de calculer les Laplaciens des images. Mais avec cette méthode nous nous placerons dans le domaine de Fourier, il est donc nécessaire de calculer le Laplacien de la transformée de Fourier d'une fonction , et donc le gradient de celle-ci. 
+Pour résoudre le problème nous avons besoin de calculer les Laplaciens des images. Mais avec cette méthode nous nous placerons dans le domaine de Fourier, il est donc nécessaire de calculer la transformée de Fourier du Laplacien d'une fonction , et donc le gradient de celle-ci. 
 F est toujours la fonction que nous souhaitons étudier. 
 \begin{equation}
 \begin{aligned}
@@ -68,7 +68,7 @@ I(x,y) = T(x,y) \ si \ (x,y) \notin \Omega
 \right.
 \end{equation}
 
-Afin d'obtenir un domaine régulier considérons R, le domaine de l'image entière.Pour pouvoir utiliser Fourier, il faut que nous puissions travailler symétriquement sur les deux images.\\
+Afin d'obtenir un domaine régulier considérons R, le domaine de l'image entière.\\
 Nous voulions que le laplacien de I à l'intérieur de $\Omega$ corresponde à celui de S. En considérant le nouveau domaine $\Omega_2$ comme étant l'image entière, il faudrait donc que le laplacien de I, soit très proche du laplacien de $T \cup S$. Mais dans ce cas, nous aurions un fort gradient sur $\partial \Omega$, (le  changement d'intensité entre T et S étant fort).  Il faut donc reconsidérer le problème précédent. \\
 La nouvelle hypothèse que nous pouvons faire  est donc la suivante : $\nabla I$ doit être très proche de $\nabla S$ dans $\Omega$ mais aussi très proche de $\nabla T$ dans $\Omega_2 \backslash \Omega$. En notant V : 
 \begin{equation}
@@ -116,7 +116,7 @@ $ \Delta I = div(V)$
 \end{center}
 Afin de pouvoir résoudre cette équation il faut imposer des conditions sur le bord. En appliquant l'effet miroir à l'image initiale alors, on obtient un signal symétrique  et on peut appliquer la transformée de Fourier, pour résoudre le problème.  Les conditions imposées sont donc des conditions de Neumann.
 
-Ainsi en calculant le laplacien dans le domaine de Fourier, on obtient  : $\widehat{\Delta I} = \widehat{div(V)}$
+Ainsi en calculant la transformée de Fourier du laplacien, on obtient  : $\widehat{\Delta I} = \widehat{div(V)}$
 
 \begin{equation}
 \begin{aligned}
@@ -130,3 +130,4 @@ Ainsi en calculant le laplacien dans le domaine de Fourier, on obtient  : $\wide
 \end{aligned}
 \end{equation}
 Afin de retrouver I, il suffit d'appliquer la transformée inverse, à l'équation ci-dessus.
+Les résultats obtenus avec cette méthode seront présentés dans une prochaine section. 

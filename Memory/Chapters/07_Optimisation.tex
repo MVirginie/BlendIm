@@ -75,7 +75,7 @@ L'algorithme que nous allons utiliser est l'algorithme de Douglas-Rachford. Cet 
 À chaque itération, sont calculés : 
 \begin{center}
 $x_{k+1} = prox_f(y_k)$\\
-$y_{k+1} = y_k+prox_g(2x_x{k+1}-y_k)-x_{k+1}$
+$y_{k+1} = y_k+prox_g(2x_{k+1}-y_k)-x_{k+1}$
 \end{center}{}
 Il est donc nécessaire de calculer les opérateurs proximaux respectifs de $f$ et $g$. 
 \subsubsection{... Avec les opérateurs proximaux ...}
@@ -87,6 +87,7 @@ prox_f(x) = argmin_u \left\{ \frac{||u-x||^2}{2}+ f(u)\right\}
 \end{aligned}
 \end{equation*}
 \end{center}
+\cite{Opti}
 \paragraph{Opérateur proximal de f}
 \begin{equation*}
 prox_f(x) = argmin_u\left\{\frac{||u-x||^2}{2}+||\nabla u -\nabla S ||^2 \right\}
@@ -164,7 +165,7 @@ L étant une image appartenant à K, et dont les pixels à l'intérieur de $\Ome
 L'algorithme de Douglas converge bien vers une solution I qui résout le problème initial.
 \subsubsection{Temps et coût de l'algorithme}
 L'algorithme semble être très efficace, malheureusement en termes de temps de calcul, il est très long. Nous ferons dans la prochaine partie un tableau comparatif des temps de calculs effectués sur des images de tailles différentes.\\
-Nous avons considérablement amélioré  le temps de calcul de l'algorithme de Douglas-Rachford, en utilisant l'algorithme du gradient conjugué, afin d'inverser la matrice de l'opérateur proximal de f. Malgré tout, l'algorithme est encore lent sur de grandes images. Nous choisissons une précision de $10^{-5}$, afin d'avoir des résultats convenables et comparables à ceux obtenus avec les méthodes précédentes. Le nombre d'itérations de l'algorithme devient alors très important. Pour certaines images (voir ci-dessous) une précision de $10^{-3}$ de l'algorithme est suffisante pour obtenir des résultats convenables. Pour d'autres en revanche il faut augmenter cette précision(voir ci-dessus avec l'avion).\\
+Nous avons considérablement amélioré  le temps de calcul de l'algorithme de Douglas-Rachford, en utilisant l'algorithme du gradient conjugué \cite{Gradient}, afin d'inverser la matrice de l'opérateur proximal de f. Malgré tout, l'algorithme est encore lent sur de grandes images. Nous choisissons une précision de $10^{-5}$, afin d'avoir des résultats convenables et comparables à ceux obtenus avec les méthodes précédentes. Le nombre d'itérations de l'algorithme devient alors très important. Pour certaines images (voir ci-dessous) une précision de $10^{-3}$ de l'algorithme est suffisante pour obtenir des résultats convenables. Pour d'autres en revanche il faut augmenter cette précision(voir ci-dessus avec l'avion).\\
 Nous avons amélioré les temps de calculs en appliquant une méthode de sur-relaxation sur l'algorithme de Douglas-Rachford, avec un $\rho  =1.85$.A chaque itération nous calculons donc :
 \begin{center} 
 \begin{itemize}
