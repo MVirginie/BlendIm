@@ -7,14 +7,14 @@ Soit F une fonction, sa transformée de Fourier peut s'écrire de la façon suiv
 \widehat{F}(x,y) = \sum_{k = 0}^{M-1} \sum_{l = 0}^{N-1} F(k,l) e^{-2\pi i\left(\frac{k\times x}{M}+\frac{l\times y}{N}\right)}
 \end{aligned}
 \end{equation}
-Enfin afin de retrouver la fonction initiale nous aurons besoin de la transformée de Fourier inverse : 
+Enfin, afin de retrouver la fonction initiale nous aurons besoin de la transformée de Fourier inverse : 
 \begin{equation}
 \begin{aligned}
 F(k,l) = \frac{1}{MN} \sum_{x = 0}^{M-1} \sum_{y = 0}^{N-1} \hat{F}(x,y) e^{2\pi i \left(\frac{xk}{M}+\frac{yl}{N}\right)}
 \end{aligned}
 \end{equation}
 \paragraph{Gradient}
-Pour résoudre le problème nous avons besoin de calculer les Laplaciens des images. Mais avec cette méthode nous nous placerons dans le domaine de Fourier, il est donc nécessaire de calculer la transformée de Fourier du Laplacien d'une fonction , et donc le gradient de celle-ci. 
+Pour résoudre le problème nous avons besoin de calculer les Laplaciens des images. Nous nous placerons dans le domaine de Fourier, il est donc nécessaire de calculer la transformée de Fourier du Laplacien d'une fonction, et donc le gradient de celle-ci. 
 F est toujours la fonction que nous souhaitons étudier. 
 \begin{equation}
 \begin{aligned}
@@ -68,7 +68,6 @@ I(x,y) = T(x,y) \ si \ (x,y) \notin \Omega
 \right.
 \end{equation}
 
-Afin d'obtenir un domaine régulier considérons R, le domaine de l'image entière.\\
 Nous voulions que le laplacien de I à l'intérieur de $\Omega$ corresponde à celui de S. En considérant le nouveau domaine $\Omega_2$ comme étant l'image entière, il faudrait donc que le laplacien de I, soit très proche du laplacien de $T \cup S$. Mais dans ce cas, nous aurions un fort gradient sur $\partial \Omega$, (le  changement d'intensité entre T et S étant fort).  Il faut donc reconsidérer le problème précédent. \\
 La nouvelle hypothèse que nous pouvons faire  est donc la suivante : $\nabla I$ doit être très proche de $\nabla S$ dans $\Omega$ mais aussi très proche de $\nabla T$ dans $\Omega_2 \backslash \Omega$. En notant V : 
 \begin{equation}
@@ -84,7 +83,6 @@ V_1\\
 V_2
 \end{pmatrix}
 \end{equation}
-Les deux images suivantes ont été obtenues à l'aide d'un algorithme codé en python.
 \begin{figure}[!htb]
    \begin{minipage}{0.5\textwidth}
      \centering
@@ -116,7 +114,7 @@ $ \Delta I = div(V)$
 \end{center}
 Afin de pouvoir résoudre cette équation il faut imposer des conditions sur le bord. En appliquant l'effet miroir à l'image initiale alors, on obtient un signal symétrique  et on peut appliquer la transformée de Fourier, pour résoudre le problème.  Les conditions imposées sont donc des conditions de Neumann.
 
-Ainsi en calculant la transformée de Fourier du laplacien, on obtient  : $\widehat{\Delta I} = \widehat{div(V)}$
+Ainsi en calculant la transformée de Fourier du Laplacien, on obtient  : $\widehat{\Delta I} = \widehat{div(V)}$
 
 \begin{equation}
 \begin{aligned}
