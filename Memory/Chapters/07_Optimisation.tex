@@ -151,8 +151,8 @@ prox_g(x) =  argmin_u\left\{\frac{||u-x||^2}{2}+ \mathbb{1}_K(u)\right\}
 Nous savons que $prox_g(x)$ existe puisque la fonction g est convexe et la fonction norme est elle aussi convexe.
 Notons $h(u) = \frac{||u-x||^2}{2}+ \mathbb{1}_K(u)$ 
 Comme nous l'avons cette fonction n'admet un minimum que si $u \in K$. Supposons donc $u \in K$. Alors chercher $argmin_u \left\{h(u)\right\}$ est équivalent à chercher $argmin_{u\in K} \left\{\frac{||u-x||^2}{2}\right\}$.\\
-Dans notre cas, u $prox_g(x) = L$.
-L étant une image appartenant à K, et dont les pixels à l'intérieur de $\Omega$ coïncident avec x.\\
+Dans notre cas, $prox_g(x) = L$.
+avec L une image appartenant à K, et dont les pixels à l'intérieur de $\Omega$ coïncident avec x.\\
 \subsubsection{Convergence de l'algorithme vers la solution}
 \begin{figure}[!htb]
 \includegraphics[scale=0.6]{Images/Resultats/conv1.png}
