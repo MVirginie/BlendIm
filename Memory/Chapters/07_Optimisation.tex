@@ -32,9 +32,10 @@ Dans la suite nous noterons $K = T\backslash \Omega$. K représente donc l'ensem
 \caption{Exemple d'images appartenant à K}
 \end{figure}
 \\
-Nous avons bien équivalence entre notre problème sans contraintes et le problème (1). En effet, si I $\in K$, alors l'indicatrice vaut 0 et nous devons juste résoudre $min \int_\Omega ||\nabla I - \nabla S||^2 $. Si au contraire $I \notin K$, alors nous devons minimiser quelque chose qui vaut plus $+\infty$. Le minimum n'existe pas, il n'y a pas de solutions.\\
+Nous avons bien équivalence entre notre problème sans contraintes et le problème (1). En effet, si I $\in K$, alors l'indicatrice vaut 0 et nous devons juste résoudre $min \int_\Omega ||\nabla I - \nabla S||^2 $. \\
+Si au contraire $I \notin K$, alors nous devons minimiser quelque chose qui vaut plus $+\infty$. Le minimum n'existe pas, il n'y a pas de solutions.\\
  En effet, l'image I ne coïncide pas avec T à l'extérieur de $\Omega$,  la condition I = T en dehors du domaine n'étant pas respectée, le problème n'a pas de solution. \\
- Ce problème sans contraintes, traduit bien celui avec contraintes. Nous pouvons donc essayer de résoudre celui-ci, numériquement. Afin d'être sûrs que le minimum existe, nous montrerons dans la suite que cette fonction est bien convexe. 
+ Ce problème sans contraintes, traduit bien celui avec contraintes. Nous pouvons donc essayer de résoudre celui-ci, numériquement.\\ Afin d'être sûrs que le minimum existe, nous montrerons dans la suite que cette fonction est bien convexe. 
  Par commodité, nous noterons dans la suite : 
  \begin{equation*}
  \begin{aligned}
@@ -64,13 +65,14 @@ Ainsi, pour $(i,j) \notin \Omega$ : \\
 \begin{center}
 $M_{i,j} = \lambda T_{i,j}+(1-\lambda) T_{i,j} = T_{i,j}$
 \end{center}
-Ainsi, les pixels de M n'appartenant pas à $\Omega$, coïncident avec T.M appartient bien à K. Et K est donc convexe.\\
-K étant convexe, et non vide, (T en particulier appartient à K), alors la fonction $\mathbb{1}_K(I)$ est convexe. \\
-Enfin montrons la convexité de $||\nabla I-\nabla S||^2$.
-La norme étant une fonction convexe et croissante, alors la fonction : $||.||^2$ est elle aussi convexe. 
+Ainsi, les pixels de M n'appartenant pas à $\Omega$, coïncident avec T. M appartient bien à K. Et K est donc convexe.\newline
+K étant convexe, et non vide, (T en particulier appartient à K), alors la fonction $\mathbb{1}_K(I)$ est convexe. \newline
+Enfin montrons la convexité de $||\nabla I-\nabla S||^2$.\newline
+La norme étant une fonction convexe et croissante, alors la fonction : $||.||^2$ est elle aussi convexe. \\
 Nous avons donc $f et g$, convexes, ainsi, la fonction $F =f+g$ est elle aussi convexe. Elle admet donc un minimum. Nous pouvons ainsi résoudre numériquement ce problème.
 \subsubsection{... Pour utiliser l'algorithme de Douglas...}
-L'algorithme que nous allons utiliser est l'algorithme de Douglas-Rachford. Cet algorithme permet d'approcher le minimum  d'une fonction $F = f+g$, f et g étant des fonctions convexes, comme montré dans la partie précédente, nous pouvons utiliser cet algorithme.
+L'algorithme que nous allons utiliser est l'algorithme de Douglas-Rachford. Cet algorithme permet d'approcher le minimum  d'une fonction $F = f+g$. \\
+ $f$ et $g$ étant des fonctions convexes, comme montré dans la partie précédente, nous pouvons utiliser cet algorithme.
 \paragraph{L'algorithme}
 À chaque itération, sont calculés : 
 \begin{center}
@@ -148,10 +150,11 @@ Nous avons donc
 \begin{equation*}
 prox_g(x) =  argmin_u\left\{\frac{||u-x||^2}{2}+ \mathbb{1}_K(u)\right\}
 \end{equation*}
-Nous savons que $prox_g(x)$ existe puisque la fonction g est convexe et la fonction norme est elle aussi convexe.
+Nous savons que $prox_g(x)$ existe puisque la fonction g est convexe et la fonction norme est elle aussi convexe.\newline
 Notons $h(u) = \frac{||u-x||^2}{2}+ \mathbb{1}_K(u)$ 
-Comme nous l'avons cette fonction n'admet un minimum que si $u \in K$. Supposons donc $u \in K$. Alors chercher $argmin_u \left\{h(u)\right\}$ est équivalent à chercher $argmin_{u\in K} \left\{\frac{||u-x||^2}{2}\right\}$.\\
-Dans notre cas, $prox_g(x) = L$.
+Comme nous l'avons vu cette fonction n'admet un minimum que si $u \in K$. Supposons donc $u \in K$.\\
+ Alors chercher $argmin_u \left\{h(u)\right\}$ est équivalent à chercher $argmin_{u\in K} \left\{\frac{||u-x||^2}{2}\right\}$.\\
+Il est donc évident que u= x, mais u $\in $ K. Ainsi : dans notre cas, $prox_g(x) = L$.
 avec L une image appartenant à K, et dont les pixels à l'intérieur de $\Omega$ coïncident avec x.\\
 \subsubsection{Convergence de l'algorithme vers la solution}
 \begin{figure}[!htb]
@@ -165,8 +168,8 @@ avec L une image appartenant à K, et dont les pixels à l'intérieur de $\Omega
 L'algorithme de Douglas converge bien vers une solution I qui résout le problème initial.
 \subsubsection{Temps et coût de l'algorithme}
 L'algorithme semble être très efficace, malheureusement en termes de temps de calcul, il est très long. Nous ferons dans la prochaine partie un tableau comparatif des temps de calculs effectués sur des images de tailles différentes.\\
-Nous avons considérablement amélioré  le temps de calcul de l'algorithme de Douglas-Rachford, en utilisant l'algorithme du gradient conjugué \cite{Gradient}, afin d'inverser la matrice de l'opérateur proximal de f. Malgré tout, l'algorithme est encore lent sur de grandes images. Nous choisissons une précision de $10^{-5}$, afin d'avoir des résultats convenables et comparables à ceux obtenus avec les méthodes précédentes. Le nombre d'itérations de l'algorithme devient alors très important. Pour certaines images (voir ci-dessous) une précision de $10^{-3}$ de l'algorithme est suffisante pour obtenir des résultats convenables. Pour d'autres en revanche il faut augmenter cette précision(voir ci-dessus avec l'avion).\\
-Nous avons amélioré les temps de calculs en appliquant une méthode de sur-relaxation sur l'algorithme de Douglas-Rachford, avec un $\rho  =1.85$.A chaque itération nous calculons donc :
+Nous avons considérablement amélioré  le temps de calcul de l'algorithme de Douglas-Rachford, en utilisant l'algorithme du gradient conjugué \cite{Gradient}, afin d'inverser la matrice de l'opérateur proximal de $f$. Malgré tout, l'algorithme est encore lent sur de grandes images. Nous choisissons une précision de $10^{-5}$, afin d'avoir des résultats comparables à ceux obtenus avec les méthodes précédentes sur toutes les images testées. Le nombre d'itérations de l'algorithme devient alors très important. Pour certaines images (voir ci-dessous) une précision de $10^{-3}$ de l'algorithme est suffisante pour obtenir des résultats convenables. Pour d'autres en revanche il faut augmenter cette précision(voir ci-dessus avec l'avion).\\
+Nous avons amélioré les temps de calculs en appliquant une méthode de sur-relaxation sur l'algorithme de Douglas-Rachford, avec un $\rho  =1.85$. À chaque itération nous calculons donc :
 \begin{center} 
 \begin{itemize}
 \item $x_{k+1} = prox_f(y_k)$
@@ -196,7 +199,7 @@ précision : $5 \times 10^{-5}$\\ 46.1067 secondes} & 0.797 secondes & 1.640 sec
 \hline
 \end{tabular}\\
 \newline 
-Temps Douglas (R) est la méthode de surrelaxation couplée à la méthode de Douglas, $\rho = 1.89$. Nous remarquons qu'à l'aide de cette méthode, nous pouvons considérablement diminuer le nombre d'itérations de l'algorithme de Douglas-Rachford(il converge plus vite) et ainsi améliorer le temps de calcul de celui-ci. (jusqu'à t/2, sur de grandes images).
+Temps Douglas (R) est la méthode de surrelaxation couplée à la méthode de Douglas, $\rho = 1.89$. Nous remarquons qu'à l'aide de cette méthode, nous pouvons considérablement diminuer le nombre d'itérations de l'algorithme de Douglas-Rachford et ainsi améliorer le temps de calcul de celui-ci. (jusqu'à t/2, sur de grandes images).\\
 Les résultats que nous obtenons avec les différentes images sont très similaires à ceux obtenus avec les différences finies. Nous pouvons bien sûr raccourcir le temps de calcul de l'algorithme de Douglas-Rachford, en diminuant la précision. Mais dans ce cas, certains résultats sont moins convenables.
 \section{Amélioration du collage}
 Après avoir implémenté des "sliders", permettant de bouger la sélection sur l'image de fond, nous nous sommes compte que la sélection est parfois trop grande, et peut cacher des objets, ou choses importantes sur l'image de fond : 
