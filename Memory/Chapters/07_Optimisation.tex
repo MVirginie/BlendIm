@@ -25,17 +25,17 @@ avec
     \end{aligned}
     \right.
 \end{equation*}{}
-Dans la suite nous noterons $K = T\backslash \Omega$. K représente donc l'ensemble des images dont les pixels situés en dehors du domaine$\Omega$, coïncident avec T.\\
+Dans la suite nous noterons $K = T\backslash \Omega$. K représente l'ensemble des images dont les pixels situés en dehors du domaine $\Omega$ coïncident avec T.\\
 \begin{figure}[!h]
 \centering
 \includegraphics[scale=0.5]{Images/K.png}
 \caption{Exemple d'images appartenant à K}
 \end{figure}
 \\
-Nous avons bien équivalence entre notre problème sans contraintes et le problème (1). En effet, si I $\in K$, alors l'indicatrice vaut 0 et nous devons juste résoudre $min \int_\Omega ||\nabla I - \nabla S||^2 $. \\
-Si au contraire $I \notin K$, alors nous devons minimiser quelque chose qui vaut plus $+\infty$. Le minimum n'existe pas, il n'y a pas de solutions.\\
- En effet, l'image I ne coïncide pas avec T à l'extérieur de $\Omega$,  la condition I = T en dehors du domaine n'étant pas respectée, le problème n'a pas de solution. \\
- Ce problème sans contraintes, traduit bien celui avec contraintes. Nous pouvons donc essayer de résoudre celui-ci, numériquement.\\ Afin d'être sûrs que le minimum existe, nous montrerons dans la suite que cette fonction est bien convexe. 
+Nous avons bien équivalence entre notre problème sans contraintes et le problème (1). En effet, si I $\in K$, alors l'indicatrice vaut 0 et nous devons résoudre $min \int_\Omega ||\nabla I - \nabla S||^2 $ (problème initial). \\
+Si au contraire $I \notin K$, alors nous devons minimiser quelque chose qui vaut plus $+\infty$. Le minimum n'existant pas, il n'y a pas de solutions.\\
+En effet, l'image I ne coïncide pas avec T à l'extérieur de $\Omega$,  la condition I = T en dehors du domaine n'étant pas respectée, le problème n'a pas de solution. \\
+ Ce problème sans contraintes, traduit bien celui avec contraintes. Nous pouvons donc essayer de résoudre celui-ci numériquement.\\ Afin d'être sûrs que le minimum existe, nous montrerons dans la suite que cette fonction est bien convexe. 
  Par commodité, nous noterons dans la suite : 
  \begin{equation*}
  \begin{aligned}
@@ -45,7 +45,7 @@ Si au contraire $I \notin K$, alors nous devons minimiser quelque chose qui vaut
  \end{equation*}
 \subsubsection{La convexité...}
 Montrons que K est convexe. 
-Soit u et v deux images appartenant à K, alors, les pixels de u et de v, se situant à l'extérieur de $\Omega$, coïncident avec les pixels de T. \\
+Soit u et v deux images appartenant à K, alors, les pixels de u et de v se situant à l'extérieur de $\Omega$, coïncident avec les pixels de T. \\
 Considérons maintenant une nouvelle image : 
 \begin{center}
 $M = \lambda u+(1-\lambda)v$
@@ -65,13 +65,13 @@ Ainsi, pour $(i,j) \notin \Omega$ : \\
 \begin{center}
 $M_{i,j} = \lambda T_{i,j}+(1-\lambda) T_{i,j} = T_{i,j}$
 \end{center}
-Ainsi, les pixels de M n'appartenant pas à $\Omega$, coïncident avec T. M appartient bien à K. Et K est donc convexe.\newline
-K étant convexe, et non vide, (T en particulier appartient à K), alors la fonction $\mathbb{1}_K(I)$ est convexe. \newline
+Ainsi, les pixels de M n'appartenant pas à $\Omega$ coïncident avec T. M appartient bien à K. Et K est donc convexe.\newline
+K étant convexe et non vide, (T en particulier appartient à K), alors la fonction $\mathbb{1}_K(I)$ est convexe. \newline
 Enfin montrons la convexité de $||\nabla I-\nabla S||^2$.\newline
 La norme étant une fonction convexe et croissante, alors la fonction : $||.||^2$ est elle aussi convexe. \\
-Nous avons donc $f et g$, convexes, ainsi, la fonction $F =f+g$ est elle aussi convexe. Elle admet donc un minimum. Nous pouvons ainsi résoudre numériquement ce problème.
+Nous avons donc $f\ et\ g$ convexes, ainsi, la fonction $F =f+g$ l'est aussi. Elle admet donc un minimum. Nous pouvons donc résoudre numériquement ce problème.
 \subsubsection{... Pour utiliser l'algorithme de Douglas...}
-L'algorithme que nous allons utiliser est l'algorithme de Douglas-Rachford. Cet algorithme permet d'approcher le minimum  d'une fonction $F = f+g$. \\
+L'algorithme que nous allons utiliser est l'algorithme de Douglas-Rachford. Cet algorithme permet d'approcher le minimum d'une fonction $F = f+g$. \\
  $f$ et $g$ étant des fonctions convexes, comme montré dans la partie précédente, nous pouvons utiliser cet algorithme.
 \paragraph{L'algorithme}
 À chaque itération, sont calculés : 
@@ -168,7 +168,7 @@ avec L une image appartenant à K, et dont les pixels à l'intérieur de $\Omega
 L'algorithme de Douglas converge bien vers une solution I qui résout le problème initial.
 \subsubsection{Temps et coût de l'algorithme}
 L'algorithme semble être très efficace, malheureusement en termes de temps de calcul, il est très long. Nous ferons dans la prochaine partie un tableau comparatif des temps de calculs effectués sur des images de tailles différentes.\\
-Nous avons considérablement amélioré  le temps de calcul de l'algorithme de Douglas-Rachford, en utilisant l'algorithme du gradient conjugué \cite{Gradient}, afin d'inverser la matrice de l'opérateur proximal de $f$. Malgré tout, l'algorithme est encore lent sur de grandes images. Nous choisissons une précision de $10^{-5}$, afin d'avoir des résultats comparables à ceux obtenus avec les méthodes précédentes sur toutes les images testées. Le nombre d'itérations de l'algorithme devient alors très important. Pour certaines images (voir ci-dessous) une précision de $10^{-3}$ de l'algorithme est suffisante pour obtenir des résultats convenables. Pour d'autres en revanche il faut augmenter cette précision(voir ci-dessus avec l'avion).\\
+Nous avons considérablement amélioré le temps de calcul de l'algorithme de Douglas-Rachford en utilisant l'algorithme du gradient conjugué \cite{Gradient}, afin d'inverser la matrice de l'opérateur proximal de $f$. Malgré tout, l'algorithme est encore lent sur de grandes images. Nous choisissons une précision de $10^{-5}$, afin d'avoir des résultats comparables à ceux obtenus avec les méthodes précédentes sur toutes les images testées. Le nombre d'itérations de l'algorithme devient alors très important. Pour certaines images (voir ci-dessous) une précision de $10^{-3}$ de l'algorithme est suffisante pour obtenir des résultats convenables. Pour d'autres en revanche il faut augmenter cette précision (voir ci-dessus avec l'avion).\\
 Nous avons amélioré les temps de calculs en appliquant une méthode de sur-relaxation sur l'algorithme de Douglas-Rachford, avec un $\rho  =1.85$. À chaque itération nous calculons donc :
 \begin{center} 
 \begin{itemize}
@@ -178,41 +178,41 @@ Nous avons amélioré les temps de calculs en appliquant une méthode de sur-rel
 \end{center}
 ($1<\rho<2$).\\
 Cependant, le temps de calcul est encore élevé sur de grandes images.
-Afin de réduire ce temps de calcul il faudrait donc que l'algorithme converge encore plus rapidement vers la solution. Pour cela, nous proposons d'augmenter l'ordre de discrétisation du Laplacien. Nous étions jusqu'à présent d'ordre 2, peut -être faudrait-il augmenter cette précision jusqu'à l'ordre 8.
+Afin de réduire ce temps de calcul il faudrait donc que l'algorithme converge encore plus rapidement vers la solution. 
 \subsection{Tableau comparatif}
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
-Taille de l'image S & Taille de l'image T& Temps Douglas & \shortstack{Temps Douglas \\(R)} &\shortstack{Temps différences\\ finies} & Temps Fourier\\
+\shortstack{Taille image S \\(px)} & \shortstack{Taille image T \\(px)} & Temps Douglas & \shortstack{Temps Douglas \\(R)} &\shortstack{Temps différences\\ finies} & Temps Fourier\\
 \hline
-220 $\times$ 154 $\times$3 px & 304 $\times $252 $\times $3 px &  \shortstack{ 834 itérations\\ précision : 5$\times 10^{-5}$\\3.799 secondes} &\shortstack{ 547 itérations\\
+220 $\times$ 154 $\times$3 & 304 $\times $252 $\times $3 &  \shortstack{ 834 itérations\\ précision : 5$\times 10^{-5}$\\3.799 secondes} &\shortstack{ 547 itérations\\
 précision : $5 \times 10^{-5}$\\ 2.2233 secondes}&  0.335 secondes & 0.355 secondes \\
 
 \hline
-304 $\times$ 252 $\times$3 px & 770$\times$844 $\times $3 px & \shortstack{ 1591 itérations\\ précision : 5$\times 10^{-5}$\\72.348 secondes} & \shortstack{ 1182 itérations\\
+304 $\times$ 252 $\times$3 & 770$\times$844 $\times $3 & \shortstack{ 1591 itérations\\ précision : 5$\times 10^{-5}$\\72.348 secondes} & \shortstack{ 1182 itérations\\
 précision : $5 \times 10^{-5}$\\ 46.1067 secondes} & 0.797 secondes & 1.640 secondes \\
 \hline
-400 $\times$ 300 $\times$3 px & 1200$\times$800$\times $3 px & \shortstack{ 6224 itérations\\ précision : 5$\times 10^{-5}$\\440.886 secondes} &\shortstack{3884 itérations\\ précision : 5$\times 10^{-5}$\\205.8105 secondes} &1.05 secondes & 2.102 secondes \\
+400 $\times$ 300 $\times$3 & 1200$\times$800$\times $3 & \shortstack{ 6224 itérations\\ précision : 5$\times 10^{-5}$\\440.886 secondes} &\shortstack{3884 itérations\\ précision : 5$\times 10^{-5}$\\205.8105 secondes} &1.05 secondes & 2.102 secondes \\
 \hline
-400 $\times$ 300 $\times$3 px & 614$\times$441$\times $3 px & \shortstack{ 5448 itérations\\ précision : 5$\times 10^{-5}$\\366.0.34 secondes}&\shortstack{4046 itérations\\ précision : 5$\times 10^{-5}$\\224.3881 secondes} & 0.877 secondes & 0.8576 secondes \\
+400 $\times$ 300 $\times$3 & 614$\times$441$\times $3 & \shortstack{ 5448 itérations\\ précision : 5$\times 10^{-5}$\\366.0.34 secondes}&\shortstack{4046 itérations\\ précision : 5$\times 10^{-5}$\\224.3881 secondes} & 0.877 secondes & 0.8576 secondes \\
 \hline
-220 $\times$ 154 $\times$3 px & 263$\times$192$\times $3 px & \shortstack{ 861 itérations\\ précision : 5$\times 10^{-5}$\\4.056 secondes} &\shortstack{510 itérations\\ précision : 5$\times 10^{-5}$\\2.3466 secondes}& 0.0892 secondes & 0.1754 secondes \\
+220 $\times$ 154 $\times$3 & 263$\times$192$\times $3 & \shortstack{ 861 itérations\\ précision : 5$\times 10^{-5}$\\4.056 secondes} &\shortstack{510 itérations\\ précision : 5$\times 10^{-5}$\\2.3466 secondes}& 0.0892 secondes & 0.1754 secondes \\
 \hline
 \end{tabular}\\
 \newline 
-Temps Douglas (R) est la méthode de surrelaxation couplée à la méthode de Douglas, $\rho = 1.89$. Nous remarquons qu'à l'aide de cette méthode, nous pouvons considérablement diminuer le nombre d'itérations de l'algorithme de Douglas-Rachford et ainsi améliorer le temps de calcul de celui-ci. (jusqu'à t/2, sur de grandes images).\\
-Les résultats que nous obtenons avec les différentes images sont très similaires à ceux obtenus avec les différences finies. Nous pouvons bien sûr raccourcir le temps de calcul de l'algorithme de Douglas-Rachford, en diminuant la précision. Mais dans ce cas, certains résultats sont moins convenables.
+Temps Douglas (R) est la méthode de sur-relaxation couplée à la méthode de Douglas, $\rho = 1.89$. Nous remarquons qu'à l'aide de cette méthode, nous pouvons considérablement diminuer le nombre d'itérations de l'algorithme de Douglas-Rachford et ainsi améliorer le temps de calcul de celui-ci (jusqu'à t/2 sur de grandes images).\\
+Les résultats que nous obtenons avec les différentes images sont très similaires à ceux obtenus avec les différences finies. Nous pouvons bien sûr raccourcir le temps de calcul de l'algorithme de Douglas-Rachford en diminuant la précision. Mais dans ce cas, certains résultats sont moins convenables.
 \section{Amélioration du collage}
-Après avoir implémenté des "sliders", permettant de bouger la sélection sur l'image de fond, nous nous sommes compte que la sélection est parfois trop grande, et peut cacher des objets, ou choses importantes sur l'image de fond : 
+Après avoir implémenté des "sliders" permettant de bouger la sélection sur l'image de fond, nous nous sommes rendus compte que la sélection est parfois trop grande, et peut cacher des objets, ou choses importantes sur l'image de fond : 
 \begin{figure}[!htb]
 \centering
 \includegraphics[scale=0.25]{Images/pb.png}
 \caption{Problème rencontré}
 \end{figure}
-Nous voyons bien, ci-dessus, qu'en sélectionnant une grande zone autour de la lune dans l'image S,le collage cache effectivement l'oiseau, objet pourtant important de l'image T. Afin de résoudre ce problème, nous avons opté pour la comparaison des gradients dans chaque image. En effet, si le gradient de T est supérieur à celui de S, alors cela signifie que l'image T, possède un objet, ou un contour à cette position tandis que S ne possède rien d'important à la même position. Nous pouvons donc "réduire" la sélection et la modifier en ce pixel. Nous obtenons donc la figure suivante en utilisant cette propriété :
+Nous voyons bien ci-dessus, qu'en sélectionnant une grande zone autour de la lune dans l'image S, le collage cache effectivement l'oiseau, objet pourtant important de l'image T. Afin de résoudre ce problème, nous avons opté pour la comparaison des gradients dans chaque image. En effet, si le gradient de T est supérieur à celui de S, alors cela signifie que l'image T possède un objet, ou un contour à cette position tandis que S ne possède pas quelque chose d'important à la même position. Nous pouvons donc "réduire" la sélection et la modifier en ce pixel. Nous obtenons donc la figure suivante en utilisant cette propriété :
 \begin{figure}[!h]
 \centering
 \includegraphics[scale=0.25]{Images/sol.png}
 \caption{Problème résolu, algorithme utilisé : Différence Finie}
 \end{figure}
 \newpage
-Cependant cette "amélioration" à ses limites, en effet, l'intérieur de la lune ne possède que très peu de variations et presque aucun contours, ainsi, si la lune se situait exactement sur la tête de l'oiseau, certains pixels à l'intérieur de celle-ci serait "supprimé" de la sélection, et ainsi, le résultat ne serait pas satisfaisant.
+Cependant cette "amélioration" à ses limites, en effet, l'intérieur de la lune ne possède que très peu de variations et presque aucun contours, ainsi, si la lune se situait exactement sur la tête de l'oiseau, certains pixels à l'intérieur de celle-ci seraient "supprimés" de la sélection, et ainsi, le résultat ne serait pas satisfaisant.

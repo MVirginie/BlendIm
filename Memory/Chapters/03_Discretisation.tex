@@ -1,7 +1,7 @@
 Cette partie sera consacrée à la résolution du problème à l'aide des différences finies. Pour trouver la solution il faut donc discrétiser les Laplaciens des images, puis résoudre un système.
  \subsubsection{Notations}
 \textbf{Le gradient: }\\
-Le gradient est un vecteur composé des dérivées partielles d'une fonction. Soit la fonction, f(x,y), on note le gradient de f : 
+Le gradient est un vecteur composé des dérivées partielles d'une fonction. Soit la fonction f(x,y), on note le gradient de f : 
 \begin{equation*}
 \begin{aligned}
 \nabla f = \begin{pmatrix}
@@ -11,7 +11,7 @@ Le gradient est un vecteur composé des dérivées partielles d'une fonction. So
 \end{aligned}
 \end{equation*}
 \textbf{Le Laplacien}\\
-On note le Laplacien : $\Delta$, et :$\Delta = div(\nabla f)$.
+On note le Laplacien : $\Delta$, et $\Delta = div(\nabla f)$.
 \begin{center}
 \begin{equation*}
     \Delta f  = \frac{\partial^2 f}{\partial x^2}+ \frac{\partial ^2 f}{\partial y^2}
@@ -61,7 +61,7 @@ Afin d'obtenir le Laplacien du pixel I(i,j), il est donc nécessaire d'avoir la 
     \caption{Laplacien du pixel}
 \end{figure}
 Afin de trouver la solution au problème, il faut donc appliquer cette discrétisation à chaque pixel de la partie de l'image à modifier($\Omega \cup \partial \Omega$). Chaque pixel faisant intervenir ses voisins, la résolution du problème passe donc par la résolution d'un système.
-En notant
+En notant :
 \begin{center}
  $g(x,y) = S(x+1,y) + S(x-1,y)+ S(x,y+1) + S(x,y-1) - 4\times S(x,y)$\\
  \end{center}
@@ -76,7 +76,7 @@ Résoudre $\Delta I(x,y) = \Delta S(x,y)$ sur $\Omega$ est équivalent à résou
     \right.
 \end{equation*}
 \end{center}
-La résolution de ce système de taille $M\times N $, permettra de trouver la nouvelle image I, et donc de résoudre numériquement l'équation de Poisson avec conditions aux bords de Dirichlet. Voici, le système obtenu : 
+La résolution de ce système de taille $M\times N $ permettra de trouver la nouvelle image I, et donc de résoudre numériquement l'équation de Poisson avec conditions aux bords de Dirichlet. Voici le système obtenu : 
 \begin{equation}
 \left\{
 \begin{aligned}
@@ -105,13 +105,13 @@ Avec :
 \item b, un vecteur colonne de taille ($M\times N$,1)
 \end{itemize}
 Voici donc à quoi ressemble le système que nous souhaitons résoudre :\newline
-La matrice A, est une matrice par bloc. Pour la remplir, commençons par écrire l'image sous forme d'un vecteur colonne. Dans l'exemple ci-dessous nous voyons bien qu'afin de remplir les lignes de A, correspondant au pixel se situant à l'intérieur du domaine, il nous faut la connaissance des voisins de celui-ci.
+La matrice A est une matrice par bloc. Pour la remplir, commençons par écrire l'image sous forme d'un vecteur colonne. Dans l'exemple ci-dessous nous voyons bien qu'afin de remplir les lignes de A correspondant au pixel se situant à l'intérieur du domaine, il nous faut la connaissance des voisins de celui-ci.
 \begin{figure}[!h]
 \centering
 \includegraphics[scale=0.5]{Images/laplacienIJ.png}
 \caption{Transformation en un vecteur colonne}
 \end{figure}
-Ainsi, le calcul du Laplacien du pixel (2,2) nécessite les pixels U,D,R L. Il faut donc ajouter les coefficients correspondant dans A. Grâce au vecteur colonne obtenu, il est évident que la ligne de la matrice correspondant au pixel (i,j) à l'intérieur du domaine sera remplie de la manière  suivante : 
+Ainsi, le calcul du Laplacien du pixel (2,2) nécessite les pixels U, D, R et L. Il faut donc ajouter les coefficients correspondant dans A. Grâce au vecteur colonne obtenu, il est évident que la ligne de la matrice correspondant au pixel (i,j) à l'intérieur du domaine sera remplie de la manière  suivante : 
 \begin{center}
 \begin{equation}
 \left.
@@ -126,12 +126,12 @@ Ainsi, le calcul du Laplacien du pixel (2,2) nécessite les pixels U,D,R L. Il f
 Si l'image est de taille ($M\times N$) alors : 
 \begin{itemize}
 \item Le coefficient (i, j-1) dans la matrice correspondant au pixel U de l'image
-\item Le coefficient (i,j+1)dans  correspondant au pixel D
+\item Le coefficient (i,j+1) correspondant au pixel D
 \item Le coefficient (i,j+M) correspondant au pixel R
 \item Le coefficient (i,j-M) correspondant au pixel L
 \end{itemize}
 
-Les blocs de la matrice, correspondant aux pixels situés sur le bords du domaine seront remplis de la façon suivante : 
+Les blocs de la matrice correspondant aux pixels situés sur le bords du domaine seront remplis de la façon suivante : 
 \begin{center}
 \begin{equation}
 \left.
@@ -147,8 +147,8 @@ Les blocs de la matrice, correspondant aux pixels situés sur le bords du domain
 \right.
 \end{equation}
 \end{center}
-Le vecteur b, contient les Laplaciens des pixels à l'intérieur de $\Omega$ et les valeurs des pixels de T, en dehors du domaine. 
-Les valeurs des pixels de S étant connus,il est facile de calculer son Laplacien en utilisant les discrétisations vues ci-dessus. Ainsi : 
+Le vecteur b contient les Laplaciens des pixels à l'intérieur de $\Omega$ et les valeurs des pixels de T en dehors du domaine. 
+Les valeurs des pixels de S étant connus, il est facile de calculer son Laplacien en utilisant les discrétisations vues ci-dessus. Ainsi : 
 \begin{equation*}
 b(i) = 
 \left\{
@@ -177,10 +177,10 @@ I(M, N)
 \right.
 \end{equation*}
 \end{center}
-Afin de trouver l'image finale, il est donc important de reconstruire une matrice de taille $M\times N$, à partir de ce vecteur. 
+Afin de trouver l'image finale, il est donc important de reconstruire une matrice de taille $M\times N$ à partir de ce vecteur. 
 
 \subsection{Exemple}
-Considérons l'image S ci-contre que nous souhaitons coller. 
+Considérons l'image S ci-contre, que nous souhaitons coller. 
 \begin{figure}[!htb]
    \begin{minipage}{0.5\textwidth}
      \centering
@@ -193,7 +193,7 @@ Considérons l'image S ci-contre que nous souhaitons coller.
 \caption{Image de fond}
       \end{minipage}\hfill
 \end{figure}
-Nous souhaitons ici coller les deux carrés rouge sur une image que nous nommerons T.  
+Nous souhaitons ici coller les deux carrés rouges sur une image que nous nommerons T.  
 
 \begin{figure}[!htb]
    \begin{minipage}{0.5\textwidth}
@@ -209,7 +209,7 @@ Nous souhaitons ici coller les deux carrés rouge sur une image que nous nommero
       \end{figure}
 \newpage
 
-Ici, notons $\Omega$, l'intérieur de la zone encadrée par la ligne verte, et $\partial \Omega$ les pixels appartenant à $Jaune \backslash \Omega$
+Notons $\Omega$, l'intérieur de la zone encadrée par la ligne verte, et $\partial \Omega$ les pixels appartenant à $Jaune \backslash \Omega$
 
 
 \paragraph{Construction du système}
@@ -230,7 +230,7 @@ I_{1,2} = T_{1,2}\\
 \end{equation}
 \end{center}
 Avec $\Delta I(i,j) = U+D+L+R-4I(i,j)$.\\
-En écrivant ce système sous forme matricielle la matrice A est la matrice $25\times 25$ ci-dessous :  
+En écrivant ce système sous forme matricielle, la matrice A est la matrice $25\times 25$ ci-dessous :  
 
 \begin{figure}[!htb]
 \includegraphics[scale=0.5]{Images/matrice.png}
@@ -268,7 +268,7 @@ T(5,4)\\
 T(5,5)\\
 \end{pmatrix}
 \end{equation}
-La solution de ce système existe bien. En effet,A est carrée, elle est de taille $\left(M\times N, M \times N\right)$. Elle est aussi, toujours remplie de la même manière ('par blocs'). Ses colonnes étant linéairement indépendantes, elle est donc inversible.\\
+La solution de ce système existe bien. En effet, A étant carrée, de taille $\left(M\times N, M \times N\right)$. Elle est aussi toujours remplie de la même manière ('par blocs'). Ses colonnes étant linéairement indépendantes, elle est donc inversible.\\
 La solution I, s'écrit sous la forme
 \begin{center}
 $I = A^{-1}b$.
@@ -278,5 +278,5 @@ $I = A^{-1}b$.
 \includegraphics[width = 120pt]{Images/result.png}
 \caption{Résultat obtenu}\hfill
 \end{figure} 
-Nous ajouterons dans la section suivante les résultats obtenus à l'aide de cette méthode. \\ Celle-ci fonctionne très bien mais le temps de calcul peut devenir très long. En effet, cette méthode demande une inversion matricielle, et donc un temps de calcul relativement long sur de "très" grands systèmes, donc de très grandes sélections. Nous allons maintenant voir une seconde méthode, plus rapide sur de grandes sélections, en nous plaçant dans le domaine de Fourier.
+Nous ajouterons dans la section suivante les résultats obtenus à l'aide de cette méthode. \\ Celle-ci fonctionne très bien mais le temps de calcul peut devenir très long. En effet, cette méthode demande une inversion matricielle et donc un temps de calcul relativement long sur de "très" grands systèmes, donc de très grandes sélections. Nous allons maintenant voir une seconde méthode, plus rapide sur de grandes sélections, en nous plaçant dans le domaine de Fourier.
 

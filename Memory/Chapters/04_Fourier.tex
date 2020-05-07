@@ -57,7 +57,7 @@ $\widehat{\Delta F} = \widehat{\frac{\partial^2 F}{\partial k^2}}+ \widehat{\fra
 \end{equation}
 
 \subsubsection{Résolution avec la méthode Fourier}
-La résolution dans le domaine de Fourier, nécessite quelques changements.Cette méthode ne fonctionnant que sur un domaine rectangulaire, nous devons donc modifier le domaine $\Omega$.\\
+La résolution dans le domaine de Fourier nécessite quelques changements. Cette méthode ne fonctionnant que sur un domaine rectangulaire, nous devons donc modifier le domaine $\Omega$.\\
 Rappelons que nous voulons résoudre le problème suivant :
 \begin{equation}
 \left\{
@@ -68,8 +68,8 @@ I(x,y) = T(x,y) \ si \ (x,y) \notin \Omega
 \right.
 \end{equation}
 
-Nous voulions que le laplacien de I à l'intérieur de $\Omega$ corresponde à celui de S. En considérant le nouveau domaine $\Omega_2$ comme étant l'image entière, il faudrait donc que le laplacien de I, soit très proche du laplacien de $T \cup S$. Mais dans ce cas, nous aurions un fort gradient sur $\partial \Omega$, (le  changement d'intensité entre T et S étant fort).  Il faut donc reconsidérer le problème précédent. \\
-La nouvelle hypothèse que nous pouvons faire  est donc la suivante : $\nabla I$ doit être très proche de $\nabla S$ dans $\Omega$ mais aussi très proche de $\nabla T$ dans $\Omega_2 \backslash \Omega$. En notant V : 
+Nous voulions que le laplacien de I à l'intérieur de $\Omega$ corresponde à celui de S. En considérant le nouveau domaine $\Omega_2$ comme étant l'image entière, il faudrait donc que le Laplacien de I soit très proche du laplacien de $T \cup S$. Mais dans ce cas, nous aurions un fort gradient sur $\partial \Omega$, (le  changement d'intensité entre T et S étant fort). Il faut donc reconsidérer le problème précédent. \\
+La nouvelle hypothèse que nous pouvons faire est donc la suivante : $\nabla I$ doit être très proche de $\nabla S$ dans $\Omega$ mais aussi très proche de $\nabla T$ dans $\Omega_2 \backslash \Omega$. En notant V : 
 \begin{equation}
 V = 
 \left\{
@@ -95,7 +95,7 @@ V_2
 \caption{Champs de vecteur de l'image T}
       \end{minipage}\hfill
       \end{figure}
-      
+Ces images représentent les champs de vecteurs dont le gradient de I devra se rapprocher le plus possible.
       \begin{figure}[!h]
         \begin{minipage}{0.5\textwidth}
      \centering
@@ -112,9 +112,9 @@ Nous devons donc résoudre l'équation suivante :
 \begin{center}
 $ \Delta I = div(V)$
 \end{center}
-Afin de pouvoir résoudre cette équation il faut imposer des conditions sur le bord. En appliquant l'effet miroir à l'image initiale alors, on obtient un signal symétrique  et on peut appliquer la transformée de Fourier, pour résoudre le problème.  Les conditions imposées sont donc des conditions de Neumann.
+Afin de pouvoir résoudre cette équation il faut imposer des conditions sur le bord. En appliquant l'effet miroir à l'image initiale alors, nous obtenons un signal symétrique et il est donc possible d'appliquer la transformée de Fourier pour résoudre le problème.  Les conditions imposées sont donc des conditions de Neumann.
 
-Ainsi en calculant la transformée de Fourier du Laplacien, on obtient  : $\widehat{\Delta I} = \widehat{div(V)}$
+Ainsi en calculant la transformée de Fourier du Laplacien nous obtenons : $\widehat{\Delta I} = \widehat{div(V)}$
 
 \begin{equation}
 \begin{aligned}
