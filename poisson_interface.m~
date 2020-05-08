@@ -117,7 +117,7 @@ set(axesIm2, 'ButtonDownFcn', @axeImT_ButtonDownFcn);
 set(handles.error_text, 'String', 'Background image loaded, please select the region to cut in the first image');
 hideAxes(handles);
 else
-    path1 = 'video/';
+    path1 = 'video/video/';
     imageT = dir(fullfile(path1, '*.png'));
     for k = 1:numel(imageT)
         F = fullfile(path1, imageT(k).name);
@@ -389,17 +389,12 @@ if(handles.Vdeo.Value == 0)
 end
 tic
 if(handles.DFButton.Value == 1)
-    sol = solve.color_mode_DF(handles);
+    [sol] = solve.color_mode_DF(handles);
     display(sol, handles, handles.axes3, @axes3_ButtonDownFcn)
-    sol1 = sol;
-    handles.resultDF = sol1;
 
 elseif (handles.FourierButton.Value == 1)
     [sol]=solve.color_mode_Fourier(handles);
     display(sol, handles, handles.axes4, @axes4_ButtonDownFcn)
-    sol2 = sol;
-    handles.resultF = sol2;
-    
 else
     [sol] = solve.color_mode_Douglas(handles);
     display(sol, handles, handles.axes6, @axes6_ButtonDownFcn)
@@ -420,7 +415,7 @@ else
     end
    
 end
-
+  handles.result = sol;
   guidata(gca, handles)
 hideAxes(handles);
 
@@ -431,10 +426,13 @@ if (handles.Color_box.Value == 0)
 else
     if(handles.Vdeo.Value == 0)
      axesIm = imshow(sol, 'Parent', axes);
+     set(axesIm, 'ButtonDownFcn', buttondown);
     else 
-       axesIm = imshow(sol(numel(handles.imageT)).data, 'Parent', axes)
+        for k = 1:numel(handles.imageT)
+            imshow(sol(k).data, 'Parent', axes)
+            pause(0.0005)
+        end
     end
-   set(axesIm, 'ButtonDownFcn', buttondown);
 end
 % --- Executes on button press in pushbutton4. SAVED
 function pushbutton4_Callback(~, ~, handles)
@@ -450,13 +448,14 @@ function axes3_ButtonDownFcn(hObject, ~, ~)
 % hObject    handle to axes3 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-handles = guidata(gca);
 if(handles.Vdeo.Value ==0)
+handles = guidata(gca);
 I = getimage(hObject);
 imshow(I, 'Parent', handles.axes5)
 else 
-    for k = 1:numel(handles.imageT)
-        imshow(handles.resultDF(k).data, 'Parent', handles.axes5)
+    handles = guidata(gca);
+    for k = 1:numel( handles.imageT)
+        imshow(handles.result(k).data, 'Parent', handles.axes5)
         pause(0.005)
     end
 end
@@ -472,11 +471,11 @@ if( handles.Vdeo.Value == 0)
 I = getimage(hObject);
 imshow(I, 'Parent', handles.axes5)
 else
+    handles = guidata(gca);
     for k = 1:numel( handles.imageT)
-        imshow(handles.resultF(k).data, 'Parent', handles.axes5)
+        imshow(handles.result(k).data, 'Parent', handles.axes5)
         pause(0.005)
     end
-end
 
 % --- Executes on mouse press over axes background.
 function axes6_ButtonDownFcn(hObject, ~, ~)
