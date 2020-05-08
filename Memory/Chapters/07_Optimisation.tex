@@ -6,7 +6,7 @@ Soit $I$, l'image à retrouver :
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{D'un problème avec contraintes...}
 Remarquons que le problème initial est un problème d'optimisation avec contraintes. En effet, nous voulons minimiser $\int_\Omega ||\nabla I-\nabla S||^2$. Avec la contrainte suivante : $I = T$ en dehors du domaine. \\
-Ce problème d'optimisation peut donc être résolu à l'aide de différents algorithmes, mais avant ça, transformons-le en un problème sans contraintes. 
+Ce problème d'optimisation peut donc être résolu à l'aide de différents algorithmes, mais avant cela, transformons-le en un problème sans contraintes. 
 
 \subsubsection{... À un problème sans contraintes}
 En utilisant des fonctions de pénalisation nous remarquons aisément que ce problème peut être ramené à un problème sans contraintes. Réécrivons donc celui-ci 
@@ -17,7 +17,7 @@ En utilisant des fonctions de pénalisation nous remarquons aisément que ce pro
 \end{equation*}{}
 avec 
 \begin{equation*}
-\mathbb{1}_{ D \backslash \Omega }(I) =
+\mathbf{1}_{ D \backslash \Omega }(I) =
 	\left\{
 	\begin{aligned}{}
 	0 \ si\  I \in T \backslash \Omega \\
@@ -33,19 +33,19 @@ Dans la suite nous noterons $K = T\backslash \Omega$. K représente l'ensemble d
 \end{figure}
 \\
 Nous avons bien équivalence entre notre problème sans contraintes et le problème (1). En effet, si I $\in K$, alors l'indicatrice vaut 0 et nous devons résoudre $min \int_\Omega ||\nabla I - \nabla S||^2 $ (problème initial). \\
-Si au contraire $I \notin K$, alors nous devons minimiser quelque chose qui vaut plus $+\infty$. Le minimum n'existant pas, il n'y a pas de solutions.\\
+Si au contraire $I \notin K$, alors nous devons minimiser quelque chose qui vaut $+\infty$. Le minimum n'existant pas, il n'y a pas de solutions.\\
 En effet, l'image I ne coïncide pas avec T à l'extérieur de $\Omega$,  la condition I = T en dehors du domaine n'étant pas respectée, le problème n'a pas de solution. \\
  Ce problème sans contraintes, traduit bien celui avec contraintes. Nous pouvons donc essayer de résoudre celui-ci numériquement.\\ Afin d'être sûrs que le minimum existe, nous montrerons dans la suite que cette fonction est bien convexe. 
  Par commodité, nous noterons dans la suite : 
  \begin{equation*}
  \begin{aligned}
- F(I) &=   \int_\Omega ||\nabla I - \nabla S||^2 + \mathbb{1} _{T\backslash \Omega } (I) \\
+ F(I) &=   \int_\Omega ||\nabla I - \nabla S||^2 + \mathbf{1} _{T\backslash \Omega } (I) \\
  & = f(I)+ g(I)
  \end{aligned}
  \end{equation*}
 \subsubsection{La convexité...}
 Montrons que K est convexe. 
-Soit u et v deux images appartenant à K, alors, les pixels de u et de v se situant à l'extérieur de $\Omega$, coïncident avec les pixels de T. \\
+Soient u et v deux images appartenant à K, alors, les pixels de u et de v se situant à l'extérieur de $\Omega$, coïncident avec les pixels de T. \\
 Considérons maintenant une nouvelle image : 
 \begin{center}
 $M = \lambda u+(1-\lambda)v$
@@ -66,7 +66,7 @@ Ainsi, pour $(i,j) \notin \Omega$ : \\
 $M_{i,j} = \lambda T_{i,j}+(1-\lambda) T_{i,j} = T_{i,j}$
 \end{center}
 Ainsi, les pixels de M n'appartenant pas à $\Omega$ coïncident avec T. M appartient bien à K. Et K est donc convexe.\newline
-K étant convexe et non vide, (T en particulier appartient à K), alors la fonction $\mathbb{1}_K(I)$ est convexe. \newline
+K étant convexe et non vide, (T en particulier appartient à K), alors la fonction $\mathbf{1}_K(I)$ est convexe. \newline
 Enfin montrons la convexité de $||\nabla I-\nabla S||^2$.\newline
 La norme étant une fonction convexe et croissante, alors la fonction : $||.||^2$ est elle aussi convexe. \\
 Nous avons donc $f\ et\ g$ convexes, ainsi, la fonction $F =f+g$ l'est aussi. Elle admet donc un minimum. Nous pouvons donc résoudre numériquement ce problème.
@@ -94,7 +94,7 @@ prox_f(x) = argmin_u \left\{ \frac{||u-x||^2}{2}+ f(u)\right\}
 \begin{equation*}
 prox_f(x) = argmin_u\left\{\frac{||u-x||^2}{2}+||\nabla u -\nabla S ||^2 \right\}
 \end{equation*}
-Afin de faciliter les notations notons :
+Afin de faciliter les notations définissons :
 \begin{equation*}
 h(u) = \frac{||u-x||^2}{2}+||\nabla u -\nabla S ||^2
 \end{equation*} 
@@ -138,7 +138,7 @@ Nous pouvons donc numériquement approcher $prox_f(x)$.
 \paragraph{Opérateur proximal de g}
 g étant la fonction indicatrice suivante : 
 \begin{equation*}
-\mathbb{1}_{ D \backslash \Omega }(I) =
+\mathbf{1}_{ D \backslash \Omega }(I) =
 	\left\{
 	\begin{aligned}{}
 	0 \ si\  I \in T \backslash \Omega \\
@@ -148,10 +148,10 @@ g étant la fonction indicatrice suivante :
 \end{equation*}{}
 Nous avons donc 
 \begin{equation*}
-prox_g(x) =  argmin_u\left\{\frac{||u-x||^2}{2}+ \mathbb{1}_K(u)\right\}
+prox_g(x) =  argmin_u\left\{\frac{||u-x||^2}{2}+ \mathbf{1}_K(u)\right\}
 \end{equation*}
 Nous savons que $prox_g(x)$ existe puisque la fonction g est convexe et la fonction norme est elle aussi convexe.\newline
-Notons $h(u) = \frac{||u-x||^2}{2}+ \mathbb{1}_K(u)$ 
+Notons $h(u) = \frac{||u-x||^2}{2}+ \mathbf{1}_K(u)$ 
 Comme nous l'avons vu cette fonction n'admet un minimum que si $u \in K$. Supposons donc $u \in K$.\\
  Alors chercher $argmin_u \left\{h(u)\right\}$ est équivalent à chercher $argmin_{u\in K} \left\{\frac{||u-x||^2}{2}\right\}$.\\
 Il est donc évident que u= x, mais u $\in $ K. Ainsi : dans notre cas, $prox_g(x) = L$.
@@ -169,7 +169,7 @@ L'algorithme de Douglas converge bien vers une solution I qui résout le problè
 \subsubsection{Temps et coût de l'algorithme}
 L'algorithme semble être très efficace, malheureusement en termes de temps de calcul, il est très long. Nous ferons dans la prochaine partie un tableau comparatif des temps de calculs effectués sur des images de tailles différentes.\\
 Nous avons considérablement amélioré le temps de calcul de l'algorithme de Douglas-Rachford en utilisant l'algorithme du gradient conjugué \cite{Gradient}, afin d'inverser la matrice de l'opérateur proximal de $f$. Malgré tout, l'algorithme est encore lent sur de grandes images. Nous choisissons une précision de $10^{-5}$, afin d'avoir des résultats comparables à ceux obtenus avec les méthodes précédentes sur toutes les images testées. Le nombre d'itérations de l'algorithme devient alors très important. Pour certaines images (voir ci-dessous) une précision de $10^{-3}$ de l'algorithme est suffisante pour obtenir des résultats convenables. Pour d'autres en revanche il faut augmenter cette précision (voir ci-dessus avec l'avion).\\
-Nous avons amélioré les temps de calculs en appliquant une méthode de sur-relaxation sur l'algorithme de Douglas-Rachford, avec un $\rho  =1.85$. À chaque itération nous calculons donc :
+Nous avons amélioré les temps de calculs en appliquant une méthode de sur-relaxation sur l'algorithme de Douglas-Rachford, avec $\rho  =1.85$. À chaque itération nous calculons donc :
 \begin{center} 
 \begin{itemize}
 \item $x_{k+1} = prox_f(y_k)$
@@ -208,11 +208,11 @@ Après avoir implémenté des "sliders" permettant de bouger la sélection sur l
 \includegraphics[scale=0.25]{Images/pb.png}
 \caption{Problème rencontré}
 \end{figure}
-Nous voyons bien ci-dessus, qu'en sélectionnant une grande zone autour de la lune dans l'image S, le collage cache effectivement l'oiseau, objet pourtant important de l'image T. Afin de résoudre ce problème, nous avons opté pour la comparaison des gradients dans chaque image. En effet, si le gradient de T est supérieur à celui de S, alors cela signifie que l'image T possède un objet, ou un contour à cette position tandis que S ne possède pas quelque chose d'important à la même position. Nous pouvons donc "réduire" la sélection et la modifier en ce pixel. Nous obtenons donc la figure suivante en utilisant cette propriété :
+Nous voyons bien ci-dessous, qu'en sélectionnant une grande zone autour de la Lune dans l'image S, le collage cache effectivement l'oiseau, objet pourtant important de l'image T. Afin de résoudre ce problème, nous avons opté pour la comparaison des gradients dans chaque image. En effet, si le gradient de T est supérieur à celui de S, alors cela signifie que l'image T possède un objet, ou un contour à cette position tandis que S ne possède pas quelque chose d'important à la même position. Nous pouvons donc "réduire" la sélection et la modifier en ce pixel. Nous obtenons donc la figure suivante en utilisant cette propriété :
 \begin{figure}[!h]
 \centering
 \includegraphics[scale=0.25]{Images/sol.png}
-\caption{Problème résolu, algorithme utilisé : Différence Finie}
+\caption{Problème résolu, méthode utilisée: Différences Finies}
 \end{figure}
 \newpage
-Cependant cette "amélioration" à ses limites, en effet, l'intérieur de la lune ne possède que très peu de variations et presque aucun contours, ainsi, si la lune se situait exactement sur la tête de l'oiseau, certains pixels à l'intérieur de celle-ci seraient "supprimés" de la sélection, et ainsi, le résultat ne serait pas satisfaisant.
+Cependant cette "amélioration" a ses limites, en effet, l'intérieur de la Lune ne possède que très peu de variations et presque aucun contour, ainsi, si la Lune se situait exactement sur la tête de l'oiseau, certains pixels à l'intérieur de celle-ci seraient "supprimés" de la sélection, et ainsi, le résultat ne serait pas satisfaisant.
