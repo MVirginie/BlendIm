@@ -10,18 +10,13 @@ end
 function [sol] = fourier_clonage(handles, maskS, maskT,im)
     set(handles.error_text, 'String', 'Beginning');
     f = Fourier(maskS.associate_im, maskT.associate_im);
-        if(handles.change_sel.Value == 1)
-             maskS.change_selection(maskT);
-        end
     im_i = copyPaste(maskS,maskT, f.grad_S_i, f.grad_T_i);% IMAGE I COLLEE
     maskS.reinitialize_mask(maskT);
-    if(handles.change_sel.Value == 1)
-      maskS.change_selection(maskT);
-    end
     im_j = copyPaste(maskS, maskT, f.grad_S_j, f.grad_T_j);% IMAGE J COLLE
-    sol = f.solve(im_i, im_j);
+    sol = f.solve(im_i, im_j, maskT);
     set(handles.error_text, 'String', 'New image, done with Fourier method');
 end
+
 function [img] = clonage_v2(handles, maskS, im, rect, maskT)
     %function clonage_v2
     %Create the smallest rectangle around the ROI in the cut_image 
@@ -47,6 +42,7 @@ function [img] = clonage_v2(handles, maskS, im, rect, maskT)
 end
 
 function [sol] = color_mode_DF(handles)
+if(handles.Vdeo.Value == 0)
  for i = 1:3
      handles.maskT.reload_pdt_mask(handles.t_init);
      handles.maskS.reload_pdt_mask(handles.s_init);
@@ -56,8 +52,26 @@ function [sol] = color_mode_DF(handles)
      im(:,:,i) = copyPaste(handles.maskS, handles.maskT, handles.maskS.associate_im, handles.maskT.associate_im);
      [sol(:,:,i)] = clonage_v2(handles, handles.maskS, im(:,:,i), rect(:,:,i), handles.maskT);
  end
+else
+    sol = handles.imageT;
+    for k = 1:numel(handles.imageT)
+        k
+     for i = 1:3
+     handles.maskT.reload_pdt_mask(handles.t_init);
+     handles.maskS.reload_pdt_mask(handles.s_init);
+     handles.maskT.associate_im = handles.imageT(k).data(:,:,i);
+     handles.maskS.associate_im = handles.maskS.associate_im(:,:,i);
+     rect(:,:,i) = handles.maskS.transform_to_rect(handles.maskS.associate_im,handles.maskS.shift_done);% resize S into a rect 
+     im(:,:,i) = copyPaste(handles.maskS, handles.maskT, handles.maskS.associate_im, handles.maskT.associate_im);
+     img(:,:,i)= clonage_v2(handles, handles.maskS, im(:,:,i), rect(:,:,i), handles.maskT);
+     end 
+     sol(k).data = img;
+    end
 end
+end
+
 function [sol] = color_mode_Fourier(handles)
+if (handles.Vdeo.Value == 0)
  for i = 1:3
      handles.maskT.reload_pdt_mask(handles.t_init);
      handles.maskS.reload_pdt_mask(handles.s_init);
@@ -65,6 +79,20 @@ function [sol] = color_mode_Fourier(handles)
      handles.maskS.associate_im = handles.maskS.associate_im(:,:,i);
     [ sol(:,:,i)] = fourier_clonage(handles, handles.maskS, handles.maskT);
  end
+else
+    sol = handles.imageT;
+    for k = 1:numel(handles.imageT)
+        k
+         for i = 1:3
+            handles.maskT.reload_pdt_mask(handles.t_init);
+            handles.maskS.reload_pdt_mask(handles.s_init);
+            handles.maskT.associate_im = handles.imageT(k).data(:,:,i);
+            handles.maskS.associate_im = handles.maskS.associate_im(:,:,i);
+            im(:,:,i) = fourier_clonage(handles, handles.maskS, handles.maskT);
+         end
+         sol(k).data = im;
+    end
+end
 end
 
 function [sol] = color_mode_Douglas(handles)

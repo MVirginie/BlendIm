@@ -17,7 +17,6 @@ classdef Fourier<handle
              [obj.grad_S_i, obj.grad_S_j] = obj.compute_grad_vect( imS, W, H, u, v);
              obj.grad_S_i = obj.resize_mat( obj.grad_S_i, W, H);
              obj.grad_S_j = obj.resize_mat( obj.grad_S_j, W, H);
-             
              %SAME THING FOR IMAGE BACKGROUND
              [H,W] = size(imT);
              [u,v] = obj.compute_indices_matrix(imT);
@@ -61,7 +60,7 @@ classdef Fourier<handle
              j= [ new_mat; h_new];
         end
         
-        function I = solve(self, im_x, im_y)
+        function I = solve(self, im_x, im_y, maskT)
             %Solve the Poisson equation thanks to Fourier formulas
             [im_x,im_y] = self.symmetry(im_x, im_y);
             [H,W] = size(im_x);
@@ -77,11 +76,22 @@ classdef Fourier<handle
             denominator = (cte_1.*u).^2 + (cte_2.*v).^2 ;
             
             i_hat = numerator./denominator;
-            i_hat((H/2),(W/2)) = 0;
+            i_hat((H/2),(W/2)) = mean(maskT.associate_im(:));
             I = real(ifft2(ifftshift(i_hat)));
-            I = self.resize_mat(I, W, H);            
+            I = self.resize_mat(I, W, H); 
+           
         end
-       
+        function mask = change_sel(self, imi,imj, mask,maskT)
+             [H,W] = size(imi);
+             [u,v] = self.compute_indices_matrix(imi);
+            [gradS_i, gradS_j] = self.compute_grad_vect(imi, W,H, u, v);
+            [gradT_i, gradT_j] = self.compute_grad_vect(imj, W,H, u, v);
+            
+            sol = (abs(gradS_i)<abs(gradT_i) & abs(gradS_j)<abs(gradT_j) );
+            mask.matrix = mask.transform_to_rect(mask.matrix, mask.shift_done); 
+            mask.matrix(sol) = 0;
+        end
     end
+    
 end
     
