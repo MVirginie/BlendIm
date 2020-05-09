@@ -93,8 +93,6 @@ function openImSButton_Callback(~, ~, handles)
     hideAxes(handles);
 
 
-
-
 % --- Executes on button press in openImTButton.
 %Choose an image Target to open, and display it in axes2
 function openImTButton_Callback(~, eventdata, handles)
@@ -107,7 +105,6 @@ imageT = imread(fullfile(path2,file2));
 imageT = im2double(imageT(:,:,:));
 handles.imageT = imageT;
 guidata(gca, handles);
-
 
 slider3_CreateFcn(handles.slider3, eventdata, handles);
 slider4_CreateFcn(handles.slider4, eventdata, handles);
@@ -142,14 +139,14 @@ function axeImS_ButtonDownFcn(~, ~, ~)
 % hObject    handle to axes1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-handles = guidata(gca);
-maskS = Mask(handles.imageS);
-s_init = maskS.save_mask_settings();
-handles.maskS = maskS;
-handles.s_init = s_init;
-guidata(gca,handles);
-set(handles.error_text, 'String', 'Region to cut selected, please click on the second image to select the paste region');
-hideAxes(handles);
+    handles = guidata(gca);
+    maskS = Mask(handles.imageS);
+    s_init = maskS.save_mask_settings();
+    handles.maskS = maskS;
+    handles.s_init = s_init;
+    guidata(gca,handles);
+    set(handles.error_text, 'String', 'Region to cut selected, please click on the second image to select the paste region');
+    hideAxes(handles);
 
 
  % --- Executes on mouse press over axes background.
@@ -164,22 +161,22 @@ function axeImT_ButtonDownFcn(~, ~, ~)
 % hObject    handle to axes2 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-handles = guidata(gca);
-if(handles.Vdeo.Value ==0)
-    maskT = Mask(handles.imageT);
-else 
-    maskT = Mask(handles.imageT(1).data);
-end
-t_init = maskT.save_mask_settings();
-handles.maskT = maskT;
-handles.t_init = t_init;
+    handles = guidata(gca);
+    if(handles.Vdeo.Value ==0)
+        maskT = Mask(handles.imageT);
+    else 
+        maskT = Mask(handles.imageT(1).data);
+    end
+    t_init = maskT.save_mask_settings();
+    handles.maskT = maskT;
+    handles.t_init = t_init;
 
-handles.maskS.pos_to_move = maskT.pos;
-handles.s_init.pos_to_move = maskT.pos;
-guidata(gca,handles);
+    handles.maskS.pos_to_move = maskT.pos;
+    handles.s_init.pos_to_move = maskT.pos;
+    guidata(gca,handles);
 
-set(handles.error_text, 'String', 'Paste region selected, you can choose the method & then click on the paste button');
-hideAxes(handles);
+    set(handles.error_text, 'String', 'Paste region selected, you can choose the method & then click on the paste button');
+    hideAxes(handles);
 
 
 function hideAxes(handles)
@@ -203,28 +200,27 @@ function DFButton_Callback(~, ~, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of DFButton
-if(isfield(handles, 'maskS') && isfield(handles, 'maskT'))
-    handles.maskS.reload_pdt_mask(handles.s_init);
-    handles.maskT.reload_pdt_mask(handles.t_init);
-    fprintf('done');
-elseif(isfield(handles, 'maskS') && ~isfield(handles, 'maskT'))
-    maskS = Mask();
-    handles.maskS = maskS;
-end
-set(handles.error_text, 'String', 'DF method selected');
+    if(isfield(handles, 'maskS') && isfield(handles, 'maskT'))
+        handles.maskS.reload_pdt_mask(handles.s_init);
+        handles.maskT.reload_pdt_mask(handles.t_init);
+    elseif(isfield(handles, 'maskS') && ~isfield(handles, 'maskT'))
+        maskS = Mask();
+        handles.maskS = maskS;
+    end
+    set(handles.error_text, 'String', 'DF method selected');
 
 % --- Executes on button press in radiobutton4.
-function radiobutton4_Callback(hObject, eventdata, handles)
+function radiobutton4_Callback(~, ~, handles)
 % hObject    handle to radiobutton4 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 % Hint: get(hObject,'Value') returns toggle state of radiobutton4
- if(isfield(handles, 'maskS') && isfield(handles, 'maskT'))
-     handles.maskS.reinitialize_mask(handles.maskT);
-     handles.maskT.associate_im = handles.imageT;
-     handles.maskS.associate_im = handles.imageS;
- end
- set(handles.error_text, 'String', 'Douglas method selected');
+    if(isfield(handles, 'maskS') && isfield(handles, 'maskT'))
+        handles.maskS.reinitialize_mask(handles.maskT);
+        handles.maskT.associate_im = handles.imageT;
+        handles.maskS.associate_im = handles.imageS;
+    end
+    set(handles.error_text, 'String', 'Douglas method selected');
 
 % --- Executes on button press in FourierButton.
 function FourierButton_Callback(~, ~, handles)
@@ -233,13 +229,12 @@ function FourierButton_Callback(~, ~, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % % Hint: get(hObject,'Value') returns toggle state of FourierButton
- if(isfield(handles, 'maskS') && isfield(handles, 'maskT'))
-     handles.maskS.reinitialize_mask(handles.maskT);
-     handles.maskT.associate_im = handles.imageT;
-     handles.maskS.associate_im = handles.imageS;
-     fprintf('done\n');
- end
- set(handles.error_text, 'String', 'Fourier method selected');
+    if(isfield(handles, 'maskS') && isfield(handles, 'maskT'))
+        handles.maskS.reinitialize_mask(handles.maskT);
+        handles.maskT.associate_im = handles.imageT;
+        handles.maskS.associate_im = handles.imageS;
+    end
+    set(handles.error_text, 'String', 'Fourier method selected');
  
 
 % --- Executes on button press in zoom_im.
@@ -249,14 +244,14 @@ function zoom_im_Callback(~, ~, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of zoom_im
-if( handles.zoom_im.Value == 1)
-    axes(handles.axes5);
-    h =  zoom(handles.axes5);
-   h.Enable = 'on';
-else
-    zoom off
-end
-set(handles.error_text, 'String', 'Zoom mode');
+    if( handles.zoom_im.Value == 1)
+        axes(handles.axes5);
+        h =  zoom(handles.axes5);
+        h.Enable = 'on';
+    else
+        zoom off
+    end
+    set(handles.error_text, 'String', 'Zoom mode');
 
 
 % --- Executes on slider movement.
@@ -289,17 +284,17 @@ function slider3_CreateFcn(hObject, ~, handles)
 % handles    empty - handles not created until after all CreateFcns called
 
 % Hint: slider controls usually have a light gray background.
-if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor',[.9 .9 .9]);
-end
-if(isfield(handles, 'imageT'))
-[~,height] = size(handles.imageT);
-set(hObject, 'Min',-height);
-else
-    set(hObject, 'Min', -100);
-end
-set(hObject, 'Max', 0);
-set(hObject, 'Value', 0);
+    if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+        set(hObject,'BackgroundColor',[.9 .9 .9]);
+    end
+    if(isfield(handles, 'imageT'))
+        [~,height] = size(handles.imageT);
+        set(hObject, 'Min',-height);    
+    else
+        set(hObject, 'Min', -100);
+    end
+    set(hObject, 'Max', 0);
+    set(hObject, 'Value', 0);
 
 % --- Executes on slider movement.
 function slider4_Callback(hObject, eventdata, handles)
@@ -329,48 +324,25 @@ function slider4_CreateFcn(hObject, ~, handles)
 % handles    empty - handles not created until after all CreateFcns called
 
 % Hint: slider controls usually have a light gray background.
-if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor',[.9 .9 .9]);
-end
-if(isfield(handles, 'imageT'))
-[width, ~] = size(handles.imageT);
-set(hObject, 'Max',width);
-else
-    set(hObject, 'Max', 10);
-end
-set(hObject, 'Min', 1);
-set(hObject, 'Value', 1);
+    if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+        set(hObject,'BackgroundColor',[.9 .9 .9]);
+    end
+    if(isfield(handles, 'imageT'))
+        [width, ~] = size(handles.imageT);
+        set(hObject, 'Max',width);
+    else
+        set(hObject, 'Max', 10);
+    end
+    set(hObject, 'Min', 1);
+    set(hObject, 'Value', 1);
 
-
-% --- Executes on button press in change_sel.
-function change_sel_Callback(~, ~, handles)
-% hObject    handle to change_sel (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-% Hint: get(hObject,'Value') returns toggle state of change_sel
-
- if(isfield(handles, 'maskS') && isfield(handles, 'maskT'))
-    handles.maskT.reload_pdt_mask(handles.t_init);
-     handles.maskS.reinitialize_mask(handles.maskT);
-elseif(isfield(handles, 'maskS') && ~isfield(handles, 'maskT'))
-    maskS = Mask();
-    handles.maskS = maskS;
-end
- set(handles.error_text, 'String', 'Change selection selected');
-
- % --- Executes on button press in Color_box.
-function Color_box_Callback(~, ~, ~)
-% hObject    handle to Color_box (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
- 
  
 
 % --- Executes on button press in pasteButton.
 % Display : 
 %---------- on axes3 :DF method result
 %---------- on axes4 : Fourier method
-%---------- on axes 5: ACtual methodresult
+%---------- on axes 5: Current method result
 %---------- on axes 6 : Douglas method
 function pasteButton_Callback(~, ~, handles)
 % hObject    handle to pasteButton (see GCBO)
@@ -432,7 +404,7 @@ else
     if(handles.Vdeo.Value == 0)
      axesIm = imshow(sol, 'Parent', axes);
     else 
-       axesIm = imshow(sol(numel(handles.imageT)).data, 'Parent', axes)
+       axesIm = imshow(sol(numel(handles.imageT)).data, 'Parent', axes);
     end
    set(axesIm, 'ButtonDownFcn', buttondown);
 end
@@ -487,11 +459,3 @@ handles = guidata(gca);
 I = getimage(hObject);
 imshow(I, 'Parent', handles.axes5)
 
-
-% --- Executes on button press in Vdeo.
-function Vdeo_Callback(~, ~, ~)
-% hObject    handle to Vdeo (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hint: get(hObject,'Value') returns toggle state of Vdeo
