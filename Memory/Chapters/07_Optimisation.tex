@@ -12,12 +12,12 @@ Ce problème d'optimisation peut donc être résolu à l'aide de différents alg
 En utilisant des fonctions de pénalisation nous remarquons aisément que ce problème peut être ramené à un problème sans contraintes. Réécrivons donc celui-ci 
 \begin{equation*}
 \begin{aligned}{}
-    min \int_\Omega ||\nabla I - \nabla S||^2 + \mathbb{1} _{D \backslash \Omega } (I) \\
+    min \int_\Omega ||\nabla I - \nabla S||^2 + \mathbf{1} _{T \backslash \Omega } (I) \\
     \end{aligned}
 \end{equation*}{}
 avec 
 \begin{equation*}
-\mathbf{1}_{ D \backslash \Omega }(I) =
+\mathbf{1}_{ T \backslash \Omega }(I) =
 	\left\{
 	\begin{aligned}{}
 	0 \ si\  I \in T \backslash \Omega \\
@@ -85,23 +85,23 @@ Un opérateur proximal est défini comme suit :
 \begin{center}
 \begin{equation*}
 \begin{aligned}
-prox_f(x) = argmin_u \left\{ \frac{||u-x||^2}{2}+ f(u)\right\}
+prox_f(x) = \operatorname*{argmin}_u \left\{ \frac{||u-x||^2}{2}+ f(u)\right\}
 \end{aligned}
 \end{equation*}
 \end{center}
 \cite{Opti}
 \paragraph{Opérateur proximal de f}
 \begin{equation*}
-prox_f(x) = argmin_u\left\{\frac{||u-x||^2}{2}+||\nabla u -\nabla S ||^2 \right\}
+prox_f(x) = \operatorname*{argmin}_u\left\{\frac{||u-x||^2}{2}+||\nabla u -\nabla S ||^2 \right\}
 \end{equation*}
 Afin de faciliter les notations définissons :
 \begin{equation*}
 h(u) = \frac{||u-x||^2}{2}+||\nabla u -\nabla S ||^2
 \end{equation*} 
 Nous cherchons donc 
-\begin{center}
-$argmin_u h(u)$
-\end{center}
+\begin{equation*}
+\operatorname*{argmin}_u h(u)
+\end{equation*}
 ie. u qui minimise la fonction h, autrement dit, un u qui annule le gradient de h.\\
 En utilisant Taylor Young, 
 
@@ -138,7 +138,7 @@ Nous pouvons donc numériquement approcher $prox_f(x)$.
 \paragraph{Opérateur proximal de g}
 g étant la fonction indicatrice suivante : 
 \begin{equation*}
-\mathbf{1}_{ D \backslash \Omega }(I) =
+\mathbf{1}_{ T \backslash \Omega }(I) =
 	\left\{
 	\begin{aligned}{}
 	0 \ si\  I \in T \backslash \Omega \\
@@ -148,12 +148,12 @@ g étant la fonction indicatrice suivante :
 \end{equation*}{}
 Nous avons donc 
 \begin{equation*}
-prox_g(x) =  argmin_u\left\{\frac{||u-x||^2}{2}+ \mathbf{1}_K(u)\right\}
+prox_g(x) =  \operatorname*{argmin}_u\left\{\frac{||u-x||^2}{2}+ \mathbf{1}_K(u)\right\}
 \end{equation*}
 Nous savons que $prox_g(x)$ existe puisque la fonction g est convexe et la fonction norme est elle aussi convexe.\newline
 Notons $h(u) = \frac{||u-x||^2}{2}+ \mathbf{1}_K(u)$ 
 Comme nous l'avons vu cette fonction n'admet un minimum que si $u \in K$. Supposons donc $u \in K$.\\
- Alors chercher $argmin_u \left\{h(u)\right\}$ est équivalent à chercher $argmin_{u\in K} \left\{\frac{||u-x||^2}{2}\right\}$.\\
+ Alors chercher $\underset{u}{argmin}\left\{h(u)\right\}$ est équivalent à chercher $\underset{u \in K}{argmin} \left\{\frac{||u-x||^2}{2}\right\}$.\\
 Il est donc évident que u= x, mais u $\in $ K. Ainsi : dans notre cas, $prox_g(x) = L$.
 avec L une image appartenant à K, et dont les pixels à l'intérieur de $\Omega$ coïncident avec x.\\
 \subsubsection{Convergence de l'algorithme vers la solution}
@@ -214,5 +214,4 @@ Nous voyons bien ci-dessous, qu'en sélectionnant une grande zone autour de la L
 \includegraphics[scale=0.25]{Images/sol.png}
 \caption{Problème résolu, méthode utilisée: Différences Finies}
 \end{figure}
-\newpage
 Cependant cette "amélioration" a ses limites, en effet, l'intérieur de la Lune ne possède que très peu de variations et presque aucun contour, ainsi, si la Lune se situait exactement sur la tête de l'oiseau, certains pixels à l'intérieur de celle-ci seraient "supprimés" de la sélection, et ainsi, le résultat ne serait pas satisfaisant.
