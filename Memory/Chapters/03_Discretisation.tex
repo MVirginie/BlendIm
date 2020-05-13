@@ -42,6 +42,10 @@ Il est donc facile de voir que la somme de ces deux équations permet d'obtenir 
 \begin{equation*}
     \frac{\partial ^2 I}{\partial x^2}(x,y) =\frac{1}{h^2}\left( I(x+h,y) + I(x-h,y) - 2\times I(x,y)\right)
 \end{equation*}
+De même, nous obtenons  :
+\begin{equation*}
+    \frac{\partial ^2 I}{\partial y^2}(x,y) =\frac{1}{k^2}\left( I(x,y+k) + I(x,y-k) - 2\times I(x,y)\right)
+\end{equation*}
 La somme des discrétisations des dérivées secondes : $\frac{\partial ^2 I}{\partial x^2}(x,y)$ et $\frac{\partial ^2 I}{\partial y^2}(x,y)$, permet d'obtenir une discrétisation possible du Laplacien de I : $\Delta I$.
 \begin{equation*}
     \Delta I(x,y) =  \frac{I(x+h,y) + I(x-h,y) - 2\times I(x,y)}{h^2}  + \frac{I(x,y+k) + I(x,y-k) - 2\times I(x,y)}{k^2} \\
@@ -107,7 +111,7 @@ Avec :
 \item b, un vecteur colonne de taille ($M\times N$,1)
 \end{itemize}
 Voici donc à quoi ressemble le système que nous souhaitons résoudre :\newline
-La matrice A est une matrice par blocs. Pour la remplir, commençons par écrire l'image sous forme d'un vecteur colonne. Dans l'exemple ci-dessous nous voyons bien qu'afin de remplir les lignes de A correspondant au pixel se situant à l'intérieur du domaine, il nous faut la connaissance des voisins de celui-ci.
+La matrice A est une matrice carrée. Pour la remplir, commençons par écrire l'image sous forme d'un vecteur colonne. Dans l'exemple ci-dessous nous voyons bien qu'afin de remplir les lignes de A correspondant au pixel se situant à l'intérieur du domaine, il nous faut la connaissance des voisins de celui-ci.
 \begin{figure}[!h]
 \centering
 \includegraphics[scale=0.5]{Images/laplacienIJ.png}
@@ -142,7 +146,7 @@ Les lignes de la matrice correspondant aux pixels situés sur le bord du domaine
 \end{equation}
 \end{center}
 Le seul coefficient étant celui correspondant au pixel (i,j) situés sur $\partial \Omega$. \\
-Cette matrice possède donc beaucoup de zéros. C'est une matrice creuse.\\
+Cette matrice possède donc beaucoup de zéros. Il est donc plus avantageux de la stocker sous cette forme, c'est à dire en ne gardant en mémoire que les coefficients non-nuls et leurs positions dans la matrice.Cela évite de stocker en mémoire une matrice entière.\\
 Le vecteur b contient les Laplaciens des pixels à l'intérieur de $\Omega$ et les valeurs des pixels de T en dehors du domaine. 
 Les valeurs des pixels de S étant connus, il est facile de calculer son Laplacien en utilisant les discrétisations vues ci-dessus. Ainsi : 
 \begin{equation*}
@@ -264,7 +268,7 @@ T(5,4)\\
 T(5,5)\\
 \end{pmatrix}
 \end{equation}
-La solution de ce système existe bien. En effet, A étant carrée, de taille $\left(M\times N, M \times N\right)$. Elle est aussi toujours remplie de la même manière ('par blocs'). Ses colonnes étant linéairement indépendantes, elle est donc inversible.\\
+La solution de ce système existe bien. En effet, A étant carrée, de taille $\left(M\times N, M \times N\right)$. C'est une matrice pentadiagonale, non symétrique. Ses colonnes étant linéairement indépendantes, elle est donc inversible.\\
 La solution I, s'écrit sous la forme
 \begin{center}
 $I = A^{-1}b$.

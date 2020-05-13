@@ -11,8 +11,20 @@ en dehors du domaine} \\
 \hline
 Inconvénient majeur & \shortstack{Stockage de matrice creuse\\ Nombre d'itérations élevé} & \shortstack {Stockage de matrice creuse} & \shortstack{Symétrisation de l'image\\ Taille de l'image  (M$\times$ 2, N$\times$2)}\\
 \hline
-\shortstack{Erreur \\d'approximations }& Approximation $10^{-3}$  & \shortstack{Utilisation de schémas \\ d'ordre 2} &  \\
+\shortstack{Erreur \\d'approximations }& Précision choisie : $10^{-3}$  & \shortstack{Utilisation de schémas \\ d'ordre 2} &  \\
 \hline
 \shortstack{Complexité\\ algorithmique} & \shortstack{ \sout{Inversion matricielle : $O(n^3)$}\\ Gradient conjugué : O(n)} & \shortstack{Inversion matricielle : $O(n^3)$} &  \shortstack{Fast Fourier transform O(n log n)}\\
+\hline
+\end{tabular}\\
+\newline
+\\
+\\
+\begin{tabular}{|c|c|c|c|}
+\hline
+\shortstack{} &  Douglas-Rachford  & Différences finies &  Fourier\\
+\hline
+Principal avantage & Ajout facile de contraintes & \shortstack{Résultat et temps de calcul\\ sur de petites sélections} & Vitesse sur de grandes sélections\\
+\hline
+Principal inconvénient & Vitesse très lente & Stockage de matrice creuse & Symétrisation de l'image\\
 \hline
 \end{tabular}\\

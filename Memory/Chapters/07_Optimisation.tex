@@ -43,7 +43,7 @@ En effet, l'image I ne coïncide pas avec T à l'extérieur de $\Omega$,  la con
  & = f(I)+ g(I)
  \end{aligned}
  \end{equation*}
-\subsubsection{La convexité...}
+\subsubsection{La convexité}
 Montrons que K est convexe. 
 Soient u et v deux images appartenant à K, alors, les pixels de u et de v se situant à l'extérieur de $\Omega$, coïncident avec les pixels de T. \\
 Considérons maintenant une nouvelle image : 
@@ -70,7 +70,7 @@ K étant convexe et non vide, (T en particulier appartient à K), alors la fonct
 Enfin montrons la convexité de $||\nabla I-\nabla S||^2$.\newline
 La norme étant une fonction convexe et croissante, alors la fonction : $||.||^2$ est elle aussi convexe. \\
 Nous avons donc $f\ et\ g$ convexes, ainsi, la fonction $F =f+g$ l'est aussi. Elle admet donc un minimum. Nous pouvons donc résoudre numériquement ce problème.
-\subsubsection{... Pour utiliser l'algorithme de Douglas...}
+\subsubsection{L'algorithme de Douglas}
 L'algorithme que nous allons utiliser est l'algorithme de Douglas-Rachford. Cet algorithme permet d'approcher le minimum d'une fonction $F = f+g$. \\
  $f$ et $g$ étant des fonctions convexes, comme montré dans la partie précédente, nous pouvons utiliser cet algorithme.
 \paragraph{L'algorithme}
@@ -80,7 +80,7 @@ $x_{k+1} = prox_f(y_k)$\\
 $y_{k+1} = y_k+prox_g(2x_{k+1}-y_k)-x_{k+1}$
 \end{center}{}
 Il est donc nécessaire de calculer les opérateurs proximaux respectifs de $f$ et $g$. 
-\subsubsection{... Avec les opérateurs proximaux ...}
+\subsubsection{Calcul des opérateurs proximaux ...}
 Un opérateur proximal est défini comme suit : 
 \begin{center}
 \begin{equation*}
@@ -128,11 +128,11 @@ En résolvant $\nabla h(u) = 0$, nous pourrons trouver  : $prox_f(x) $. \\
 		u-2\Delta u = x-2\Delta S
 		\end{aligned}
 \end{equation*}
-Afin de trouver u, nous utiliserons la méthode des différences finies. En discrétisant le laplacien de u, comme nous l'avons vu dans la section (1) : 
+Afin de trouver u, nous discrétiserons le Laplacien de u, comme nous l'avons vu dans la section (1) : 
 \begin{equation*}
  -2u(x+1,y) -2 u(x-1,y)-2u(x,y+1) -2 u(x,y-1) +9\times u(x,y) =  y_k-  2\Delta S(x,y)
 \end{equation*}
-En mettant ce système sous forme matricielle nous pourrons approcher u en faisant une inversion matricielle. 
+Il suffit de résoudre ce système afin d'approcher u. Pour cela, nous mettrons celui-ci sous forme matricielle et nous pourrons, grâce à une inversion matricielle trouver u. 
 Nous pouvons donc numériquement approcher $prox_f(x)$.
 
 \paragraph{Opérateur proximal de g}
@@ -151,11 +151,12 @@ Nous avons donc
 prox_g(x) =  \operatorname*{argmin}_u\left\{\frac{||u-x||^2}{2}+ \mathbf{1}_K(u)\right\}
 \end{equation*}
 Nous savons que $prox_g(x)$ existe puisque la fonction g est convexe et la fonction norme est elle aussi convexe.\newline
-Notons $h(u) = \frac{||u-x||^2}{2}+ \mathbf{1}_K(u)$ 
+Notons $h(u) = \frac{||u-x||^2}{2}+ \mathbf{1}_K(u)$ .\\
 Comme nous l'avons vu cette fonction n'admet un minimum que si $u \in K$. Supposons donc $u \in K$.\\
  Alors chercher $\underset{u}{argmin}\left\{h(u)\right\}$ est équivalent à chercher $\underset{u \in K}{argmin} \left\{\frac{||u-x||^2}{2}\right\}$.\\
-Il est donc évident que u= x, mais u $\in $ K. Ainsi : dans notre cas, $prox_g(x) = L$.
-avec L une image appartenant à K, et dont les pixels à l'intérieur de $\Omega$ coïncident avec x.\\
+Il est donc évident que  la solution de ce problème est donc $u= x$. Cependant, comme nous l'avons supposé, u $\in $ K.\\ 
+Alors, $prox_g(x) = L$.
+avec L une image appartenant à K, et dont les pixels à l'intérieur de $\Omega$ coïncident avec x.\\ Avec cet opérateur nous nous assurons que la condition initiale de notre problème est bien respectée.
 \subsubsection{Convergence de l'algorithme vers la solution}
 \begin{figure}[!htb]
 \includegraphics[scale=0.6]{Images/Resultats/conv1.png}
@@ -168,8 +169,8 @@ avec L une image appartenant à K, et dont les pixels à l'intérieur de $\Omega
 L'algorithme de Douglas converge bien vers une solution I qui résout le problème initial.
 \subsubsection{Temps et coût de l'algorithme}
 L'algorithme semble être très efficace, malheureusement en termes de temps de calcul, il est très long. Nous ferons dans la prochaine partie un tableau comparatif des temps de calculs effectués sur des images de tailles différentes.\\
-Nous avons considérablement amélioré le temps de calcul de l'algorithme de Douglas-Rachford en utilisant l'algorithme du gradient conjugué \cite{Gradient}, afin d'inverser la matrice de l'opérateur proximal de $f$. Malgré tout, l'algorithme est encore lent sur de grandes images. Nous choisissons une précision de $10^{-5}$, afin d'avoir des résultats comparables à ceux obtenus avec les méthodes précédentes sur toutes les images testées. Le nombre d'itérations de l'algorithme devient alors très important. Pour certaines images (voir ci-dessous) une précision de $10^{-3}$ de l'algorithme est suffisante pour obtenir des résultats convenables. Pour d'autres en revanche il faut augmenter cette précision (voir ci-dessus avec l'avion).\\
-Nous avons amélioré les temps de calculs en appliquant une méthode de sur-relaxation sur l'algorithme de Douglas-Rachford, avec $\rho  =1.85$. À chaque itération nous calculons donc :
+Nous avons considérablement amélioré le temps de calcul de celui-ci en utilisant l'algorithme du gradient conjugué \cite{Gradient}, afin d'inverser la matrice de l'opérateur proximal de $f$. Malgré tout, l'algorithme est encore lent sur de grandes images. Nous choisissons une précision de $10^{-5}$, afin d'avoir des résultats comparables à ceux obtenus avec les méthodes précédentes sur toutes les images testées. Le nombre d'itérations de l'algorithme devient alors très important. Pour certaines images (voir ci-dessous) une précision de $10^{-3}$ de l'algorithme est suffisante pour obtenir des résultats convenables. Pour d'autres en revanche il faut augmenter cette précision (voir ci-dessus avec l'avion).\\
+Nous avons donc cherché à améliorer les temps de calculs en appliquant une méthode de sur-relaxation sur l'algorithme de Douglas-Rachford, avec $\rho  =1.85$. À chaque itération nous calculons donc :
 \begin{center} 
 \begin{itemize}
 \item $x_{k+1} = prox_f(y_k)$
@@ -178,7 +179,7 @@ Nous avons amélioré les temps de calculs en appliquant une méthode de sur-rel
 \end{center}
 ($1<\rho<2$).\\
 Cependant, le temps de calcul est encore élevé sur de grandes images.
-Afin de réduire ce temps de calcul il faudrait donc que l'algorithme converge encore plus rapidement vers la solution. 
+Afin de réduire ce temps de calcul il faudrait réduire le nombre d'itérations de celui-ci et donc que l'algorithme converge encore plus rapidement vers la solution. 
 \subsection{Tableau comparatif}
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
