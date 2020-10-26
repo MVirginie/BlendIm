@@ -1,6 +1,6 @@
 # BlendIm
 
-Utilisation de l'équation de Poisson, de la transformée de Fourier ou encore de la méthode de Douglas pour l'incrustation d'images.
+Utilisation de l'équation de Poisson,ou encore de la méthode de Douglas pour l'incrustation d'images.
 
 Voici quelques résultats obtenus : 
 Image S : image dans laquelle la sélection est faite. Cette sélection sera ensuite incrustée dans l'image T(arget).
